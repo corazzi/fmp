@@ -19,21 +19,12 @@
 @show
 </title>
 
-
-<!-- stylesheets -->
+{{-- Style Sheets --}}
 <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/main.css') }}" media="all" rel="stylesheet" type="text/css">
-
-<!--[if lt IE 9]>
-    <script src="{{ asset('assets/js/html5shiv.js') }}"></script>
-    <script src="{{ asset('assets/js/respond.min.js') }}"></script>
-<![endif]-->
-
+<!--[if lt IE 9]><script src="{{ asset('assets/js/html5shiv.js') }}"></script><script src="{{ asset('assets/js/respond.min.js') }}"></script><![endif]-->
 <link rel="stylesheet" href="{{ asset('assets/css/font-awesome.css') }}">
-
-<!--[if IE 7]>
-  <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-ie7.min.css') }}">
-<![endif]-->
+<!--[if IE 7]><link rel="stylesheet" href="{{ asset('assets/css/font-awesome-ie7.min.css') }}"><![endif]-->
 
 </head>
 <body>
@@ -60,22 +51,25 @@
                 <li {{ (Request::is('register') ? 'class="active"' : '') }}><a href="{{ route('register') }}">Register</a></li>
             </ul>
 
-        </div><!--/.navbar-collapse -->
+        </div>
     </div>
 </div>
 
-<!-- Notifications -->
+{{-- Notifications --}}
 <div class="container">
     <div class="row">
         @include('layout/notifications')
     </div>
 </div>
 
-<!-- Content -->
-@yield('content')
+{{-- Content --}}
+<div class="container">
+    <div class="row">
+        @yield('content')
+    </div>
+</div>
 
-
-<!-- Javascript -->
+{{-- Javascript --}}
 <script src="{{ asset('assets/js/jquery.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 

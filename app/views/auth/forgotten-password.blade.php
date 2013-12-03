@@ -23,7 +23,7 @@
         {{-- Email --}} 
         <div class="form-group{{ $errors->first('email', ' has-error') }}">
             <label  for="email">Email</label>
-            <input type="text" class="form-control" name="email" id="email" value="{{ Input::old('email') }}" class="form-control"/>
+            <input type="text" name="email" id="email" value="{{ Input::old('email') }}" class="form-control"/>
             {{ $errors->first('email', '<span class="help-block">:message</span>') }}
         </div>
 
@@ -36,4 +36,5 @@
     </form>
 
 </div>
+
 @stop

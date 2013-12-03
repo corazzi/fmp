@@ -22,14 +22,14 @@
         {{-- New Password --}}
         <div class="form-group {{ $errors->first('password', ' error') }}">
             <label for="password">New Password</label>
-            <input type="password" class="form-control" name="password" id="password" value="{{ Input::old('password') }}" />
+            <input type="password" name="password" id="password" value="{{ Input::old('password') }}" class="form-control"/>
             {{ $errors->first('password', '<span class="help-block">:message</span>') }}       
         </div>
 
         {{-- Password Confirm --}}
         <div class="form-group {{ $errors->first('password_confirm', ' error') }}">
             <label for="password_confirm">Password Confirmation</label>
-            <input type="password" class="form-control" name="password_confirm" id="password_confirm" value="{{ Input::old('password_confirm') }}" />
+            <input type="password" name="password_confirm" id="password_confirm" value="{{ Input::old('password_confirm') }}" class="form-control"/>
             {{ $errors->first('password_confirm', '<span class="help-block">:message</span>') }}
         </div>
 

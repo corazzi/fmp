@@ -23,14 +23,14 @@
         {{-- Email --}} 
         <div class="form-group{{ $errors->first('email', ' has-error') }}">
             <label for="email">Email</label>
-            <input type="text" class="form-control" name="email" id="email" value="{{ Input::old('email') }}" class="form-control" />
+            <input type="text" name="email" id="email" value="{{ Input::old('email') }}" class="form-control" />
             {{ $errors->first('email', '<span class="help-block">:message</span>') }}
         </div>
 
         {{-- Password --}} 
         <div class="from-group{{ $errors->first('password', ' has-error') }}">
             <label for="password">Password</label> 
-            <input type="password" class="form-control" name="password" id="password" value="" class="form-control"/>
+            <input type="password" name="password" id="password" value="" class="form-control"/>
             {{ $errors->first('password', '<span class="help-block">:message</span>') }}
         </div>
 

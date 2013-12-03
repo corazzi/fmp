@@ -20,10 +20,23 @@ html, body {
     border-radius: 20px;
 }
 
+.phone-gravatar {
+    height: auto;
+    width:25px;
+    padding: 0;
+    margin: -10px 0;
+    border: solid #666 1px;
+    display: inline;
+    border-radius: 20px;
+}
 
 
 h1 [class^="icon-"] {
   color: grey; 
+}
+
+.navbar {
+    margin-bottom: 20px;
 }
 
 
@@ -53,6 +66,10 @@ h1 [class^="icon-"] {
     h6 {
         font-size: 7px; 
     } 
+
+    .navbar-nav {
+        margin: 5px 0;
+    }
 
     
 }

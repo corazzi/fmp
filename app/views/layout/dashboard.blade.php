@@ -21,6 +21,8 @@ Devbox Dashboard
 
 
 
+
+
 {{-- Font Awesome --}}
 <link href="{{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
@@ -41,57 +43,63 @@ Devbox Dashboard
 <body>
 
 
-<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+<div class="navbar navbar-inverse navbar-static-top" role="navigation">     
     <div class="container">
-        <div class="navbar-header">
-            
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-          
-            <a class="navbar-brand" href="{{ route('dashboard') }}">Project name</a>
+ 
+        <a class="navbar-brand" href="{{ route('dashboard') }}">Project name</a>
+              
+        <ul class="nav navbar-nav pull-right">             
+            <li class="dropdown">
+                
+                {{-- Desktop Icon --}}
+                <a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown">
+                    <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim($user->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->first_name }}{{ Sentry::getUser()->last_name }}">  
+                    {{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }}
+                    <b class="caret"></b>
+                </a>
 
-        </div>
-        
-        <div class="collapse navbar-collapse"> 
-            <ul class="nav navbar-nav pull-right">
-                
-                <li class="dropdown">
-                
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"> 
-                        <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim($user->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->first_name }}{{ Sentry::getUser()->last_name }}">  
-                        {{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }} 
-                        <b class="caret"></b>
-                    </a>
-                
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Profile</a></li>
-                        <li class="divider"></li>
-                        <li><a href="{{ route('logout') }}">Logout</a></li>
-                    </ul>
+                {{-- Phone Icon --}}
+                <a href="#" class="dropdown-toggle visible-xs" data-toggle="dropdown">
+                    <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim($user->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->first_name }}{{ Sentry::getUser()->last_name }}">  
+                    <b class="caret"></b>
+                </a>
 
-                </li>
-            </ul>
-        </div><!--/.nav-collapse -->
+
+                <ul class="dropdown-menu">
+                    <li><a href="">test</a></li>
+                    <li><a href="">test</a></li>
+                    <li class="divider"></li>
+                    <li><a href="{{ route('logout') }}"> Logout</a></li>
+                </ul>
+
+
+            </li>
+        </ul>
+
+    </div>
+</div>
+    
+
+
+
+
+
+<div class="container">
+    <div class="row">
+
+        {{-- Notifications --}}
+        @include('layout/notifications')
 
     </div>
 </div>
 
 <div class="container">
-    <div class="row">
-
-    {{-- Notifications --}}
-    @include('layout/notifications')
+ 
 
     {{-- Content --}}
     @yield('content')
         
-    </div>
+    
 </div>
 
 
@@ -100,7 +108,7 @@ Devbox Dashboard
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
 {{-- Tags Javasctipt --}}
 <script src="{{ asset('assets/js/bootstrap-tagsinput.min.js') }}"></script>
-<script src="{{ asset('assets/js/app.js') }}"></script>
+<script src="{{ asset('assets/js/app.js') }}"></script> 
 
 </body>
 </html>

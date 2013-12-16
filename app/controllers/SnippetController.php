@@ -57,8 +57,8 @@ class SnippetController extends BaseController {
 		// Was the snippet saved?
 		if($code_snippets->save())
 		{
-			// Redirect to add snippet page for now
-			return Redirect::to("dashboard/snippets/add")->with('success', Lang::get('features/snippets.create.success'));
+			// Redirect to my snippets
+			return Redirect::to("dashboard/snippets")->with('success', Lang::get('features/snippets.create.success'));
 		}
 
 		// Redirect to add-snippet page..
@@ -68,18 +68,34 @@ class SnippetController extends BaseController {
 
 	public function getDeleteSnippet($snippetId)
 	{
+
+
 		//check if the snippet exists
 		if (is_null($snippet = Snippet::find($snippetId)))
 		{
-			// Redirect to my snippets with not found error
-			return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.not_found'));
+			//redirect to my snippets with not found error
+			return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.not_found.error'));
 		}
 
-        //delete the snippet
-		$snippet->delete();
+        //get the user_id of the snippet
+		$snippet_user = Snippet::where('id', $snippetId)->pluck('user_id');
 
-		// Redirect to my snippets page with success message
-		return Redirect::to('dashboard/snippets')->with('success', Lang::get('features/snippets.delete.success'));
+		//check if user owns the snippet
+		if (Sentry::getUser()->id != $snippet_user) 
+		{
+            //redirect with bad message, bad kids
+			return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.delete_check.error'));	
+		} 
+		else 
+		{
+
+            //delete the snippet
+		    $snippet->delete();
+
+		    //redirect to my snippets page with success message
+		    return Redirect::to('dashboard/snippets')->with('success', Lang::get('features/snippets.delete.success'));
+
+	    }
 
 	}
 }

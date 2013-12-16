@@ -56,11 +56,8 @@
 </div>
 
 {{-- Notifications --}}
-<div class="container">
-    <div class="row">
-        @include('layout/notifications')
-    </div>
-</div>
+@include('layout/notifications')
+
 
 {{-- Content --}}
 <div class="container">

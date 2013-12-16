@@ -19,14 +19,9 @@ Devbox Dashboard
 @show 
 </title>
 
-
-
-
-
 {{-- Font Awesome --}}
 <link href="{{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/css/laravel-prettyprint.css') }}" rel="stylesheet">
 {{-- Base Styles --}}
 <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
@@ -41,6 +36,7 @@ Devbox Dashboard
 
 </head>
 <body>
+
 
 
 <div class="navbar navbar-inverse navbar-static-top" role="navigation">     
@@ -79,29 +75,15 @@ Devbox Dashboard
     </div>
 </div>
     
-
-
-
-
-
-<div class="container">
-    <div class="row">
-
-        {{-- Notifications --}}
-        @include('layout/notifications')
-
-    </div>
-</div>
+        
+{{-- Notifications --}}
+@include('layout/notifications')
 
 <div class="container">
- 
-
     {{-- Content --}}
     @yield('content')
-        
-    
 </div>
-
+        
 
 {{-- Base Javascript --}}
 <script src="{{ asset('assets/js/jquery.js') }}"></script>

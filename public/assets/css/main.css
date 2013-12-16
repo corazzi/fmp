@@ -30,6 +30,10 @@ html, body {
     border-radius: 20px;
 }
 
+.snippet-form {
+    padding-bottom: 40px;
+}
+
 
 h1 [class^="icon-"] {
   color: grey; 

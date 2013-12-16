@@ -7,5 +7,10 @@ return array(
                 'success' => 'Snippet successfully saved!',
         ),
 
+        'delete' => array(
+                'success' => 'Snippet successfully deleted!',
+        ),
+
+        'not_found' => 'Snippet doesnt exist',
 
 );

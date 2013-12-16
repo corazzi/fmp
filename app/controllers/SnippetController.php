@@ -54,29 +54,32 @@ class SnippetController extends BaseController {
 		$code_snippets->tags            = e(Input::get('tags'));
 		$code_snippets->user_id         = Sentry::getId();
 
-/*
-        $snippet_count = DB::table('snippets')->where('user_id', '=',  '1')->count();
-
-
-        if ($snippet_count == 0) 
-        {
-        	$code_snippets->user_snippet_count   =   '1';
-
-        } else {
-            
-            $code_snippets->user_snippet_count   =   $snippet_count+'1';
-        }
-*/
-
 		// Was the snippet saved?
 		if($code_snippets->save())
 		{
 			// Redirect to add snippet page for now
-			return Redirect::to("dashboard/snippets/add-snippet")->with('success', Lang::get('features/message.create.success'));
+			return Redirect::to("dashboard/snippets/add")->with('success', Lang::get('features/snippets.create.success'));
 		}
 
 		// Redirect to add-snippet page..
-		return Redirect::to('dashboard/snippets/add-snippet')->with('error', Lang::get('features/message.create.error'));
+		return Redirect::to('dashboard/snippets/add')->with('error', Lang::get('features/snippets.create.error'));
+
+	}
+
+	public function getDeleteSnippet($snippetId)
+	{
+		//check if the snippet exists
+		if (is_null($snippet = Snippet::find($snippetId)))
+		{
+			// Redirect to my snippets with not found error
+			return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.not_found'));
+		}
+
+        //delete the snippet
+		$snippet->delete();
+
+		// Redirect to my snippets page with success message
+		return Redirect::to('dashboard/snippets')->with('success', Lang::get('features/snippets.delete.success'));
 
 	}
 }

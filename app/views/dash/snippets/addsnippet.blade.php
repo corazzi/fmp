@@ -32,8 +32,17 @@
 
         <div class="form-group {{ $errors->has('code_snippet') ? 'has-error' : '' }}">
             <label for="code_snippet">Code Snippet</label>
-            <textarea type="text" cols="50" rows="10" id="code" class="form-control" name="code_snippet" value="{{ Input::old('code_snippet') }}">public static function() { echo &quot;Hello World!&quot;; }</textarea>
+            <textarea type="text" cols="50" rows="7" id="code" class="form-control" name="code_snippet" value="{{ Input::old('code_snippet') }}">public static function() { echo &quot;Hello World!&quot;; }</textarea>
             {{ $errors->first('code_snippet', '<span class="help-block">:message</span>') }}
+        </div>
+
+        <div class="form-group">
+            <label class="radio-inline">
+                {{ Form::radio('state', 'public', true); }} Public
+            </label>
+            <label class="radio-inline">
+                {{ Form::radio('state', 'private'); }}  Private
+            </label>
         </div>
                
         <div class="form-group {{ $errors->has('tags') ? 'has-error' : '' }}">
@@ -42,9 +51,8 @@
             {{ $errors->first('tags', '<span class="help-block">:message</span>') }}
         </div>
 
-
-		    <button type="reset" class="btn">Reset</button>
-		    <button type="submit" class="btn btn-default">Publish</button>
+        <button type="reset" class="btn">Reset</button>
+		<button type="submit" class="btn btn-default">Publish</button>
 
                 
         </form>

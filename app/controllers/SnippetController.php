@@ -52,6 +52,7 @@ class SnippetController extends BaseController {
 		$code_snippets->description     = e(Input::get('description'));
 		$code_snippets->code_snippet    = e(Input::get('code_snippet'));
 		$code_snippets->tags            = e(Input::get('tags'));
+		$code_snippets->state           = e(Input::get('state'));
 		$code_snippets->user_id         = Sentry::getId();
 
 		// Was the snippet saved?

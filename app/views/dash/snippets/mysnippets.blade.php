@@ -12,6 +12,8 @@
 
         <div class="table-responsive">
             <table class="table table-hover">
+
+            	<?php $i = $code_snippets->getFrom(); ?>
 	                             
 	            <thead>
 		            <th>ID</th>
@@ -24,9 +26,12 @@
 
 	            <tbody>
 
+	            <?php $id = $code_snippets->getFrom(); ?>
+
 	            @foreach ($code_snippets as $snippet)
 
 	            <tr>
+	            	<td>{{ $id++ }}</td>
 	            	<td>{{ $snippet->title }}</td>
 	            	<td>{{ $snippet->description }}</td>
 	            	<td>{{ $snippet->state }}</td>
@@ -36,11 +41,17 @@
 
 	            @endforeach
 
+	         
+
 	            </tbody>                
             
             </table>
         </div> <!-- ./end of table -->
 
+        {{-- Pagination --}}
+        <?php echo $code_snippets->links(); ?>
+
     </div>
 </div>
+
 @stop

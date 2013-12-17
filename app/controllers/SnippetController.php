@@ -14,7 +14,7 @@ class SnippetController extends BaseController {
 
 	public function getMySnippet()
 	{
-        $this->data['code_snippets'] = Snippet::where('user_id', '=',  $this->data['user']->id)->orderBy('id', 'ASC')->get();
+        $this->data['code_snippets'] = Snippet::where('user_id', '=',  $this->data['user']->id)->orderBy('id', 'ASC')->paginate(10);
 		return View::make('dash.snippets.mysnippets', $this->data);
 	}
 

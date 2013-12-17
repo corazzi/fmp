@@ -52,8 +52,27 @@ class SnippetController extends BaseController {
 		$code_snippets->description     = e(Input::get('description'));
 		$code_snippets->code_snippet    = e(Input::get('code_snippet'));
 		$code_snippets->tags            = e(Input::get('tags'));
-		$code_snippets->state           = e(Input::get('state'));
 		$code_snippets->user_id         = Sentry::getId();
+
+        //stop script kiddies editing the source on the front-end 
+        //this stops edited values being submitted 
+        if(Input::get('state'))
+        {
+		    if(Input::get('state') == 'public' || Input::get('state') == 'private')
+		    {
+			    //if the value is private/public lets store it   
+			    $code_snippets->state = e(Input::get('state'));  
+			} else {
+				//if value has been tampered with submit default
+				$code_snippets->state = 'public';
+			}
+	    
+	    } else { 
+            
+            //if the radio button has been unchecked
+            //submit default
+			$code_snippets->state = 'public';
+		}
 
 		// Was the snippet saved?
 		if($code_snippets->save())

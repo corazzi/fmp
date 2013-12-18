@@ -62,6 +62,10 @@ Route::group(array('prefix' => 'dashboard'), function()
         # Delete Snippet
         Route::get('delete/{snippetId}', array('as' => '/snippets/delete', 'uses' => 'SnippetController@getDeleteSnippet'));
 
+        # Delete Snippet
+        Route::get('edit/{snippetId}', array('as' => '/snippets/edit', 'uses' => 'SnippetController@getEditSnippet'));
+        Route::post('edit/{snippetId}', 'SnippetController@postEditSnippet');
+
         
 
     });

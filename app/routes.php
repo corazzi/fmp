@@ -57,6 +57,9 @@ Route::group(array('prefix' => 'dashboard'), function()
 
         # Public Snippets
         Route::get('public', array('as' => 'snippets/public', 'uses' => 'SnippetController@getPublicSnippet'));
+
+        # View Snippet
+        Route::get('view/{snippetId}', array('as' => 'snippets/view', 'uses' => 'SnippetController@getViewSnippet'));
         
         # Add Snippet
         Route::get('add', array('as' => '/snippets/add', 'uses' => 'SnippetController@getAddSnippet'));

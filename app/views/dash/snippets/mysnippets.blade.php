@@ -32,7 +32,7 @@ My Snippets :: @parent
 
 	            <tr>
 	            	<td>{{ $id++ }}</td>
-	            	<td>{{ $snippet->title }}</td>
+	            	<td><a href="{{ route('snippets/view', $snippet->id) }}">{{ $snippet->title }}</a></td>
 	            	<td>{{ $snippet->description }}</td>
 	            	<td>{{ $snippet->state }}</td>
 	            	<td>{{ $snippet->created_at }}</td>

@@ -25,6 +25,19 @@ class SnippetController extends BaseController {
 		return View::make('dash.snippets.public', $this->data);
 	}
 
+	public function getViewSnippet($snippetId = null)
+	{
+	    //check if the snippet exists
+        if (is_null($this->data['code_snippet'] = Snippet::find($snippetId)))
+        {
+            //redirect with not found error
+            return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.not_found.error'));
+        }
+
+        return View::make('dash.snippets.viewsnippet', $this->data);
+
+	}
+
 	public function getAddSnippet()
 	{
 

@@ -99,6 +99,16 @@ class SnippetController extends BaseController {
             return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.not_found.error'));
         }
 
+        //get the user_id of the snippet
+		$snippet_user = Snippet::where('id', $snippetId)->pluck('user_id');
+
+		//check if user owns the snippet
+		if (Sentry::getUser()->id != $snippet_user) 
+		{
+            //redirect with bad message, bad kids
+			return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.update_check.error'));	
+		} 
+
         return View::make('dash.snippets.editsnippet', $this->data);
 
 	}
@@ -112,62 +122,75 @@ class SnippetController extends BaseController {
             return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.not_found.error'));
         }
 
-        // declare rules for the form (same as addSnippet)
-		$rules = array(
-			'title'               => 'required|min:3',
-			'description'         => 'required|min:10',
-			'code_snippet'        => 'required',
-			'tags'                => 'required',
-		);
+        //get the user_id of the snippet
+		$snippet_user = Snippet::where('id', $snippetId)->pluck('user_id');
 
-		//create new validator instance with said rules
-		$validator = Validator::make(Input::all(), $rules);
-
-		//if validation fails
-		if ($validator->fails())
-        {
-           //something went wrong show validation errors
-           return Redirect::back()->withInput()->withErrors($validator);
-        }
-        
-        //update snippet
-		$code_snippet->title           = e(Input::get('title'));
-		$code_snippet->description     = e(Input::get('description'));
-		$code_snippet->code_snippet    = e(Input::get('code_snippet'));
-		$code_snippet->tags            = e(Input::get('tags'));
-
-        if(Input::get('state'))
-        {
-		    if(Input::get('state') == 'public' || Input::get('state') == 'private')
-		    {
-			    //if the value is private/public lets store it   
-			    $code_snippet->state = e(Input::get('state'));  
-			} 
-			else 
-			{
-				//if value has been tampered with submit default
-				$code_snippet->state = 'public';
-			}
-	    
-	    } 
-	    else 
-	    { 
-            
-            //if the radio button has been unchecked
-            //submit default
-			$code_snippet->state = 'public';
-		}
-
-
-		if($code_snippet->save())
+        //check if user owns the snippet
+		if (Sentry::getUser()->id != $snippet_user) 
 		{
-			// Redirect to my snippets
-			return Redirect::to("dashboard/snippets")->with('success', Lang::get('features/snippets.update.success'));
-		}
+            //redirect with bad message, bad kids
+			return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.update_check.error'));	
+		} 
+		else
+		{
+
+            // declare rules for the form (same as addSnippet)
+		    $rules = array(
+			    'title'               => 'required|min:3',
+			    'description'         => 'required|min:10',
+			    'code_snippet'        => 'required',
+			    'tags'                => 'required',
+		    );
+
+		    //create new validator instance with said rules
+		    $validator = Validator::make(Input::all(), $rules);
+
+		    //if validation fails
+		    if ($validator->fails())
+            {
+               //something went wrong show validation errors
+               return Redirect::back()->withInput()->withErrors($validator);
+            }
+        
+            //update snippet
+		    $code_snippet->title           = e(Input::get('title'));
+		    $code_snippet->description     = e(Input::get('description'));
+		    $code_snippet->code_snippet    = e(Input::get('code_snippet'));
+		    $code_snippet->tags            = e(Input::get('tags'));
+
+            if(Input::get('state'))
+            {
+		        if(Input::get('state') == 'public' || Input::get('state') == 'private')
+		        {
+			        //if the value is private/public lets store it   
+			        $code_snippet->state = e(Input::get('state'));  
+			    } 
+			    else 
+			    {
+				    //if value has been tampered with submit default
+				    $code_snippet->state = 'public';
+			    }
+	    
+	        } 
+	        else 
+	        { 
+            
+                //if the radio button has been unchecked
+                //submit default
+			    $code_snippet->state = 'public';
+		    }
 
 
-		// Redirect to add-snippet page..
-		return Redirect::to('dashboard/snippets/edit/$snippetId')->with('error', Lang::get('features/snippets.update.error'));
+		    if($code_snippet->save())
+		    {
+			    // Redirect to my snippets
+			    return Redirect::to("dashboard/snippets")->with('success', Lang::get('features/snippets.update.success'));
+		    }
+
+
+		    // Redirect to add-snippet page..
+		    return Redirect::to('dashboard/snippets/edit/$snippetId')->with('error', Lang::get('features/snippets.update.error'));
+	    }
 
 
 	}

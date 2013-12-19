@@ -12,6 +12,10 @@ return array(
                 'success' => 'Snippet update successfully!',
         ),
 
+        'update_check' => array(
+                'error'   => 'You cant edit a snippet you dont own!',
+        ),
+
         'delete' => array(
                 'success' => 'Snippet successfully deleted!',
         ),

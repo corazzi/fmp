@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-@parent :: Edit Snippet 
+Edit Snippet :: @parent 
 @stop
 
 {{-- Page content --}}

@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-@parent :: Add Snippet 
+Add Snippet :: @parent 
 @stop
 
 {{-- Page content --}}
@@ -53,6 +53,8 @@
 
         <button type="reset" class="btn">Reset</button>
 		<button type="submit" class="btn btn-default">Publish</button>
+
+        
 
                 
         </form>

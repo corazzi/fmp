@@ -10,6 +10,7 @@ class SnippetController extends BaseController {
 		parent::__construct();
         $this->beforeFilter('auth');
         $this->data['user'] = Sentry::getUser();
+        
 	}
 
 	public function getMySnippet()
@@ -18,13 +19,21 @@ class SnippetController extends BaseController {
 		return View::make('dash.snippets.mysnippets', $this->data);
 	}
 
+	public function getPublicSnippet()
+	{
+		$this->data['code_snippets'] = Snippet::where('state', '=', 'public')->orderBy('id', 'DEC')->paginate(15);
+		return View::make('dash.snippets.public', $this->data);
+	}
+
 	public function getAddSnippet()
 	{
+
 		return View::make('dash.snippets.addsnippet', $this->data);
 	}
 
 	public function postAddSnippet()
 	{
+
 
 		// Declare the rules for the form validation
 		$rules = array(
@@ -44,6 +53,9 @@ class SnippetController extends BaseController {
 			return Redirect::back()->withInput()->withErrors($validator);
 		}
 
+		//Really not sure about this but hell with it for now, get full name for author
+	    $fullname = Sentry::getUser()->first_name.' '.Sentry::getUser()->last_name;
+
         // create new snippet - elequent you beuty
 		$code_snippet = new Snippet();
 
@@ -53,6 +65,10 @@ class SnippetController extends BaseController {
 		$code_snippet->code_snippet    = e(Input::get('code_snippet'));
 		$code_snippet->tags            = e(Input::get('tags'));
 		$code_snippet->user_id         = Sentry::getId();
+		$code_snippet->author          = $fullname;
+
+
+
 
         //stop script kiddies editing the source on the front-end 
         //this stops edited values being submitted 

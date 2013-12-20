@@ -14,9 +14,10 @@ Welcome to your dashboard, {{ Sentry::getUser()->first_name }}
 
 <h5>Snippets</h5>
 <ul>
-	<li><a href="{{ URL::to('dashboard/snippets') }}">My Snippets</a></li>
-	<li><a href="{{ URL::to('dashboard/snippets/public') }}">Public Snippets</a></li>
-	<li><a href="{{ URL::to('dashboard/snippets/add') }}">Add Snippet</a></li>
+	<li><a href="{{ URL::to('snippets') }}">My Snippets</a></li>
+	<li><a href="{{ URL::to('snippets/add') }}">Add Snippet</a></li>
+	<li><a href="{{ URL::to('snippets/public') }}">Public Snippets</a></li>
+
 </ul>
 
 </div>

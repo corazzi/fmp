@@ -1,7 +1,5 @@
 <?php
 
-
-
 class SnippetController extends BaseController {
 
 
@@ -31,10 +29,64 @@ class SnippetController extends BaseController {
         if (is_null($this->data['code_snippet'] = Snippet::find($snippetId)))
         {
             //redirect with not found error
-            return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.not_found.error'));
+            return Redirect::to('snippets')->with('error', Lang::get('features/snippets.not_found.error'));
         }
 
-        return View::make('dash.snippets.viewsnippet', $this->data);
+        //get the user_id of the snippet
+		$snippet_user = Snippet::where('id', $snippetId)->pluck('user_id');
+		$snippet_state = Snippet::where('id', $snippetId)->pluck('state');
+
+		if($snippet_state == 'private')
+		{ 
+			//if the person owns the snippet
+			if(Sentry::getUser()->id != $snippet_user)
+			{
+				//if dont own it, they shouldnt be here
+				return Redirect::to('snippets')->with('error', Lang::get('features/snippets.view_check.error'));
+			} 
+			else
+			{
+				//if they do own it and its private show away!
+				return View::make('dash.snippets.viewsnippet', $this->data);
+			}
+
+		} 
+		elseif($snippet_state == 'public' && $snippet_user == Sentry::getUser()->id) 
+		{
+
+            //if its public and the user owns it show them it in my snippets
+			return View::make('dash.snippets.viewsnippet', $this->data);
+
+		} 
+		else 
+		{
+			//if the snippet is public which they tried to access let them know
+			return Redirect::to('snippets')->with('info', Lang::get('features/snippets.public.info'));
+
+		}
+	}
+
+
+	public function getViewPublicSnippet($snippetId = null)
+	{
+	    //check if the snippet exists
+        if (is_null($this->data['code_snippet'] = Snippet::find($snippetId)))
+        {
+            //redirect with not found error
+            return Redirect::to('snippets/public')->with('error', Lang::get('features/snippets.not_found.error'));
+        }
+
+        $snippet_state = Snippet::where('id', $snippetId)->pluck('state');
+
+        if($snippet_state == 'private')
+        {
+        	return Redirect::to('snippets/public')->with('error', Lang::get('features/snippets.private.info'));
+        } 
+        else 
+        {
+
+            return View::make('dash.snippets.viewsnippet', $this->data);
+        }
 
 	}
 
@@ -111,11 +163,11 @@ class SnippetController extends BaseController {
 		if($code_snippet->save())
 		{
 			// Redirect to my snippets
-			return Redirect::to("dashboard/snippets")->with('success', Lang::get('features/snippets.create.success'));
+			return Redirect::to("snippets")->with('success', Lang::get('features/snippets.create.success'));
 		}
 
 		// Redirect to add-snippet page..
-		return Redirect::to('dashboard/snippets/add')->with('error', Lang::get('features/snippets.create.error'));
+		return Redirect::to('snippets/add')->with('error', Lang::get('features/snippets.create.error'));
 
 	}
 
@@ -125,7 +177,7 @@ class SnippetController extends BaseController {
         if (is_null($this->data['code_snippet'] = Snippet::find($snippetId)))
         {
             //redirect with not found error
-            return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.not_found.error'));
+            return Redirect::to('snippets')->with('error', Lang::get('features/snippets.not_found.error'));
         }
 
         //get the user_id of the snippet
@@ -135,7 +187,7 @@ class SnippetController extends BaseController {
 		if (Sentry::getUser()->id != $snippet_user) 
 		{
             //redirect with bad message, bad kids
-			return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.update_check.error'));	
+			return Redirect::to('snippets')->with('error', Lang::get('features/snippets.update_check.error'));	
 		} 
 
         return View::make('dash.snippets.editsnippet', $this->data);
@@ -148,7 +200,7 @@ class SnippetController extends BaseController {
         if (is_null($code_snippet = Snippet::find($snippetId)))
         {
             //redirect with not found error
-            return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.not_found.error'));
+            return Redirect::to('snippets')->with('error', Lang::get('features/snippets.not_found.error'));
         }
 
         //get the user_id of the snippet
@@ -158,7 +210,7 @@ class SnippetController extends BaseController {
 		if (Sentry::getUser()->id != $snippet_user) 
 		{
             //redirect with bad message, bad kids
-			return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.update_check.error'));	
+			return Redirect::to('snippets')->with('error', Lang::get('features/snippets.update_check.error'));	
 		} 
 		else
 		{
@@ -213,12 +265,12 @@ class SnippetController extends BaseController {
 		    if($code_snippet->save())
 		    {
 			    // Redirect to my snippets
-			    return Redirect::to("dashboard/snippets")->with('success', Lang::get('features/snippets.update.success'));
+			    return Redirect::to("snippets")->with('success', Lang::get('features/snippets.update.success'));
 		    }
 
 
-		    // Redirect to add-snippet page..
-		    return Redirect::to('dashboard/snippets/edit/$snippetId')->with('error', Lang::get('features/snippets.update.error'));
+		    // Redirect to edit-snippet page..
+		    return Redirect::to('snippets/$snippetId/edit/')->with('error', Lang::get('features/snippets.update.error'));
 	    }
 
 
@@ -231,7 +283,7 @@ class SnippetController extends BaseController {
 		if (is_null($snippet = Snippet::find($snippetId)))
 		{
 			//redirect to my snippets with not found error
-			return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.not_found.error'));
+			return Redirect::to('snippets')->with('error', Lang::get('features/snippets.not_found.error'));
 		}
 
         //get the user_id of the snippet
@@ -241,7 +293,7 @@ class SnippetController extends BaseController {
 		if (Sentry::getUser()->id != $snippet_user) 
 		{
             //redirect with bad message, bad kids
-			return Redirect::to('dashboard/snippets')->with('error', Lang::get('features/snippets.delete_check.error'));	
+			return Redirect::to('snippets')->with('error', Lang::get('features/snippets.delete_check.error'));	
 		} 
 		else 
 		{
@@ -250,7 +302,7 @@ class SnippetController extends BaseController {
 		    $snippet->delete();
 
 		    //redirect to my snippets page with success message
-		    return Redirect::to('dashboard/snippets')->with('success', Lang::get('features/snippets.delete.success'));
+		    return Redirect::to('snippets')->with('success', Lang::get('features/snippets.delete.success'));
 
 	    }
 

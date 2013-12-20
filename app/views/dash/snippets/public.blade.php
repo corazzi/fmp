@@ -54,7 +54,7 @@ Public Snippets :: @parent
 
 	            <tr>
 	            	<td>{{ $id++ }}</td>
-	            	<td><a href="{{ route('snippets/view', $snippet->id) }}">{{ $snippet->title }}</a></td>
+	            	<td><a href="{{ route('snippets/public', $snippet->id) }}">{{ $snippet->title }}</a></td>
 	            	<td>{{ $snippet->description }}</td>
 	            	<td><a href="">{{ $snippet->author }}</a></td>
 	            	<td>{{ $snippet->created_at }}</td>

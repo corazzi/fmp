@@ -36,7 +36,7 @@ My Snippets :: @parent
 	            	<td>{{ $snippet->description }}</td>
 	            	<td>{{ $snippet->state }}</td>
 	            	<td>{{ $snippet->created_at }}</td>
-	            	<td><a href="{{ route('/snippets/edit', $snippet->id) }}">Edit</a> | <a href="{{ route('/snippets/delete', $snippet->id) }}">Delete</a></td>
+	            	<td><a href="{{ route('snippets/edit', $snippet->id) }}">Edit</a> | <a href="{{ route('snippets/delete', $snippet->id) }}">Delete</a></td>
 	            </tr>
 
 	            @endforeach

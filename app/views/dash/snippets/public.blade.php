@@ -20,7 +20,7 @@ Public Snippets :: @parent
 		        <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" required>
 			        <div class="input-group-btn">
-				        <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+				        <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i></button>
 			        </div>
 		        </div>
 
@@ -50,13 +50,19 @@ Public Snippets :: @parent
 
 	            <?php $id = $code_snippets->getFrom(); ?>
 
+	     
+
 	            @foreach ($code_snippets as $snippet)
 
 	            <tr>
+	            	
 	            	<td>{{ $id++ }}</td>
-	            	<td><a href="{{ route('snippets/public', $snippet->id) }}">{{ $snippet->title }}</a></td>
+	            
+
+	            	
+	            	<td><a href="{{ route('snippets/public', $snippet->slug) }}">{{ $snippet->title }}</a></td>
 	            	<td>{{ $snippet->description }}</td>
-	            	<td><a href="">{{ $snippet->author }}</a></td>
+	            	<td><a href="members/{{ $snippet->author; }}">{{ $snippet->author }}</a></td>
 	            	<td>{{ $snippet->created_at }}</td>
 	            </tr>
 

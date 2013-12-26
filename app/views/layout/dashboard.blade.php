@@ -49,14 +49,14 @@ Devbox Dashboard
                 
                 {{-- Desktop Icon --}}
                 <a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown">
-                    <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim($user->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->first_name }}{{ Sentry::getUser()->last_name }}">  
+                    <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim(Sentry::getUser()->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->first_name }}{{ Sentry::getUser()->last_name }}">  
                     {{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }}
                     <b class="caret"></b>
                 </a>
 
                 {{-- Phone Icon --}}
                 <a href="#" class="dropdown-toggle visible-xs" data-toggle="dropdown">
-                    <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim($user->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->first_name }}{{ Sentry::getUser()->last_name }}">  
+                    <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim(Sentry::getUser()->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->first_name }}{{ Sentry::getUser()->last_name }}">  
                     <b class="caret"></b>
                 </a>
 

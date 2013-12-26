@@ -57,12 +57,12 @@ Route::group(array('prefix' => 'snippets'), function()
     # My Snippets
     Route::get('/', array('as' => 'snippets', 'uses' => 'SnippetController@getMySnippet'));
 
+    # View My Snippet
+    Route::get('{slug}', array('as' => 'view', 'uses' => 'SnippetController@getViewSnippet'));
+
     # Add Snippet
     Route::get('add', array('as' => '/snippets/add', 'uses' => 'SnippetController@getAddSnippet'));
     Route::post('add', 'SnippetController@postAddSnippet');
-
-    # View Snippet
-    Route::get('{snippetId}/view', array('as' => 'snippets/view', 'uses' => 'SnippetController@getViewSnippet'));
         
     # Delete Snippet
     Route::get('{snippetId}/delete', array('as' => 'snippets/delete', 'uses' => 'SnippetController@getDeleteSnippet'));
@@ -75,7 +75,8 @@ Route::group(array('prefix' => 'snippets'), function()
     Route::get('public', array('as' => 'public', 'uses' => 'SnippetController@getPublicSnippet'));
 
     # View Public Snippet
-    Route::get('public/{snippetId}/view', array('as' => 'snippets/public', 'uses' => 'SnippetController@getViewPublicSnippet'));
+    Route::get('public/{slug}', array('as' => 'snippets/public', 'uses' => 'SnippetController@getViewPublicSnippet'));
+    Route::post('public/{slug}', 'SnippetController@getViewPublicSnippet');
 
 });
 

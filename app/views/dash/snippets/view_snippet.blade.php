@@ -2,7 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-View Snippet :: @parent 
+{{ $snippet_data->title; }} :: View Snippet :: @parent 
 @stop
 
 {{-- Page content --}}
@@ -13,7 +13,7 @@ View Snippet :: @parent
 
     	<p>dump everything for now<p>
 
-    	{{ var_dump($code_snippet) }}
+    	{{ var_dump($snippet_data) }}
 
 
     </div>

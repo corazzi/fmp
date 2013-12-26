@@ -8,6 +8,28 @@ My Snippets :: @parent
 {{-- Page content --}}
 @section('content')
 <div class="row">
+	<div class="col-md-12">
+		
+		<h3 class="pull-left">My Snippets</h3>
+
+		{{-- Example Search Box --}}
+		
+		<div class="pull-right" style="width:30%;margin:10px 0;">		
+			<form class="navbar-form" role="search">
+		        
+		        <div class="input-group">
+			        <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term" required>
+			        <div class="input-group-btn">
+				        <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+			        </div>
+		        </div>
+
+		    </form>
+	    </div>		
+	
+	</div>
+</div>
+<div class="row">
     <div class="col-md-12">
 
         <div class="table-responsive">
@@ -32,7 +54,7 @@ My Snippets :: @parent
 
 	            <tr>
 	            	<td>{{ $id++ }}</td>
-	            	<td><a href="{{ route('snippets/view', $snippet->id) }}">{{ $snippet->title }}</a></td>
+	            	<td><a href="{{ route('view', $snippet->slug) }}">{{ $snippet->title }}</a></td>
 	            	<td>{{ $snippet->description }}</td>
 	            	<td>{{ $snippet->state }}</td>
 	            	<td>{{ $snippet->created_at }}</td>

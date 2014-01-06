@@ -51,6 +51,8 @@ Route::group(array('prefix' => 'dashboard'), function()
 });
 
 
+
+
 # Snippets
 Route::group(array('prefix' => 'snippets'), function()
 { 
@@ -58,7 +60,7 @@ Route::group(array('prefix' => 'snippets'), function()
     Route::get('/', array('as' => 'snippets', 'uses' => 'SnippetController@getMySnippet'));
 
     # View My Snippet
-    Route::get('{slug}', array('as' => 'view', 'uses' => 'SnippetController@getViewSnippet'));
+    Route::get('my/{slug}', array('as' => 'view', 'uses' => 'SnippetController@getViewSnippet'));
 
     # Add Snippet
     Route::get('add', array('as' => '/snippets/add', 'uses' => 'SnippetController@getAddSnippet'));

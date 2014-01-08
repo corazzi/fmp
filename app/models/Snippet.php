@@ -5,11 +5,13 @@ use Carbon\Carbon;
 class Snippet extends Eloquent {
 
 	protected $table = 'snippets';
-
-    private function url()
-    {
-        return URL::route('public', $this->slug);
-    }
+ 
+    // Sluggable by @@cviebrock
+    // simple and easy way for unique slugs
+    public static $sluggable = array(
+        'build_from' => 'title',
+        'save_to'    => 'slug',
+    );
 
     protected function getHumanTimestampAttribute($column)
     {

@@ -127,11 +127,7 @@ class SnippetController extends BaseController {
 
         //update snippet data
 		$code_snippet->title           = e(Input::get('title')); //e() sanitizes input, best way in laravel apparently..
-		$code_snippet->slug            = 
-		e(
-		   Str::slug(Input::get('title'))
 
-		); //slugs yayyy
 		$code_snippet->description     = e(Input::get('description'));
 		$code_snippet->code_snippet    = e(Input::get('code_snippet'));
 		$code_snippet->tags            = e(Input::get('tags'));
@@ -167,7 +163,7 @@ class SnippetController extends BaseController {
 		if($code_snippet->save())
 		{
 			//redirect to my snippets
-			return Redirect::to("my-snippets")->with('success', Lang::get('features/snippets.create.success'));
+			return Redirect::route("my-snippets")->with('success', Lang::get('features/snippets.create.success'));
 		}
 
 		//redirect to add-snippet page..
@@ -249,6 +245,8 @@ class SnippetController extends BaseController {
                //something went wrong show validation errors
                return Redirect::back()->withInput()->withErrors($validator);
             }
+
+
         
             //update snippet
 		    $code_snippet->title           = e(Input::get('title'));

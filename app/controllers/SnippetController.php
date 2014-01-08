@@ -10,53 +10,92 @@ class SnippetController extends BaseController {
 		//check if the user is logged in
         $this->beforeFilter('auth');        
 	}
+    
+    /**
+     * Get My Snippets.
+     *
+     * @return View
+     */
 
 	public function getMySnippet()
 	{
        
-        $code_snippets = Snippet::where('user_id', '=',  Sentry::getUser()->id)->orderBy('id', 'ASC')->paginate(10);
+        $code_snippets = Snippet::where('user_id', '=',  Sentry::getUser()->id)->orderBy('id', 'DESC')->paginate(10);
 		return View::make('dash.snippets.my_snippets', compact('code_snippets'));
 	}
+   
+    /**
+     * Get Public Snippets.
+     *
+     * @return View
+     */
 
 	public function getPublicSnippet()
 	{
-		$code_snippets = Snippet::where('state', '=', 'public')->orderBy('id', 'DEC')->paginate(15);
+		$code_snippets = Snippet::where('state', '=', 'public')->orderBy('id', 'DESC')->paginate(15);
 		return View::make('dash.snippets.public', compact('code_snippets'));
 	}
 
+    /**
+     * Get My View Snippet.
+     *
+     * @return View
+     */
+
+
 	public function getViewSnippet($slug)
 	{
+
         $snippet_data = Snippet::where('slug', $slug)->first();
 
         //check if the snippet exists, if not redirect with error
         if (is_null($snippet_data))
         {
-        	return Redirect::to('snippets')->with('error', Lang::get('features/snippets.not_found'));
+        	return Redirect::to('my-snippets')->with('error', Lang::get('features/snippets.not_found'));
         }
 
         return View::make('dash/snippets/view_snippet', compact('snippet_data'));
 	}
 
+    /**
+     * Get Public View Snippet.
+     *
+     * @return View
+     */
 
 	public function getViewPublicSnippet($slug)
 	{
+
         $snippet_data = Snippet::where('slug', $slug)->first();
 
         //check if the snippet exists, if not redirect with error
         if (is_null($snippet_data))
         {
-        	return Redirect::to('snippets/public')->with('error',  Lang::get('features/snippets.not_found'));
+        	return Redirect::route('snippets')->with('error',  Lang::get('features/snippets.not_found'));
         }
 
         return View::make('dash/snippets/public_view_snippet', compact('snippet_data'));
 
 	}
 
+    /**
+     * Get Add Snippet.
+     *
+     * @return View
+     */
+
+
 	public function getAddSnippet()
 	{
 
 		return View::make('dash.snippets.add_snippet');
 	}
+
+    /**
+     * Post Add Snippet.
+     *
+     * @return Redirect
+     */
 
 	public function postAddSnippet()
 	{
@@ -70,7 +109,7 @@ class SnippetController extends BaseController {
 			'tags'                => 'required',
 		);
 
-		//dreate a new validator instance from our validation rules
+		//create a new validator instance from our validation rules
 		$validator = Validator::make(Input::all(), $rules);
 
 		//if validation fails, we'll exit the operation now.
@@ -88,7 +127,11 @@ class SnippetController extends BaseController {
 
         //update snippet data
 		$code_snippet->title           = e(Input::get('title')); //e() sanitizes input, best way in laravel apparently..
-		$code_snippet->slug            = e(Str::slug(Input::get('title'))); //slugs yayyy
+		$code_snippet->slug            = 
+		e(
+		   Str::slug(Input::get('title'))
+
+		); //slugs yayyy
 		$code_snippet->description     = e(Input::get('description'));
 		$code_snippet->code_snippet    = e(Input::get('code_snippet'));
 		$code_snippet->tags            = e(Input::get('tags'));
@@ -124,13 +167,20 @@ class SnippetController extends BaseController {
 		if($code_snippet->save())
 		{
 			//redirect to my snippets
-			return Redirect::to("snippets")->with('success', Lang::get('features/snippets.create.success'));
+			return Redirect::to("my-snippets")->with('success', Lang::get('features/snippets.create.success'));
 		}
 
 		//redirect to add-snippet page..
-		return Redirect::to('snippets/add')->with('error', Lang::get('features/snippets.create.error'));
+		return Redirect::to('add-snippet')->with('error', Lang::get('features/snippets.create.error'));
 
 	}
+
+    /**
+     * Get Edit Snippet.
+     *
+     * @return View
+     */
+
 
 	public function getEditSnippet($snippetId = null)
 	{
@@ -138,7 +188,7 @@ class SnippetController extends BaseController {
         if (is_null($this->data['code_snippet'] = Snippet::find($snippetId)))
         {
             //redirect with not found error
-            return Redirect::to('snippets')->with('error', Lang::get('features/snippets.not_found'));
+            return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.not_found'));
         }
 
         //get the user_id of the snippet
@@ -148,12 +198,18 @@ class SnippetController extends BaseController {
 		if (Sentry::getUser()->id != $snippet_user) 
 		{
             //redirect with bad message, bad kids
-			return Redirect::to('snippets')->with('error', Lang::get('features/snippets.update_check'));	
+			return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.update_check'));	
 		} 
 
         return View::make('dash.snippets.edit_snippet', $this->data);
 
 	}
+
+    /**
+     * Post Edit Snippet.
+     *
+     * @return Redirect
+     */
 
 	public function postEditSnippet($snippetId = null)
 	{
@@ -161,7 +217,7 @@ class SnippetController extends BaseController {
         if (is_null($code_snippet = Snippet::find($snippetId)))
         {
             //redirect with not found error
-            return Redirect::to('snippets')->with('error', Lang::get('features/snippets.not_found'));
+            return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.not_found'));
         }
 
         //get the user_id of the snippet
@@ -171,7 +227,7 @@ class SnippetController extends BaseController {
 		if (Sentry::getUser()->id != $snippet_user) 
 		{
             //redirect with bad message, bad kids
-			return Redirect::to('snippets')->with('error', Lang::get('features/snippets.update_check'));	
+			return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.update_check'));	
 		} 
 		else
 		{
@@ -226,7 +282,7 @@ class SnippetController extends BaseController {
 		    if($code_snippet->save())
 		    {
 			    //redirect to my snippets
-			    return Redirect::to("snippets")->with('success', Lang::get('features/snippets.update.success'));
+			    return Redirect::route("my-snippets")->with('success', Lang::get('features/snippets.update.success'));
 		    }
 
 
@@ -237,6 +293,12 @@ class SnippetController extends BaseController {
 
 	}
 
+    /**
+     * Get Delete Snippet.
+     *
+     * @return Redirect
+     */
+
 	public function getDeleteSnippet($snippetId)
 	{
 
@@ -244,7 +306,7 @@ class SnippetController extends BaseController {
 		if (is_null($snippet = Snippet::find($snippetId)))
 		{
 			//redirect to my snippets with not found error
-			return Redirect::to('snippets')->with('error', Lang::get('features/snippets.not_found'));
+			return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.not_found'));
 		}
 
         //get the user_id of the snippet
@@ -254,7 +316,7 @@ class SnippetController extends BaseController {
 		if (Sentry::getUser()->id != $snippet_user) 
 		{
             //redirect with bad message, bad kids
-			return Redirect::to('snippets')->with('error', Lang::get('features/snippets.delete_check'));	
+			return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.delete_check'));	
 		} 
 		else 
 		{
@@ -263,7 +325,7 @@ class SnippetController extends BaseController {
 		    $snippet->delete();
 
 		    //redirect to my snippets page with success message
-		    return Redirect::to('snippets')->with('success', Lang::get('features/snippets.delete'));
+		    return Redirect::route('my-snippets')->with('success', Lang::get('features/snippets.delete'));
 
 	    }
 

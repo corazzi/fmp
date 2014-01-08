@@ -1,10 +1,7 @@
 @extends('../layout/default')
 
 {{-- Page title --}}
-@section('title')
-@parent
-:: Forgot Password Confirmation
-@stop
+@section('title', 'Create New Password')
 
 {{-- Page content --}}
 @section('content')

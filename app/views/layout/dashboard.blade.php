@@ -9,15 +9,26 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="">
-<meta name="author" content="">
-<link rel="shortcut icon" href="">
+<meta name="description" content="@yield('meta_description')">
+<meta name="author" content="@yield('meta_author')">
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('assets/ico/apple-touch-icon.png') }}">
+<link rel="shortcut icon" href="{{ asset('assets/ico/favicon.png') }}">
 
-<title>
-@section('title') 
-Devbox Dashboard 
-@show 
-</title>
+{{-- Facebook OG --}}
+<meta property="og:title" content="@yield('title') | WSLR"/>
+<meta property="og:description" content="@yield('meta_description')"/>
+<meta property="og:image" content="{{ asset('assets/ico/apple-touch-icon.png') }}">
+<meta property="og:url" content="{{ URL::current() }}"/>
+<meta property="og:site_name" content="WSLR"/>
+
+{{-- Twitter Cards --}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="{{ asset('assets/ico/apple-touch-icon.png') }}">
+<meta name="twitter:description" content="@yield('meta_description')">
+<meta name="twitter:site" content="@WSLR">
+<meta name="twitter:creator" content="@WSLR">
+
+<title>@yield('title') | WSLR</title>
 
 {{-- Font Awesome --}}
 <link href="{{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
@@ -25,13 +36,14 @@ Devbox Dashboard
 {{-- Base Styles --}}
 <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+
 <!--[if lt IE 9]>
     <script src="{{ asset('assets/js/html5shiv.js') }}"></script>
     <script src="{{ asset('assets/js/respond.min.js') }}"></script>
 <![endif]-->
 
 <!--[if IE 7]>
-  <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-ie7.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-ie7.min.css') }}">
 <![endif]-->
 
 </head>
@@ -91,6 +103,15 @@ Devbox Dashboard
 {{-- Tags Javasctipt --}}
 <script src="{{ asset('assets/js/bootstrap-tagsinput.min.js') }}"></script>
 <script src="{{ asset('assets/js/app.js') }}"></script> 
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 </body>
 </html>

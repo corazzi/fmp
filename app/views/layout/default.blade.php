@@ -11,13 +11,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="shortcut icon" href="">
+<link rel="shortcut icon" href="{{ asset('assets/ico/apple-touch-icon.png') }}">
 
-<title>
-@section('title')
-    Devbox
-@show
-</title>
+{{-- Facebook OG --}}
+<meta property="og:title" content="@yield('title') | WSLR"/>
+<meta property="og:description" content=""/>
+<meta property="og:image" content="{{ asset('assets/ico/apple-touch-icon.png') }}">
+<meta property="og:url" content=""/>
+<meta property="og:site_name" content="WSLR"/>
+
+{{-- Twitter Cards --}}
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="{{ asset('assets/ico/apple-touch-icon.png') }}">
+<meta name="twitter:description" content="">
+<meta name="twitter:site" content="@WSLR">
+<meta name="twitter:creator" content="@WSLR">
+
+<title>@yield('title') | WSLR</title>
 
 {{-- Style Sheets --}}
 <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">

@@ -1,9 +1,7 @@
 @extends('../../layout/dashboard')
 
 {{-- Page title --}}
-@section('title')
-Public Snippets :: @parent 
-@stop
+@section('title', 'Public Snippets')
 
 {{-- Page content --}}
 @section('content')
@@ -60,10 +58,10 @@ Public Snippets :: @parent
 	            
 
 	            	
-	            	<td><a href="{{ route('snippets/public', $snippet->slug) }}">{{ $snippet->title }}</a></td>
+	            	<td><a href="{{ route('view-public-snippet', $snippet->slug) }}">{{ $snippet->title }}</a></td>
 	            	<td>{{ $snippet->description }}</td>
 	            	<td><a href="members/{{ $snippet->author; }}">{{ $snippet->author }}</a></td>
-	            	<td>{{ $snippet->created_at }}</td>
+	            	<td>{{ $snippet->humanCreatedAt }}</td>
 	            </tr>
 
 	            @endforeach

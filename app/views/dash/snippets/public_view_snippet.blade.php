@@ -1,9 +1,9 @@
 @extends('../../layout/dashboard')
 
 {{-- Page title --}}
-@section('title')
-{{ $snippet_data->title; }} :: Public Snippets :: @parent 
-@stop
+@section('title', $snippet_data->title)
+@section('meta_description', $snippet_data->description)
+@section('meta_author', $snippet_data->author)
 
 {{-- Page content --}}
 @section('content')
@@ -19,13 +19,15 @@
     	<div class="text-success">{{ $snippet_data->code_snippet; }}</div>
     	<h5>Created at</h5>
     	<div class="text-success">{{ $snippet_data->created_at; }}</div>
-
-    	<br>
-
     	<h5>Author</h5>
     	<div class="text-danger">{{ $snippet_data->author; }}</div>
 
+
+        <div class="fb-share-button" data-href="{{ URL::current() }}" data-type="button"></div>
+
     </div>
 </div>
+
+
 
 @stop

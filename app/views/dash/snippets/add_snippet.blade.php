@@ -1,9 +1,7 @@
 @extends('../../layout/dashboard')
 
 {{-- Page title --}}
-@section('title')
-Add Snippet :: @parent 
-@stop
+@section('title', 'Add Snippet')
 
 {{-- Page content --}}
 @section('content')

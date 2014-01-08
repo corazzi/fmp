@@ -2,9 +2,7 @@
 
 {{-- Page title --}}
 @section('title')
-@parent
-:: Forgot Password
-@stop
+@section('title', 'Forgot Password')
 
 {{-- Page content --}}
 @section('content')

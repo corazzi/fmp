@@ -1,10 +1,7 @@
 @extends('../layout/default')
 
 {{-- Page title --}}
-@section('title')
-@parent
-:: Register
-@stop
+@section('title', 'Register')
 
 {{-- Page content --}}
 @section('content')

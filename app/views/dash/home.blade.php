@@ -1,9 +1,7 @@
 @extends('../layout/dashboard')
 
 {{-- Page title --}}
-@section('title')
-@parent
-@stop
+@section('title', 'Dashboard')
 
 {{-- Page content --}}
 @section('content')
@@ -14,9 +12,9 @@ Welcome to your dashboard, {{ Sentry::getUser()->first_name }}
 
 <h5>Snippets</h5>
 <ul>
-	<li><a href="{{ URL::to('snippets') }}">My Snippets</a></li>
-	<li><a href="{{ URL::to('snippets/add') }}">Add Snippet</a></li>
-	<li><a href="{{ URL::to('snippets/public') }}">Public Snippets</a></li>
+	<li><a href="{{ route('my-snippets') }}">My Snippets</a></li>
+	<li><a href="{{ route('add-snippet') }}">Add Snippet</a></li>
+	<li><a href="{{ URL::to('snippets') }}">Public Snippets</a></li>
 </ul>
 
 <h5>Tutorials</h5>

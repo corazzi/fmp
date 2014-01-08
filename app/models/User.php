@@ -1,7 +1,7 @@
 <?php 
 
 
-class User extends Eloquent {
+class User extends Base {
 
     protected $table = 'users';
 

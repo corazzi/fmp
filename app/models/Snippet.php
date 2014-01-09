@@ -1,7 +1,5 @@
 <?php 
 
-use Carbon\Carbon;
-
 class Snippet extends Base {
 
 	protected $table = 'snippets';
@@ -12,7 +10,5 @@ class Snippet extends Base {
         'build_from' => 'title',
         'save_to'    => 'slug',
     );
-
-
 	
 }

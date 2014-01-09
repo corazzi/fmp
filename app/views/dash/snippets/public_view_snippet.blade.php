@@ -22,8 +22,8 @@
     	<h5>Author</h5>
     	<div class="text-danger">{{ $snippet_data->author; }}</div>
 
+        <br>
 
-        <div class="fb-share-button" data-href="{{ URL::current() }}" data-type="button"></div>
 
     </div>
 </div>

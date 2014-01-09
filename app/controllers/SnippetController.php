@@ -10,6 +10,7 @@ class SnippetController extends BaseController {
 		//check if the user is logged in
         $this->beforeFilter('auth');        
 	}
+
     
     /**
      * Get My Snippets.
@@ -25,13 +26,36 @@ class SnippetController extends BaseController {
 	}
    
     /**
-     * Get Public Snippets.
+     * Get Public Snippets and Search.
      *
      * @return View
      */
 
 	public function getPublicSnippet()
 	{
+		//assign the search term to query variable
+		$query = e(Request::get('search'));
+        
+        //if there has been a query submitted
+		if($query)
+		{
+			// find snippet where state = public, 
+			// where title is like $query
+			// OR where description is like $query 
+			// order by id desc and paginate results 
+			$code_snippets = Snippet::where('state', '=', 'public')
+			                            ->where('title', 'LIKE', "%$query%")
+			                            ->orWhere('description', 'LIKE', "%$query%")
+			                            ->orderBy('id', 'DESC')	
+			                        	->paginate(15);
+
+            //return view with results
+			return View::make('dash.snippets.public', compact('code_snippets'));
+
+		}
+
+
+		//pull all snippets where state = public and return the view
 		$code_snippets = Snippet::where('state', '=', 'public')->orderBy('id', 'DESC')->paginate(15);
 		return View::make('dash.snippets.public', compact('code_snippets'));
 	}
@@ -78,6 +102,7 @@ class SnippetController extends BaseController {
 
 	}
 
+
     /**
      * Get Add Snippet.
      *
@@ -119,12 +144,11 @@ class SnippetController extends BaseController {
 			return Redirect::back()->withInput()->withErrors($validator);
 		}
 
-        //create new snippet - elequent you beuty
+        //create new snippet - elequent you beauty
 		$code_snippet = new Snippet();
 
         //update snippet data
 		$code_snippet->title           = e(Input::get('title')); //e() sanitizes input, best way in laravel apparently..
-
 		$code_snippet->description     = e(Input::get('description'));
 		$code_snippet->code_snippet    = e(Input::get('code_snippet'));
 		$code_snippet->tags            = e(Input::get('tags'));
@@ -243,10 +267,10 @@ class SnippetController extends BaseController {
                return Redirect::back()->withInput()->withErrors($validator);
             }
 
-
         
             //update snippet
 		    $code_snippet->title           = e(Input::get('title'));
+
 		    $code_snippet->description     = e(Input::get('description'));
 		    $code_snippet->code_snippet    = e(Input::get('code_snippet'));
 		    $code_snippet->tags            = e(Input::get('tags'));
@@ -325,4 +349,7 @@ class SnippetController extends BaseController {
 	    }
 
 	}
+
+
+
 }

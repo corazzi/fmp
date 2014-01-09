@@ -33,6 +33,7 @@
 {{-- Font Awesome --}}
 <link href="{{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
+<link href="{{ asset('assets/css/bootstrap-dialog.css') }}" rel="stylesheet">
 {{-- Base Styles --}}
 <link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
 <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
@@ -100,6 +101,7 @@
 {{-- Base Javascript --}}
 <script src="{{ asset('assets/js/jquery.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/js/bootstrap-dialog.js') }}"></script>
 {{-- Tags Javasctipt --}}
 <script src="{{ asset('assets/js/bootstrap-tagsinput.min.js') }}"></script>
 <script src="{{ asset('assets/js/app.js') }}"></script> 

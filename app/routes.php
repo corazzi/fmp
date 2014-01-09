@@ -82,11 +82,10 @@ Route::group(array('prefix' => 'private'), function()
 Route::group(array('prefix' => 'snippets'), function()
 { 
     # Public Snippets
-    Route::get('', array('as' => 'public-snippets', 'uses' => 'SnippetController@getPublicSnippet'));
+    Route::get('/', array('as' => 'public-snippets', 'uses' => 'SnippetController@getPublicSnippet'));
 
     # View Public Snippet
     Route::get('{slug}', array('as' => 'view-public-snippet', 'uses' => 'SnippetController@getViewPublicSnippet'));
-
 
 });
 

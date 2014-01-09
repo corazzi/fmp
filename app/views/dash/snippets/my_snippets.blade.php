@@ -14,7 +14,7 @@
 		
 		<div class="pull-right" style="width:30%;margin:10px 0;">		
 			
-			{{-- <form class="navbar-form" role="search">
+		<form>
 		        
 		        <div class="input-group">
 			        <input type="text" class="form-control" placeholder="Search" name="srch-term"  required>
@@ -23,7 +23,7 @@
 			        </div>
 		        </div>
 
-		    </form> --}}
+		    </form> 
 
 
 

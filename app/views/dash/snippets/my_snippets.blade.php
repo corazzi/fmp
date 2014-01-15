@@ -5,32 +5,37 @@
 
 {{-- Page content --}}
 @section('content')
+
 <div class="row">
 	<div class="col-md-12">
 		
 		<h3 class="pull-left">My Snippets</h3>
 
-		{{-- Example Search Box --}}
-		
-		<div class="pull-right" style="width:30%;margin:10px 0;">		
+		@if ($code_snippets->count())    
+
+		{{-- Search Box --}}
+
+		<div class="pull-right" style="width:30%;margin:10px 0;">
 			
-		<form>
-		        
-		        <div class="input-group">
-			        <input type="text" class="form-control" placeholder="Search" name="srch-term"  required>
-			        <div class="input-group-btn">
-				        <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-			        </div>
-		        </div>
+			{{ Form::open(['method' => 'GET']) }}
 
-		    </form> 
+		    <div class="input-group">
+			    
+			    <input class="form-control"  placeholder="Search..." name="search" type="search"  required>	
 
+			    <div class="input-group-btn">
+				    <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+			    </div>
 
+		    </div>
 
-	    </div>		
+            {{ Form::close() }}
+
+		</div>
 	
 	</div>
 </div>
+
 <div class="row">
     <div class="col-md-12">
 
@@ -54,14 +59,14 @@
 
 	            @foreach ($code_snippets as $snippet)
 
-	            <tr>
-	            	<td>{{ $id++ }}</td>
-	            	<td><a href="{{ route('view-private-snippet', $snippet->slug) }}">{{ $snippet->title }}</a></td>
-	            	<td>{{ $snippet->description }}</td>
-	            	<td>{{ $snippet->state }}</td>
-	            	<td>{{ $snippet->humanCreatedAt }}</td>
-	            	<td><a href="{{ route('edit-snippet', $snippet->id) }}">Edit</a> | <a href="{{ route('delete-snippet', $snippet->id) }}">Delete</a></td>
-	            </tr>
+	                <tr>
+	            	    <td>{{ $id++ }}</td>
+	            	    <td><a href="{{ route('view-private-snippet', $snippet->slug) }}">{{ $snippet->title }}</a></td>
+	            	    <td>{{ $snippet->description }}</td>
+	            	    <td>{{ $snippet->state }}</td>
+	            	    <td>{{ $snippet->humanCreatedAt }}</td>
+	            	    <td><a href="{{ route('edit-snippet', $snippet->id) }}">Edit</a> | <a href="{{ route('delete-snippet', $snippet->id) }}">Delete</a></td>
+	                </tr>
 
 	            @endforeach
 
@@ -77,5 +82,18 @@
 
     </div>
 </div>
+
+@else
+
+<div class="row">
+	<div class="col-md-12">
+		
+		<h3>My Snippets</h3>
+		<p>Well Hello, looks like you havnt save any snippets with us yet. Why not create one now? <a href="{{ route('add-snippet') }}">Add Snippet</a></p> 
+
+	</div>
+</div>
+
+@endif
 
 @stop

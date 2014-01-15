@@ -1,17 +1,17 @@
 @extends('../../layout/dashboard')
 
 {{-- Page title --}}
-@section('title', 'Search Results | Public Snippets')
+@section('title', 'Search Results | My Snippets')
 
 {{-- Page content --}}
 @section('content')
 
-@if ($code_snippets->count())
-
 <div class="row">
 	<div class="col-md-12">
 
-		<h3 class="pull-left">@if (Request::get('search')) {{ Request::get('search') }} @elseif (Request::get('author')) {{ Request::get('author') }} @endif</h3>
+		@if ($code_snippets->count())
+		
+		<h3 class="pull-left">{{ Request::get('search') }}</h3>
 
 		{{-- Search Box --}}
 
@@ -56,12 +56,13 @@
 	            
 	            @foreach ($code_snippets as $snippet)
 
-	                <tr>            	
-	            	    <td>{{ $id++ }}</td>            	
-	            	    <td><a href="{{ route('view-public-snippet', $snippet->slug) }}">{{ $snippet->title }}</a></td>
+	                <tr>
+	            	    <td>{{ $id++ }}</td>
+	            	    <td><a href="{{ route('view-private-snippet', $snippet->slug) }}">{{ $snippet->title }}</a></td>
 	            	    <td>{{ $snippet->description }}</td>
-	            	    <td><a href="{{ route('public-snippets') }}?author={{ $snippet->author; }}">{{ $snippet->author }}</a></td>
+	            	    <td>{{ $snippet->state }}</td>
 	            	    <td>{{ $snippet->humanCreatedAt }}</td>
+	            	    <td><a href="{{ route('edit-snippet', $snippet->id) }}">Edit</a> | <a href="{{ route('delete-snippet', $snippet->id) }}">Delete</a></td>
 	                </tr>
 
 	            @endforeach
@@ -83,7 +84,7 @@
 	<div class="col-md-12">
 		
 		<h3>{{ Request::get('search') }}</h3>
-		<p>No snippets returned <a href="{{ route('public-snippets') }}">Go Back</a></p> 
+		<p>No snippets returned <a href="{{ route('my-snippets') }}">Go Back</a></p> 
 
 	</div>
 </div>

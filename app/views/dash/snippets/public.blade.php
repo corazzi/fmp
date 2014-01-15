@@ -5,10 +5,11 @@
 
 {{-- Page content --}}
 @section('content')
+
+@if ($code_snippets->count())
+
 <div class="row">
 	<div class="col-md-12">
-
-		@if ($code_snippets->count())
 		
 		<h3 class="pull-left">Public Snippets</h3>
 
@@ -39,8 +40,6 @@
 <div class="row">
     <div class="col-md-12">
 
-    	
-
         <div class="table-responsive">
             <table class="table table-hover">
 
@@ -51,32 +50,24 @@
 		            <th>Description</th>
 		            <th>Author</th>
 		            <th>Created</th> 
-		            <th>Updated</th>                                        
+                                       
 	            </thead>
 
 	            <tbody>
 
 	            <?php $id = $code_snippets->getFrom(); ?>
-
 	            
 	            @foreach ($code_snippets as $snippet)
 
-	            <tr>
-	            	
-	            	<td>{{ $id++ }}</td>
-	            
-
-	            	
-	            	<td><a href="{{ route('view-public-snippet', $snippet->slug) }}">{{ $snippet->title }}</a></td>
-	            	<td>{{ $snippet->description }}</td>
-	            	<td><a href="members/{{ $snippet->author; }}">{{ $snippet->author }}</a></td>
-	            	<td>{{ $snippet->humanCreatedAt }}</td>
-	            	<td>{{ $snippet->humanUpdatedAt }}</td>
-	            </tr>
+	                <tr>
+	            	    <td>{{ $id++ }}</td>
+	            	    <td><a href="{{ route('view-public-snippet', $snippet->slug) }}">{{ $snippet->title }}</a></td>
+	            	    <td>{{ $snippet->description }}</td>
+	            	    <td><a href="?author={{ $snippet->author; }}">{{ $snippet->author }}</a></td>
+	            	    <td>{{ $snippet->humanCreatedAt }}</td>
+	                </tr>
 
 	            @endforeach
-
-	         
 
 	            </tbody>                
             
@@ -86,13 +77,21 @@
         {{-- Pagination --}}
         <?php echo $code_snippets->links(); ?>
 
-        @else
-
-        <p>No snippets returned <a href="{{ route('public-snippets') }}"><- Go Back</a></p> <div class="text-warning">(going to do this as a flash message eventually)</div>
-
-        @endif
-
     </div>
 </div>
+
+@else
+
+<div class="row">
+	<div class="col-md-12">
+
+        <h3>Public Snippets</h3>
+        <p>There are currently no public snippets to view, why not create one <a href="{{ route('add-snippet') }}">Click Here</a>.</p>
+
+	</div>
+</div>
+
+
+@endif
 
 @stop

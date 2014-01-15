@@ -20,8 +20,31 @@ class SnippetController extends BaseController {
 
 	public function getMySnippet()
 	{
+		$search_term = Request::get('search');
+
+
+		if ($search_term) {
+
+			// find snippet where snippet user_id = sentry user_id, 
+			// where title is like $query
+			// OR where description is like $query 
+			// order by id desc and paginate results 
+			
+			$code_snippets = Snippet::where('user_id', '=', Sentry::getUser()->id)
+			                            ->where('title', 'LIKE', "%$search_term%")
+			                            ->orWhere('description', 'LIKE', "%$search_term%")
+			                            ->orderBy('id', 'DESC')	
+			                        	->paginate(10);
+
+			return View::make('dash.snippets.my_search', compact('code_snippets'));
+		}
+
+	
        
-        $code_snippets = Snippet::where('user_id', '=',  Sentry::getUser()->id)->orderBy('id', 'DESC')->paginate(10);
+        $code_snippets = Snippet::where('user_id', '=',  Sentry::getUser()->id)
+                                    ->orderBy('id', 'DESC')
+                                    ->paginate(10);
+
 		return View::make('dash.snippets.my_snippets', compact('code_snippets'));
 	}
    
@@ -33,37 +56,51 @@ class SnippetController extends BaseController {
 
 	public function getPublicSnippet()
 	{
-		//assign the search term to query variable
-		$query = e(Request::get('search'));
+		//assign the search term to query
+		$search_term = Request::get('search');
+
+		$author = Request::get('author');
         
         //if there has been a query submitted
-		if($query)
+		if($search_term)
 		{
 			// find snippet where state = public, 
 			// where title is like $query
 			// OR where description is like $query 
 			// order by id desc and paginate results 
 			$code_snippets = Snippet::where('state', '=', 'public')
-			                            ->where('title', 'LIKE', "%$query%")
-			                            ->orWhere('description', 'LIKE', "%$query%")
+			                            ->where('title', 'LIKE', "%$search_term%")
+			                            ->orWhere('description', 'LIKE', "%$search_term%")
 			                            ->orderBy('id', 'DESC')	
 			                        	->paginate(15);
 
             //return view with results
-			return View::make('dash.snippets.public', compact('code_snippets'));
+			return View::make('dash.snippets.public_search', compact('code_snippets'));
 
+		} 
+		elseif ($author)
+		{
+			$code_snippets = Snippet::where('state', '=', 'public')
+			                            ->where('author', '=', $author)
+			                            ->orderBy('id', 'DESC')
+			                            ->paginate(15);
+
+			return View::make('dash.snippets.public_search', compact('code_snippets'));
 		}
 
 
 		//pull all snippets where state = public and return the view
-		$code_snippets = Snippet::where('state', '=', 'public')->orderBy('id', 'DESC')->paginate(15);
+		$code_snippets = Snippet::where('state', '=', 'public')
+		                            ->orderBy('id', 'DESC')
+		                            ->paginate(15);
+
 		return View::make('dash.snippets.public', compact('code_snippets'));
 	}
 
     /**
      * Get My View Snippet.
      *
-     * @return View
+     * @return View 
      */
 
 
@@ -71,14 +108,57 @@ class SnippetController extends BaseController {
 	{
 
         $snippet_data = Snippet::where('slug', $slug)->first();
+        $snippet_user = Snippet::where('slug', $slug)->pluck('user_id');
+		$snippet_state = Snippet::where('slug', $slug)->pluck('state');
+        
+        //because im using slugs the majority of the below 
+        //doesnt really need to be here, as they would have
+        //to guess the slug of another users snippet to view it
+        //but its here anyway for that extra added security :D
 
-        //check if the snippet exists, if not redirect with error
-        if (is_null($snippet_data))
+        //lets see if the snippet exists at all
+		if(is_null($snippet_data))
         {
-        	return Redirect::to('my-snippets')->with('error', Lang::get('features/snippets.not_found'));
+        	//if it doesnt exist show error and redirect
+        	return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.not_found'));
+        } 
+        else
+        {
+        	
+        	if ($snippet_state == 'private') 
+            {
+			    
+			    //if the user owns the snippet
+			    if(Sentry::getUser()->id != $snippet_user)
+			    {
+				    
+				    //if the dont own it, they shouldnt be here
+				    return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.view_check'));
+
+			    } 
+			    else
+			    {
+				
+				    //if they do own it then show away!
+				    return View::make('dash.snippets.view_snippet',  compact('snippet_data'));
+			    }
+
+            }
+            elseif ($snippet_state == 'public' && $snippet_user == Sentry::getUser()->id) 
+            {
+                //if its public and the user owns it show them it in my snippets
+			    return View::make('dash.snippets.view_snippet', compact('snippet_data'));
+            }
+            else
+            {
+
+			    //if the snippet is public but they dont own it
+			    //redirect to public snippets 
+			    return Redirect::route('public-snippets');
+		
+            }
         }
 
-        return View::make('dash/snippets/view_snippet', compact('snippet_data'));
 	}
 
     /**
@@ -109,10 +189,8 @@ class SnippetController extends BaseController {
      * @return View
      */
 
-
 	public function getAddSnippet()
 	{
-
 		return View::make('dash.snippets.add_snippet');
 	}
 
@@ -125,8 +203,7 @@ class SnippetController extends BaseController {
 	public function postAddSnippet()
 	{
 
-
-		//declare the rules for the form validation
+     	//declare the rules for the form validation
 		$rules = array(
 			'title'               => 'required|min:3',
 			'description'         => 'required|min:10',
@@ -349,7 +426,5 @@ class SnippetController extends BaseController {
 	    }
 
 	}
-
-
 
 }

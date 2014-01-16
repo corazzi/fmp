@@ -127,6 +127,7 @@ class AuthController extends BaseController {
                 'last_name'  => ucfirst(Input::get('last_name')),
                 'email'      => Input::get('email'),
                 'password'   => Input::get('password'),
+      
             ));
 
             // Data to be used on the email view

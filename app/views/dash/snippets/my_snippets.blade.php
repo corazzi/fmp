@@ -47,9 +47,9 @@
 	            <thead>
 		            <th>ID</th>
 		            <th>Name</th>
-		            <th>Description</th>
 		            <th>Privacy</th>
-		            <th>Created</th>                       
+		            <th>Created</th>
+		            <th>Updated</th>                       
 		            <th>Action</th>                             
 	            </thead>
 
@@ -62,9 +62,9 @@
 	                <tr>
 	            	    <td>{{ $id++ }}</td>
 	            	    <td><a href="{{ route('view-private-snippet', $snippet->slug) }}">{{ $snippet->title }}</a></td>
-	            	    <td>{{ $snippet->description }}</td>
 	            	    <td>{{ $snippet->state }}</td>
 	            	    <td>{{ $snippet->humanCreatedAt }}</td>
+	            	    <td>{{ $snippet->humanUpdatedAt }}</td>
 	            	    <td><a href="{{ route('edit-snippet', $snippet->id) }}">Edit</a> | <a href="{{ route('delete-snippet', $snippet->id) }}">Delete</a></td>
 	                </tr>
 

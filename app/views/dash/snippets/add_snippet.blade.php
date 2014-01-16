@@ -18,19 +18,19 @@
 
         <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
     	    <label for="title">Title</label>
-    	    <input type="text" class="form-control" name="title" value="{{ Input::old('title') }}">
+    	    <input type="text" class="form-control" name="title" value="{{ Input::old('title') }}" placeholder="Snippet title..">
     	    {{ $errors->first('title', '<span class="help-block">:message</span>') }}
         </div>
 
         <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
             <label for="description">Description</label>
-            <textarea type="text" rows="2" class="form-control" name="description">{{ Input::old('description') }}</textarea>
+            <textarea type="text" rows="2" class="form-control" name="description" placeholder="Brief description of the snippet.. (optional)">{{ Input::old('description') }}</textarea>
             {{ $errors->first('description', '<span class="help-block">:message</span>') }}
         </div>
 
         <div class="form-group {{ $errors->has('code_snippet') ? 'has-error' : '' }}">
             <label for="code_snippet">Code Snippet</label>
-            <textarea type="text" cols="50" rows="7" id="code" class="form-control" name="code_snippet">public static function() { echo &quot;Hello World!&quot;; }</textarea>
+            <textarea type="text" cols="50" rows="7" id="code" class="form-control" name="code_snippet" placeholder="public static function() { echo &quot;Hello World!&quot;; }">{{ Input::old('code_snippet') }}</textarea>
             {{ $errors->first('code_snippet', '<span class="help-block">:message</span>') }}
         </div>
 
@@ -41,6 +41,12 @@
             <label class="radio-inline">
                 {{ Form::radio('state', 'private'); }}  Private
             </label>
+        </div>
+
+        <div class="form-group {{ $errors->has('credit') ? 'has-error' : '' }}">
+            <label for="credit">Credit</label>
+            <input type="text" class="form-control" name="credit" value="{{ Input::old('credit') }}" placeholder="Credit to.. (optional)">
+            {{ $errors->first('credit', '<span class="help-block">:message</span>') }}
         </div>
                
         <div class="form-group {{ $errors->has('tags') ? 'has-error' : '' }}">

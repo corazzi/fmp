@@ -20,8 +20,8 @@ class SnippetController extends BaseController {
 
 	public function getMySnippet()
 	{
+		
 		$search_term = Request::get('search');
-
 
 		if ($search_term) {
 
@@ -96,6 +96,7 @@ class SnippetController extends BaseController {
 
 		return View::make('dash.snippets.public', compact('code_snippets'));
 	}
+
 
     /**
      * Get My View Snippet.
@@ -206,7 +207,6 @@ class SnippetController extends BaseController {
      	//declare the rules for the form validation
 		$rules = array(
 			'title'               => 'required|min:3',
-			'description'         => 'required|min:10',
 			'code_snippet'        => 'required',
 			'tags'                => 'required',
 		);
@@ -228,6 +228,7 @@ class SnippetController extends BaseController {
 		$code_snippet->title           = e(Input::get('title')); //e() sanitizes input, best way in laravel apparently..
 		$code_snippet->description     = e(Input::get('description'));
 		$code_snippet->code_snippet    = e(Input::get('code_snippet'));
+		$code_snippet->credit          = e(Input::get('credit'));
 		$code_snippet->tags            = e(Input::get('tags'));
 		$code_snippet->user_id         = Sentry::getId();
 		$code_snippet->author          = Sentry::getUser()->first_name.' '.Sentry::getUser()->last_name;

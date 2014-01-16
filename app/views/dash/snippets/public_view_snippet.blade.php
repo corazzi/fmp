@@ -13,12 +13,27 @@
 
         <h5>Title</h5>
     	<div class="text-success">{{ $snippet_data->title; }}</div>
-    	<h5>Description</h5>
+
+        
+        @if ($snippet_data->description)
+    	
+        <h5>Description</h5>
     	<div class="text-success">{{ $snippet_data->description; }}</div>
+        
+        @endif
+
     	<h5>Code Snippet</h5>
     	<div class="text-success">{{ $snippet_data->code_snippet; }}</div>
-    	<h5>Created at</h5>
-    	<div class="text-success">{{ $snippet_data->created_at; }}</div>
+        
+        @if ($snippet_data->credit)
+        
+        <h5>Credit</h5>
+        <div class="text-success">{{ $snippet_data->credit; }}</div>
+        
+        @endif
+
+    	<h5>Updated</h5>
+    	<div class="text-success">{{ $snippet_data->humanUpdatedAt; }}</div>
     	<h5>Author</h5>
     	<div class="text-danger">{{ $snippet_data->author; }}</div>
 

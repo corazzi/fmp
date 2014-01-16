@@ -87,6 +87,8 @@ Route::group(array('prefix' => 'snippets'), function()
     # View Public Snippet
     Route::get('{slug}', array('as' => 'view-public-snippet', 'uses' => 'SnippetController@getViewPublicSnippet'));
 
+    Route::get('users/{slug}', array('as' => 'user-snippets', 'uses' => 'UserController@getPublicSnippet'));
+
 });
 
 

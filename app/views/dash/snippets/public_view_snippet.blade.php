@@ -23,7 +23,7 @@
         @endif
 
     	<h5>Code Snippet</h5>
-    	<div class="text-success">{{ $snippet_data->code_snippet; }}</div>
+    	<p>{{ $snippet_data->code_snippet; }}</p>
         
         @if ($snippet_data->credit)
         

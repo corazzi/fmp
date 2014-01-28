@@ -65,7 +65,7 @@
 	            	    <td>{{ $snippet->state }}</td>
 	            	    <td>{{ $snippet->humanCreatedAt }}</td>
 	            	    <td>{{ $snippet->humanUpdatedAt }}</td>
-	            	    <td><a href="{{ route('edit-snippet', $snippet->id) }}">Edit</a> | <a href="{{ route('delete-snippet', $snippet->id) }}">Delete</a></td>
+	            	    <td><a href="{{ route('edit-snippet', $snippet->id) }}">Edit</a> | <a onClick="deleteDialog()" class="btn_delete" href="{{ route('delete-snippet', $snippet->id) }}">Delete</a></td>
 	                </tr>
 
 	            @endforeach

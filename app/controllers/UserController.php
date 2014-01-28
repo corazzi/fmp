@@ -17,9 +17,14 @@ class UserController extends BaseController {
 
     public function getUserSnippets($slug)
     {
-        $code_snippets = User::where('slug', $slug);
+        $user_id = User::where('slug', $slug)->pluck('id');
 
-        return View::make('dash.snippets.public', compact('code_snippets'))
+        $code_snippets = Snippet::where('user_id', '=', $user_id)
+                                     ->where('state', '=', 'public')
+                                     ->orderBy('id', 'DESC')
+                                     ->paginate('15');
+
+        return View::make('dash.snippets.public', compact('code_snippets'));
 
     }
 

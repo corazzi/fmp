@@ -11,10 +11,37 @@
 <div class="row">
     <div class="col-md-6">
 
-    	<p>dump everything for now<p>
+    	<h5>Title</h5>
 
-    	{{ var_dump($snippet_data) }}
+    	{{ $snippet_data->title }}
 
+    	@if ($snippet_data->description)
+        
+        <h5>Description</h5>
+
+        @endif
+
+    	{{ $snippet_data->description }}
+
+    	<h5>Code Snippet</h5>
+
+    	{{ $snippet_data->code_snippet }}
+
+    	<h5>Privacy</h5>
+
+    	{{ $snippet_data->state }}
+
+    	@if ($snippet_data->credit)
+
+    	<h5>Credit</h5>
+
+    	{{ $snippet_data->credit }}
+
+    	@endif
+
+    	<h5>Tags</h5>
+
+    	{{ $snippet_data->tags }}
 
     </div>
 </div>

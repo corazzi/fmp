@@ -58,8 +58,6 @@ class SnippetController extends BaseController {
 	{
 		//assign the search term to query
 		$search_term = Request::get('search');
-
-		$author = Request::get('author');
         
         //if there has been a query submitted
 		if($search_term)
@@ -78,21 +76,14 @@ class SnippetController extends BaseController {
 			return View::make('dash.snippets.public_search', compact('code_snippets'));
 
 		} 
-		elseif ($author)
-		{
-			$code_snippets = Snippet::where('state', '=', 'public')
-			                            ->where('author', '=', $author)
-			                            ->orderBy('id', 'DESC')
-			                            ->paginate(15);
-
-			return View::make('dash.snippets.public_search', compact('code_snippets'));
-		}
 
 
 		//pull all snippets where state = public and return the view
 		$code_snippets = Snippet::where('state', '=', 'public')
 		                            ->orderBy('id', 'DESC')
 		                            ->paginate(15);
+
+	
 
 		return View::make('dash.snippets.public', compact('code_snippets'));
 	}
@@ -231,7 +222,7 @@ class SnippetController extends BaseController {
 		$code_snippet->credit          = e(Input::get('credit'));
 		$code_snippet->tags            = e(Input::get('tags'));
 		$code_snippet->user_id         = Sentry::getId();
-		$code_snippet->author          = Sentry::getUser()->first_name.' '.Sentry::getUser()->last_name;
+		$code_snippet->author          = Sentry::getUser()->username;
 
 
         //stop script kiddies editing the source on the front-end 
@@ -330,7 +321,6 @@ class SnippetController extends BaseController {
             //declare rules for the form (same as addSnippet)
 		    $rules = array(
 			    'title'               => 'required|min:3',
-			    'description'         => 'required|min:10',
 			    'code_snippet'        => 'required',
 			    'tags'                => 'required',
 		    );
@@ -348,9 +338,9 @@ class SnippetController extends BaseController {
         
             //update snippet
 		    $code_snippet->title           = e(Input::get('title'));
-
 		    $code_snippet->description     = e(Input::get('description'));
 		    $code_snippet->code_snippet    = e(Input::get('code_snippet'));
+		    $code_snippet->credit          = e(Input::get('credit'));
 		    $code_snippet->tags            = e(Input::get('tags'));
 
             if(Input::get('state'))

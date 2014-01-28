@@ -11,7 +11,7 @@
 <div class="row">
 	<div class="col-md-12">
 
-		<h3 class="pull-left">@if (Request::get('search')) {{ Request::get('search') }} @elseif (Request::get('author')) {{ Request::get('author') }} @endif</h3>
+		<h3 class="pull-left">{{ Request::get('search') }}</h3>
 
 		{{-- Search Box --}}
 

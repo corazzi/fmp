@@ -62,14 +62,14 @@
                 
                 {{-- Desktop Icon --}}
                 <a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown">
-                    <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim(Sentry::getUser()->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->first_name }}{{ Sentry::getUser()->last_name }}">  
-                    {{ Sentry::getUser()->first_name }} {{ Sentry::getUser()->last_name }}
+                    <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim(Sentry::getUser()->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->username }}">  
+                        {{ Sentry::getUser()->username }}
                     <b class="caret"></b>
                 </a>
 
                 {{-- Phone Icon --}}
                 <a href="#" class="dropdown-toggle visible-xs" data-toggle="dropdown">
-                    <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim(Sentry::getUser()->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->first_name }}{{ Sentry::getUser()->last_name }}">  
+                    <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim(Sentry::getUser()->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->username }}">  
                     <b class="caret"></b>
                 </a>
 
@@ -101,7 +101,7 @@
 {{-- Base Javascript --}}
 <script src="{{ asset('assets/js/jquery.js') }}"></script>
 <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap-dialog.js') }}"></script>
+
 {{-- Tags Javasctipt --}}
 <script src="{{ asset('assets/js/bootstrap-tagsinput.min.js') }}"></script>
 <script src="{{ asset('assets/js/app.js') }}"></script> 
@@ -114,6 +114,8 @@
   js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
+
+
 
 </body>
 </html>

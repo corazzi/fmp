@@ -101,10 +101,8 @@ class AuthController extends BaseController {
 
         // Declare the rules for the form validation
         $rules = array(
-            'first_name'       => 'required|min:3',
-            'last_name'        => 'required|min:3',
+            'username'       => 'required|min:3',
             'email'            => 'required|email|unique:users',
-            'email_confirm'    => 'required|email|same:email',
             'password'         => 'required|between:3,32',
             'password_confirm' => 'required|same:password',
         );
@@ -123,8 +121,7 @@ class AuthController extends BaseController {
         {
             // Register the user
             $user = Sentry::register(array(
-                'first_name' => ucfirst(Input::get('first_name')),
-                'last_name'  => ucfirst(Input::get('last_name')),
+                'username'   => Input::get('username'),
                 'email'      => Input::get('email'),
                 'password'   => Input::get('password'),
       
@@ -139,8 +136,8 @@ class AuthController extends BaseController {
             // Send the activation code through email  
             Mail::send('emails.register-activate', $data, function($m) use ($user)
             {
-                $m->to($user->email, $user->first_name . ' ' . $user->last_name);
-                $m->subject('Welcome ' . $user->first_name);
+                $m->to($user->email, $user->username);
+                $m->subject('Welcome ' . $user->username);
             });
 
             // Redirect to the register page
@@ -238,7 +235,7 @@ class AuthController extends BaseController {
             // Send the activation code through email
             Mail::send('emails.forgot-password', $data, function($m) use ($user)
             {
-                $m->to($user->email, $user->first_name . ' ' . $user->last_name);
+                $m->to($user->email, $user->username);
                 $m->subject('Account Password Recovery');
             });
         }

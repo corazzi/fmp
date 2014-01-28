@@ -51,7 +51,7 @@
                
         <div class="form-group {{ $errors->has('tags') ? 'has-error' : '' }}">
             <label for="tags">Tags</label>  
-            <input type="text" placeholder="Add tags"  data-role="tagsinput" name="tags" class="form-control" value="{{ Input::old('tags') }}"/>
+            <input type="text" placeholder="Add tags"  data-role="tagsinput" name="tags" class="form-control tags" value="{{ Input::old('tags') }}"/>
             {{ $errors->first('tags', '<span class="help-block">:message</span>') }}
         </div>
 

@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="col-md-12">
-Welcome to your dashboard, {{ Sentry::getUser()->first_name }}
+Welcome to your dashboard, {{ Sentry::getUser()->username }}
 
 
 <h5>Snippets</h5>

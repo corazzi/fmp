@@ -17,32 +17,19 @@
         {{-- CSRF Token --}}
         <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-        {{-- First Name --}}
-        <div class="form-group{{ $errors->first('first_name', ' has-error') }}">
-            <label for="first_name">First Name</label>
-            <input type="text" name="first_name" id="first_name" value="{{ Input::old('first_name') }}" class="form-control"/>
-            {{ $errors->first('first_name', '<span class="help-block">:message</span>') }}
+        {{-- Username --}}
+        <div class="form-group{{ $errors->first('username', ' has-error') }}">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" value="{{ Input::old('username') }}" class="form-control"/>
+            {{ $errors->first('username', '<span class="help-block">:message</span>') }}
         </div>
 
-        {{-- Last Name --}}
-        <div class="form-group{{ $errors->first('last_name', ' has-error') }}">
-            <label for="last_name">Last Name</label>
-            <input type="text" name="last_name" id="last_name" value="{{ Input::old('last_name') }}" class="form-control"/>
-            {{ $errors->first('last_name', '<span class="help-block">:message</span>') }}      
-        </div>
 
         {{-- Email --}}
         <div class="form-group{{ $errors->first('email', ' has-error') }}">
             <label for="email">Email</label>              
             <input type="text" name="email" id="email" value="{{ Input::old('email') }}" class="form-control"/>
             {{ $errors->first('email', '<span class="help-block">:message</span>') }}             
-        </div>
-
-        {{-- Email Confirm --}}
-        <div class="form-group{{ $errors->first('email_confirm', ' has-error') }}">
-            <label for="email_confirm">Confirm Email</label>
-            <input type="text" name="email_confirm" id="email_confirm" value="{{ Input::old('email_confirm') }}" class="form-control"/>
-            {{ $errors->first('email_confirm', '<span class="help-block">:message</span>') }}
         </div>
 
         {{-- Password --}}

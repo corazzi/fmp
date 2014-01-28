@@ -3,42 +3,26 @@
         <div class="col-md-12">
 
         @if ($errors->any())
-        <div class="alert alert-danger alert-block">
+        <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4>Error</h4>
-            Please check the form below for errors
+            <strong>Error</strong>
+            <p>Please check the form below for errors </p>
         </div>
         @endif
 
         @if ($message = Session::get('success'))
-        <div class="alert alert-success alert-block">
+        <div class="alert alert-success alert-dismissable">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4>Success</h4>
-            {{ $message }}
+            <strong>Success</strong>
+            <p> {{ $message }} </p>
         </div>
         @endif
 
         @if ($message = Session::get('error'))
-        <div class="alert alert-danger alert-block">
+        <div class="alert alert-danger alert-dismissable">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4>Error</h4>
-            {{ $message }}
-        </div>
-        @endif
-
-        @if ($message = Session::get('warning'))
-        <div class="alert alert-warning alert-block">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4>Warning</h4>
-            {{ $message }}
-        </div>
-        @endif
-
-        @if ($message = Session::get('info'))
-        <div class="alert alert-info alert-block">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <h4>Info</h4>
-            {{ $message }}
+            <strong>Error</strong>
+            <p> {{ $message }} </p>
         </div>
         @endif
 

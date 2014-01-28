@@ -24,9 +24,10 @@
 
         <div class="form-group {{ $errors->has('description') ? 'has-error' : '' }}">
             <label for="description">Description</label>
-            <textarea type="text" rows="2" class="form-control" name="description">{{ Input::old('description', $code_snippet->description) }}</textarea>
+            <textarea type="text" rows="2" class="form-control" name="description" placeholder="Brief description of the snippet.. (optional)">{{ Input::old('description', $code_snippet->description) }}</textarea>
             {{ $errors->first('description', '<span class="help-block">:message</span>') }}
         </div>
+
 
         <div class="form-group {{ $errors->has('code_snippet') ? 'has-error' : '' }}">
             <label for="code_snippet">Code Snippet</label>
@@ -43,6 +44,11 @@
             </label>
         </div>
 
+        <div class="form-group {{ $errors->has('credit') ? 'has-error' : '' }}">
+            <label for="credit">Credit</label>
+            <input type="text" class="form-control" name="credit" value="{{ Input::old('credit', $code_snippet->credit) }}" placeholder="Credit to.. (optional)">
+            {{ $errors->first('credit', '<span class="help-block">:message</span>') }}
+        </div>
 
         <div class="form-group {{ $errors->has('tags') ? 'has-error' : '' }}">
             <label for="tags">Tags</label>  

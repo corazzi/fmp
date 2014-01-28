@@ -61,7 +61,7 @@
 	                <tr>
 	            	    <td>{{ $id++ }}</td>
 	            	    <td><a href="{{ route('view-public-snippet', $snippet->slug) }}">{{ $snippet->title }}</a></td>
-	            	    <td><a href="?author={{ $snippet->author; }}">{{ $snippet->author }}</a></td>
+	            	    <td><a href="">{{ $snippet->author }}</a></td>
 	            	    <td>{{ $snippet->humanCreatedAt }}</td>
 	                </tr>
 

@@ -29,6 +29,7 @@
 
         {{-- Form Actions --}} 
         <button type="submit" class="btn btn-default">Submit</button>
+        
         <a class="btn" href="{{ route('home') }}">Cancel</a>
 
     </form>

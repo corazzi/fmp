@@ -7,7 +7,11 @@
 */
 
 # Home!
-Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
+Route::get('/',  array('as' => 'beta', 'uses' => 'HomeController@getBeta'));
+Route::post('/',  'HomeController@postBeta');
+
+
+Route::get('/home', array('as' => 'home', 'uses' => 'HomeController@index'));
 
 /*
 |--------------------------------------------------------------------------
@@ -93,5 +97,6 @@ Route::group(array('prefix' => 'snippets'), function()
 });
 
 
-
+# Forgot Password
+Route::get('me', array('as' => 'my-profile', 'uses' => 'ProfileController@getMyProfile'));
 

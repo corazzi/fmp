@@ -25,5 +25,44 @@ class HomeController extends BaseController {
 
 		return View::make('home');
 	}
+
+	public function getBeta()
+	{
+		return View::make('beta_page');
+	}
+
+	public function postBeta()
+	{
+		//declare the rules for the form validation
+		$rules = array(
+			'email'               => 'required|min:3'
+		);
+
+		//create a new validator instance from our validation rules
+		$validator = Validator::make(Input::all(), $rules);
+
+		//if validation fails, we'll exit the operation now.
+		if ($validator->fails())
+		{
+			//oops.. something went wrong
+			return Redirect::back()->withInput()->withErrors($validator);
+		}
+
+		$beta_email = new Beta();
+
+		$beta_email->email = e(Input::get('email')); //e() sanitizes input
+
+	    if($beta_email->save())
+		{
+			//redirect back to the beta page
+			return Redirect::route("beta")->with('success', 'Email submitted successfully');
+		}
+
+		//redirect to beta page for now
+		return Redirect::route('beta')->with('error', 'Something went wrong please try again.');
+
+
+
+	}
 	
 }

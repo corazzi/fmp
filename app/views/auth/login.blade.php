@@ -6,7 +6,8 @@
 {{-- Page content --}}
 @section('content')
 
-<div class="col-md-4">
+<div class="row">
+    <div class="large-4 columns">
 
 	<div class="page-header">
         <h3>Login</h3>
@@ -45,6 +46,7 @@
         <a href="{{ route('forgot-password') }}" class="btn btn-link">I forgot my password</a>
 
     </form>
+</div>
 </div>
 
 @stop

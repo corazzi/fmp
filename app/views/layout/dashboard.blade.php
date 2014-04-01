@@ -1,121 +1,87 @@
-<!--
-    VIEWING THE SOURCE?
-    That's cool, keep learning!
--->
-
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en" >
 <head>
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="@yield('meta_description')">
-<meta name="author" content="@yield('meta_author')">
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('assets/ico/apple-touch-icon.png') }}">
-<link rel="shortcut icon" href="{{ asset('assets/ico/favicon.png') }}">
 
-{{-- Facebook OG --}}
-<meta property="og:title" content="@yield('title') | WSLR"/>
-<meta property="og:description" content="@yield('meta_description')"/>
-<meta property="og:image" content="{{ asset('assets/ico/apple-touch-icon.png') }}">
-<meta property="og:url" content="{{ URL::current() }}"/>
-<meta property="og:site_name" content="WSLR"/>
+<title>@yield('title') | webrepo.io</title>
 
-{{-- Twitter Cards --}}
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="{{ asset('assets/ico/apple-touch-icon.png') }}">
-<meta name="twitter:description" content="@yield('meta_description')">
-<meta name="twitter:site" content="@WSLR">
-<meta name="twitter:creator" content="@WSLR">
+{{-- Stylesheets --}}
+<link rel="stylesheet" href="{{ asset('assets/css/normalize.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/foundation.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/font-awesome.min.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
 
-<title>@yield('title') | WSLR</title>
-
-{{-- Font Awesome --}}
-<link href="{{ asset('assets/css/font-awesome.min.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/css/bootstrap-tagsinput.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/css/bootstrap-dialog.css') }}" rel="stylesheet">
-{{-- Base Styles --}}
-<link href="{{ asset('assets/css/bootstrap.css') }}" rel="stylesheet">
-<link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
-
-<!--[if lt IE 9]>
-    <script src="{{ asset('assets/js/html5shiv.js') }}"></script>
-    <script src="{{ asset('assets/js/respond.min.js') }}"></script>
-<![endif]-->
-
-<!--[if IE 7]>
-    <link rel="stylesheet" href="{{ asset('assets/css/font-awesome-ie7.min.css') }}">
-<![endif]-->
+<script src="{{ asset('assets/js/vendor/modernizr.js') }}"></script>
 
 </head>
 <body>
 
 
+<nav class="top-bar" data-topbar>
 
-<div class="navbar navbar-inverse navbar-static-top" role="navigation">     
-    <div class="container">
- 
-        <a class="navbar-brand" href="{{ route('dashboard') }}">Project name</a>
-              
-        <ul class="nav navbar-nav pull-right">             
-            <li class="dropdown">
+    <ul class="title-area">
+        <li class="name">
+            <h1><a href="{{ route('home') }}">webrepo.io</a></h1>
+        </li>
+        <li class="toggle-topbar menu-icon"><a href="#"></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+        
+        <!-- Right Nav Section -->
+        <ul class="right">
+            
+            <li class="has-dropdown">
+
+                <a href="#">{{ Sentry::getUser()->username }}</a>
+
                 
-                {{-- Desktop Icon --}}
-                <a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown">
-                    <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim(Sentry::getUser()->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->username }}">  
-                        {{ Sentry::getUser()->username }}
-                    <b class="caret"></b>
-                </a>
-
-                {{-- Phone Icon --}}
-                <a href="#" class="dropdown-toggle visible-xs" data-toggle="dropdown">
-                    <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim(Sentry::getUser()->email))) }}" class="nav-gravatar" alt="{{ Sentry::getUser()->username }}">  
-                    <b class="caret"></b>
-                </a>
-
-
-                <ul class="dropdown-menu">
-                    <li><a href="">test</a></li>
-                    <li><a href="">test</a></li>
-                    <li class="divider"></li>
+                <ul class="dropdown">
                     <li><a href="{{ route('logout') }}"> Logout</a></li>
                 </ul>
-
-
             </li>
         </ul>
 
-    </div>
-</div>
-    
-        
-{{-- Notifications --}}
-@include('layout/notifications')
+    </section>
 
-<div class="container">
+</nav>
+
+<div class="green-bar"></div>
+
+<div class="main-nav">
+
+    <div class="profile-card">
+        <img src="//www.gravatar.com/avatar/{{ md5(strtolower(trim(Sentry::getUser()->email))) }}">
+        <h4 style="margin:  0">{{ Sentry::getUser()->username }}</h4>
+        <span style="font-size:12px;">Web Developer</span>
+
+    </div>
+    <ul class="side-nav custom">
+        <li><a href="#"><i class="fa fa-code"></i> Code Snippets</a></li>
+        <li><a href="#"><i class="fa fa-book"></i> User Guides</a></li>
+        <li><a href="#"><i class="fa fa-tag"></i> News Management</a></li>
+        <li><a href="#"><i class="fa fa-external-link"></i> Resources</a></li>
+    </ul>
+</div>
+
+<div class="main-content">
+
     {{-- Content --}}
     @yield('content')
+
 </div>
+
         
+{{-- Javascript --}}
+<script src="{{ asset('assets/js/vendor/jquery.js') }}"></script>
+<script src="{{ asset('assets/js/foundation.min.js') }}"></script>
 
-{{-- Base Javascript --}}
-<script src="{{ asset('assets/js/jquery.js') }}"></script>
-<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-
-{{-- Tags Javasctipt --}}
-<script src="{{ asset('assets/js/bootstrap-tagsinput.min.js') }}"></script>
-<script src="{{ asset('assets/js/app.js') }}"></script> 
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-
+<script>
+    $(document).foundation();
+</script>
 
 </body>
 </html>

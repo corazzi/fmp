@@ -6,7 +6,10 @@
 {{-- Page content --}}
 @section('content')
 
-<div class="col-md-12">
+<div class="row">
+
+	<div class="large-13 columns" style="background:black;color:white;">
+		
 Welcome to your dashboard, {{ Sentry::getUser()->username }}
 
 
@@ -17,27 +20,43 @@ Welcome to your dashboard, {{ Sentry::getUser()->username }}
 	<li><a href="{{ URL::to('snippets') }}">Public Snippets</a></li>
 </ul>
 
-<h5>Tutorials</h5>
+<h5>User Guides</h5>
 
 <ul>
-	<li><a href="">Community Tutorials</a></li>
-	<li><a href="">Staff Submitted Tutorials</a></li>
+	<li><a href="">View Guides</a></li>
+	<li><a href="">Add Guide</a></li>
 </ul>
 
 <h5>News</h5>
+
 <ul>
 	<li><a href="">Add Feed</a></li>
-	<li><a href="">View Web News</a></li>
+	<li><a href="">View News</a></li>
 </ul>
 
 <h5>Profile</h5>
+
 <ul>
 	<li><a href="">My Profile</a></li>
 	<li><a href="">Edit Profile</a></li>
 </ul>
 
+<h5>Resource Bucket</h5>
+
+<ul>
+	<li><a href="">Add Resource</a></li>
+	<li><a href="">View Resources</a></li>
+</ul>
+
+
+
+
+	</div>
 
 
 </div>
+
+
+
 
 @stop

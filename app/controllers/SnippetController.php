@@ -183,7 +183,7 @@ class SnippetController extends BaseController {
 
 	public function getAddSnippet()
 	{
-		return View::make('dash.snippets.add_snippet');
+		return View::make('dash.snippets.add_snippet', compact('code_snippet'));
 	}
 
     /**
@@ -197,7 +197,8 @@ class SnippetController extends BaseController {
 
      	//declare the rules for the form validation
 		$rules = array(
-			'title'               => 'required|min:3',
+			'title'               => array('required', 'min:3'),
+			'description'         => 'required|min:3',
 			'code_snippet'        => 'required',
 			'tags'                => 'required',
 		);
@@ -213,7 +214,7 @@ class SnippetController extends BaseController {
 		}
 
         //create new snippet - elequent you beauty
-		$code_snippet = new Snippet();
+		
 
         //update snippet data
 		$code_snippet->title           = e(Input::get('title')); //e() sanitizes input, best way in laravel apparently..

@@ -32,11 +32,19 @@ class AuthController extends BaseController {
         // Create a new validator instance from our validation rules
         $validator = Validator::make(Input::all(), $rules);
 
+        $input = Input::all();//Get all the old input.
+        $input['autoOpenModal'] = 'true';//Add the auto open indicator flag as an input.
+
+
+
         // If validation fails, we'll exit the operation now.
         if ($validator->fails())
         {
             // Ooops.. something went wrong
-            return Redirect::back()->withInput()->withErrors($validator);
+            return Redirect::back()
+    ->withErrors($validator)
+    ->withInput($input);//Passing the old input and the flag.
+
         }
 
         try
@@ -73,7 +81,7 @@ class AuthController extends BaseController {
         }
 
         // Ooops.. something went wrong
-        return Redirect::back()->withInput()->withErrors($this->messageBag);
+        return Redirect::back()->withInput($input)->withErrors($this->messageBag);
     }
 
     /**

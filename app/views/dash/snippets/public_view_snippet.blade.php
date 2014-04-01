@@ -9,7 +9,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="large-6 columns">
 
         <h5>Title</h5>
     	<div class="text-success">{{ $snippet_data->title; }}</div>

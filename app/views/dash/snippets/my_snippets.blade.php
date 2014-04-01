@@ -6,51 +6,53 @@
 {{-- Page content --}}
 @section('content')
 
-<div class="row">
-	<div class="col-md-12">
-		
-		<h3 class="pull-left">My Snippets</h3>
+@if ($code_snippets->count())  
 
-		@if ($code_snippets->count())    
+<div class="row content-holder">
+	<div class="snippets large-12 columns">
+
+		<h3>My Snippets</h3>
 
 		{{-- Search Box --}}
 
-		<div class="pull-right" style="width:30%;margin:10px 0;">
+		<div class="search-box">
 			
 			{{ Form::open(['method' => 'GET']) }}
 
-		    <div class="input-group">
-			    
-			    <input class="form-control"  placeholder="Search..." name="search" type="search"  required>	
-
-			    <div class="input-group-btn">
-				    <button class="btn btn-info" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-			    </div>
-
+            <div class="row">
+                <div class="large-12 columns">
+                    <div class="row collapse">
+                        <div class="small-10 columns">
+                          <input type="text"  placeholder="Search..." name="search" type="search"  required>
+                        </div>
+                        <div class="small-2 columns">
+                            <button class="button postfix" type="submit">Go</button>
+                        </div>
+                    </div>
+                </div>
 		    </div>
 
-            {{ Form::close() }}
+		    {{ Form::close() }}
 
 		</div>
-	
+
 	</div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
+<div class="row content-holder">
+    <div class="large-12 columns">
 
-        <div class="table-responsive">
-            <table class="table table-hover">
+            <table>
 
             	<?php $i = $code_snippets->getFrom(); ?>
 	                             
 	            <thead>
 		            <th>ID</th>
-		            <th>Name</th>
-		            <th>Privacy</th>
-		            <th>Created</th>
-		            <th>Updated</th>                       
-		            <th>Action</th>                             
+		            <th width="500">Name</th>
+		            <th width="100">Privacy</th>
+		            <th width="150">Created</th>
+		            <th width="150">Updated</th>                       
+		            <th width="150">Action</th>                             
 	            </thead>
 
 	            <tbody>
@@ -75,7 +77,6 @@
 	            </tbody>                
             
             </table>
-        </div> <!-- ./end of table -->
 
         {{-- Pagination --}}
         <?php echo $code_snippets->links(); ?>
@@ -86,7 +87,7 @@
 @else
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="large-12 columns">
 		
 		<h3>My Snippets</h3>
 		<p>Well Hello, looks like you havnt save any snippets with us yet. Why not create one now? <a href="{{ route('add-snippet') }}">Add Snippet</a></p> 

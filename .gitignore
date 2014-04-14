@@ -7,3 +7,11 @@ Thumbs.db
 /app/config/database.php
 /app/config/mail.php
 /app/config/app.php
+/public/assets/bower_components
+/public/assets/bower.json
+/public/assets/bowerrc.json
+/public/assets/config.codekit
+/public/assets/config.rb
+/public/assets/.sass-cache
+/public/assets/.codekit-cache
+

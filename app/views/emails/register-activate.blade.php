@@ -3,11 +3,11 @@
 @section('content')
 <p>Hello {{ $user->first_name }},</p>
 
-<p>Welcome to Devbox! Please click on the following link to confirm your Devbox account:</p>
+<p>Welcome to Webrepo! Please click on the following link to activate your account:</p>
 
 <p><a href="{{ $activationUrl }}">{{ $activationUrl }}</a></p>
 
-<p>Best regards,</p>
+<p>See you soon,</p>
 
-<p>Devbox Team</p>
+<p>Webrepo.io Team</p>
 @stop

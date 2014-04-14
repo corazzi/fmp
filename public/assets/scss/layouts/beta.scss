@@ -1,0 +1,118 @@
+.beta-body {
+	background:$primary-color;
+	color:white;
+	text-align:center;
+	padding-top:rem-calc(70);
+}
+
+h1,h2,h3,h4,h5,h6 {
+	color:inherit;
+	margin:0;
+}
+
+img.icon {
+    display: block;
+    margin: rem-calc(10) auto;
+    height: auto;
+    width: rem-calc(35);
+}
+
+p.motto {
+    margin: rem-calc(20) 0;
+    font-size: rem-calc(22);
+}
+
+span.green {
+    color: $secondary-color;
+    text-decoration: underline;
+}
+
+.beta-body input[type="text"] {
+	background:none;
+	border: 3px solid white;
+    font-size: rem-calc(18);
+    padding: rem-calc(20) rem-calc(12);
+	-webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+    height:rem-calc(45);
+}
+
+.beta-body input[type="text"]::-webkit-input-placeholder {
+  color: white;
+}
+
+.beta-body input[type="text"]::-ms-input-placeholder {
+  color: white;
+} 
+
+.beta-body input[type="text"]::-moz-placeholder {
+  color: white;
+}
+
+.beta-body input[type="text"]:focus {
+    -webkit-box-shadow:none;
+    -moz-box-shadow:none;
+    box-shadow:none;
+    border-color: white;
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+    color: white;
+}
+
+.beta-body .btn {
+	border: 3px solid $secondary-color;
+	background: $primary-color;
+	color: $secondary-color;
+	margin:0 rem-calc(4);
+	font-weight:$font-norm;
+	font-size: 1.125rem;
+	padding: rem-calc(4) 0;
+	height:rem-calc(45);
+}
+
+.beta-body .btn:hover, 
+.beta-body .btn:focus {
+    color: $primary-color;
+    background:$secondary-color;
+}
+
+
+#countdown {
+    padding: rem-calc(10) 0;
+    font-size: rem-calc(22);
+}
+
+#open {
+    margin:0;
+    font-size: rem-calc(22);
+    padding: rem-calc(5) 0 rem-calc(10) 0;
+}
+
+#time-format {
+    color: $secondary-color;
+}
+
+.error-text {
+	color:$alert-color;
+}
+@media only screen and (max-width: 40em) { 
+    .beta-body .btn {
+    	font-size: rem-calc(15);
+    	padding:0 rem-calc(4);
+    }
+
+    p.motto {
+        margin: rem-calc(20) 0;
+        font-size: rem-calc(18);
+    }
+
+    #open {
+    	font-size: rem-calc(18);
+    }
+
+.beta-body {
+	padding-top:0;
+}
+}

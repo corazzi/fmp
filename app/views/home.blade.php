@@ -4,12 +4,14 @@
 
 @section('content')
 
-
-<div style="background-image:url({{ asset('assets/images/header-bg.jpg') }});background-size: 100%; height:500px;position:relative;">
+<div class="header-bg">
     <div class="row">
         <div class="large-12 columns">
-            <p style="text-align:center;font-size:35px;color:#fff;font-weight:200;padding:2.5rem 0;" class="animated bounceInDown">Welcome to webrepo!</p>
-            <p style="text-align:center;font-size:35px;color:#fff"></p>
+            
+            <p id="welcome-text" class="welcome animated fadeInDownBig">Welcome to webrepo!</p>
+
+            <img id="welcome-image" src="{{ asset('assets/pics/situe/desktop.png') }}">
+
         </div>
     </div>
 </div>
@@ -28,7 +30,7 @@
 
 <div class="sign-up">
 	Why not sign up today?
-	<a data-reveal-id="myModalRegister" class="button btn">Register</a>
+	<a href="{{ route('register') }}" class="button btn">Register</a>
 </div>
 
 <div class="row">
@@ -36,37 +38,64 @@
     <div class="large-12 columns features">
     	<h2>Features</h2>
     	<div class="large-hr"></div>
-    </div>
-
-    <div class="row features-items">
-
-	    <div class="large-3 columns">
-		    <h5>Code Snippets</h5>
-		    <div class="small-hr"></div>
-		    <p>Cras pellentesque in tortor ac sagittis. Praesent fermentum accumsan felis, eu dictum mauris venenatis in.</p>
-	    </div>
-
-	    <div class="large-3 columns">
-		    <h5>User Guides</h5>
-		    <div class="small-hr"></div>
-		    <p>Cras pellentesque in tortor ac sagittis. Praesent fermentum accumsan felis, eu dictum mauris venenatis in.</p>
-	    </div>
-
-	    <div class="large-3 columns">
-		    <h5>News Management</h5>
-		    <div class="small-hr"></div>
-		    <p>Cras pellentesque in tortor ac sagittis. Praesent fermentum accumsan felis, eu dictum mauris venenatis in.</p>
-	    </div>
-
-	    <div class="large-3 columns">
-		    <h5>Resource Bucket</h5>
-		    <div class="small-hr"></div>
-		    <p>Cras pellentesque in tortor ac sagittis. Praesent fermentum accumsan felis, eu dictum mauris venenatis in.</p>
-	    </div>
-
+        <p>Cras pellentesque in tortor ac sagittis. Praesent fermentum accumsan felis, eu dictum mauris venenatis in. </p>
     </div>
 
 </div>
+
+<div class="row feature-items">
+
+	<div class="large-3 columns feature-item">
+            
+        <div class="home-icon">
+            <i class="fa fa-code fa-2x"></i>
+        </div>
+
+		<h5>Code Snippets</h5>
+		<div class="small-hr"></div>
+		<p>Cras pellentesque in tortor ac sagittis. Praesent fermentum accumsan felis, eu dictum mauris venenatis in.</p>
+
+	</div>
+
+	<div class="large-3 columns feature-item">
+            
+        <div class="home-icon">
+            <i class="fa fa-book fa-2x"></i>
+        </div>
+
+		<h5>User Guides</h5>
+		<div class="small-hr"></div>
+		<p>Cras pellentesque in tortor ac sagittis. Praesent fermentum accumsan felis, eu dictum mauris venenatis in.</p>
+
+	</div>
+
+	<div class="large-3 columns feature-item">
+            
+        <div class="home-icon">
+            <i class="fa fa-tag fa-2x"></i>
+        </div>
+
+		<h5>News Management</h5>
+		<div class="small-hr"></div>
+		<p>Cras pellentesque in tortor ac sagittis. Praesent fermentum accumsan felis, eu dictum mauris venenatis in.</p>
+
+	</div>
+
+	<div class="large-3 columns feature-item">
+            
+        <div class="home-icon">
+            <i class="fa fa-rocket fa-2x"></i>
+        </div>
+
+		<h5>Resource Bucket</h5>
+		<div class="small-hr"></div>
+		<p>Cras pellentesque in tortor ac sagittis. Praesent fermentum accumsan felis, eu dictum mauris venenatis in.</p>
+
+	</div>
+
+</div>
+
+
 
 <div class="footer">
 	<div class="row">
@@ -81,39 +110,65 @@
 	    <div class="large-2 columns">
 	        
 	        <h5>Quick Links</h5>    
-	        
-	        <ul class="square">
-                <li><a>About</a></li>
-                <li><a>Guidelines</a></li>
-                <li><a>TOS</a></li>
-                <li><a>Contact</a></li>    
-            </ul> 
+	       
+            <div class="quick-links">
+	           <ul class="square">
+                    <li><a data-reveal-id="AboutUs">About</a></li>
+                    <li data-reveal-id="SiteGuidelines"><a>Guidelines</a></li>
+                    <li data-reveal-id="TOS"><a>TOS</a></li>   
+                </ul> 
+            </div>
 
         </div>
 
         <div class="large-3 columns">
     	    
-    	    <h5>Lets be social...</h5>
+    	    <h5>Lets be social</h5>
     	    
-    	    <div class="row social">
-    		    <div class="small-4 columns"><b>LOL</b></div>
-    		    <div class="small-4 columns"><b>LOL</b></div>
-    		    <div class="small-4 columns"><b>LOL</b></div>
+    	    <div class="row">
+    		    <div class="small-12 columns">
+
+                    <div class="social">             
+                        <ul>
+                            <li>
+                                <a target="_blank" title="twitter" href="//twitter.com/webrepoio">
+                                    <i class="fa fa-twitter fa-2x"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a target="_blank" title="facebook" href="//www.facebook.com/pages/webrepoio/250484425128352">
+                                    <i class="fa fa-facebook fa-2x"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a target="_blank" title="google" href="#">
+                                    <i class="fa fa-google-plus fa-2x"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>  
+                 
+                </div>
     	    </div>
 
         </div>
 
         <div class="large-4 columns">
     	    
-    	    <h5>Stay up to date!</h5>
-    	    <p style="padding:0.5rem 0;">Cras pellentesque in tortor ac sagittis. Cras pellentesque in tortor ac sagittis.</p>
+    	    <h5>Stay up to date</h5>
+    	    <p>Cras pellentesque in tortor ac sagittis. Cras pellentesque in tortor ac sagittis.</p>
             
+            <form method="post" action="{{ route('newsletter') }}">
+
+            {{-- CSRF Token --}} 
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
             <div class="row">
                 <div class="large-12 columns">
                     <div class="row collapse">
                         
                         <div class="small-9 columns">
-                            <input type="text"  placeholder="Email Address.." name="search" type="search"  required>
+                            <input type="text"  placeholder="Email Address.." name="email"  required>
                         </div>
 
                         <div class="small-3 columns">
@@ -124,6 +179,8 @@
                 </div>
 		    </div>
 
+            </form>
+
         </div>
 
     </div>
@@ -132,55 +189,31 @@
 
 {{-- Modals --}}
 
-<div id="myModalLogin" class="reveal-modal small" data-reveal>
+<div id="AboutUs" class="reveal-modal small" data-reveal>
    
-    <h2>Login</h2>
-        
-        <form method="post" action="{{ route('login') }}">
-                
-        
-        {{-- CSRF Token --}} 
-        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+    <h3>About Webrepo</h3>
 
-        {{-- Email --}} 
-
-        <label for="email"> Email
-            <input type="text" name="email" id="email" value="{{ Input::old('email') }}" />
-        </label>
-        {{ $errors->first('email', '<label class="error">:message</label>') }}
-    
-       {{-- Password --}}
-
-        <label for="password"> Email
-            <input type="password" name="password" id="password" value=""/>
-        </label>
-        {{ $errors->first('password', '<label class="error">:message</label>') }}  
-
-        {{-- Remember me --}} 
-        <input name="remember-me" value="1" id="remember-me" type="checkbox"><label for="remember-me">Remember me</label>
-
-        <hr>
-
-        {{-- Form Actions --}} 
-        <button type="submit" class="button">Sign in</button>
-        <a href="{{ route('forgot-password') }}">I forgot my password</a>        
-        <a class="close-reveal-modal">&#215;</a>
-
-</div>
-
-
-<div id="myModalRegister" class="reveal-modal small" data-reveal>
-    <h2>Register</h2>
     <a class="close-reveal-modal">&#215;</a>
+        
 </div>
 
 
-<div class="copyright">
-    <div class="row">
-        <div class="large-12 columns">
-            <p>2014, webrepo.io all rights reservers la de da.</p>
-        </div>
-    </div>
+<div id="SiteGuidelines" class="reveal-modal small" data-reveal>
+    
+    <h3>Site Guidlines</h3>
+    
+    <a class="close-reveal-modal">&#215;</a>
+
 </div>
+
+<div id="TOS" class="reveal-modal small" data-reveal>
+    
+    <h3>Terms of Service</h3>
+    
+    <a class="close-reveal-modal">&#215;</a>
+    
+</div>
+
+
 
 @stop

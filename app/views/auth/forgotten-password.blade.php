@@ -1,39 +1,49 @@
 @extends('../layout/default')
 
 {{-- Page title --}}
-@section('title')
 @section('title', 'Forgot Password')
 
 {{-- Page content --}}
 @section('content')
 
-<div class="col-md-4">
+<div class="row">  
+    <div class="large-offset-3 large-6 columns auth">
 
-    <div class="page-header">
-        <h3>Forgot Password</h3>
-    </div>
-
-    <form method="post" action="" role="form">
+        <h2>Forgot Password</h2>
         
-        {{-- CSRF TOKEN --}} 
-        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+        <div class="holder">
 
-        {{-- Email --}} 
-        <div class="form-group{{ $errors->first('email', ' has-error') }}">
-            <label  for="email">Email</label>
-            <input type="text" name="email" id="email" value="{{ Input::old('email') }}" class="form-control"/>
-            {{ $errors->first('email', '<span class="help-block">:message</span>') }}
+            {{-- Notifications --}}
+            @include('layout/frontend_notifications')
+
+            <form method="post" action="" role="form">
+        
+            {{-- CSRF TOKEN --}} 
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+
+            {{-- Email --}} 
+            <div class="row">
+                <div class="large-12 columns">
+                    <label for="email">Email</label>
+                    <input class="{{ $errors->first('email', ' error') }}" type="text" name="email" value="{{ Input::old('email') }}" />
+                    {{ $errors->first('email', '<small class="error">:message</small>') }}
+                </div>
+            </div>
+
+            <hr>
+
+            {{-- Form Actions --}} 
+            <button type="submit" class="auth-btn large-12 medium-12 small-12">Submit</button>    
+            
+            </form>
+
         </div>
 
-        <hr>
+        <a href="{{ route('home') }}">Go back</a>
 
-        {{-- Form Actions --}} 
-        <button type="submit" class="btn btn-default">Submit</button>
-        
-        <a class="btn" href="{{ route('home') }}">Cancel</a>
 
-    </form>
-
+    </div>
 </div>
+
 
 @stop

@@ -32,8 +32,8 @@ class AuthController extends BaseController {
         // Create a new validator instance from our validation rules
         $validator = Validator::make(Input::all(), $rules);
 
-        $input = Input::all();//Get all the old input.
-        $input['autoOpenModal'] = 'true';//Add the auto open indicator flag as an input.
+        // $input = Input::all();//Get all the old input.
+        // $input['autoOpenModal'] = 'true';//Add the auto open indicator flag as an input.
 
 
 
@@ -41,9 +41,8 @@ class AuthController extends BaseController {
         if ($validator->fails())
         {
             // Ooops.. something went wrong
-            return Redirect::back()
-    ->withErrors($validator)
-    ->withInput($input);//Passing the old input and the flag.
+            // return Redirect::back()->withErrors($validator)->withInput($input);//Passing the old input and the flag.
+            return Redirect::to('login')->withInput()->withErrors($validator);
 
         }
 
@@ -81,7 +80,8 @@ class AuthController extends BaseController {
         }
 
         // Ooops.. something went wrong
-        return Redirect::back()->withInput($input)->withErrors($this->messageBag);
+        // return Redirect::back()->withInput($input)->withErrors($this->messageBag);
+        return Redirect::to('login')->withInput()->withErrors($this->messageBag);
     }
 
     /**
@@ -122,7 +122,7 @@ class AuthController extends BaseController {
         if ($validator->fails())
         {
             // Ooops.. something went wrong
-            return Redirect::back()->withInput()->withErrors($validator);
+            return Redirect::to('register')->withInput()->withErrors($validator);
         }
 
         try
@@ -134,6 +134,11 @@ class AuthController extends BaseController {
                 'password'   => Input::get('password'),
       
             ));
+
+            // Find the standard user group 
+            $userGroup = Sentry::findGroupById(2);
+            // Assign the standard user group to the user
+            $user->addGroup($userGroup);
 
             // Data to be used on the email view
             $data = array(
@@ -159,7 +164,7 @@ class AuthController extends BaseController {
         }
 
         // Ooops.. something went wrong
-        return Redirect::back()->withInput()->withErrors($this->messageBag);
+        return Redirect::to('register')->withInput()->withErrors($this->messageBag);
 
 	}
 
@@ -250,9 +255,7 @@ class AuthController extends BaseController {
                 
         catch (Cartalyst\Sentry\Users\UserNotFoundException $e)
         {
-            // Even though the email was not found, we will pretend
-            // we have sent the password reset code through email,
-            // this is a security measure against hackers.
+            return Redirect::route('forgot-password')->with('error', Lang::get('No account exists with that email.'));
         }
 
         //  Redirect to the forgot password

@@ -1,51 +1,42 @@
 
 
         @if ($errors->any())
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" style="margin: 10px 0;">
-
-                    <div class="alert alert-danger alert-dismissable">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong>Error</strong>
-                        <p>Please check the form below for errors </p>
-                    </div>
-
+        <div class="row">
+            <div class="large-12 columns">
+        
+                <div data-alert class="alert-box alert radius">
+                    <strong>Error</strong> Please check the form below for errors      
+                    <a href="#" class="close">&times;</a>
                 </div>
+
             </div>
         </div>
         @endif
 
         @if ($message = Session::get('success'))
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" style="margin: 10px 0;">
-                
-                <div class="alert alert-success alert-dismissable">      
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Success</strong>                    
-                    <p> {{ $message }} </p>                
+        <div class="row">
+            <div class="large-12 columns">
+        
+                <div data-alert class="alert-box success radius">
+                    <strong>Success</strong> {{ $message }}     
+                    <a href="#" class="close">&times;</a>
                 </div>
 
-                </div>
             </div>
         </div>
         @endif
 
         @if ($message = Session::get('error'))
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12" style="margin: 10px 0;">                
-
-                <div class="alert alert-danger alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert">&times;</button>
-                    <strong>Error</strong>
-                    <p> {{ $message }} </p>
+        <div class="row">
+            <div class="large-12 columns">
+        
+                <div data-alert class="alert-box alert radius">
+                    <strong>Error</strong> {{ $message }}      
+                    <a href="#" class="close">&times;</a>
                 </div>
 
-                </div>
             </div>
-        </div>
+        </div>       
         @endif
 
 

@@ -6,47 +6,62 @@
 {{-- Page content --}}
 @section('content')
 
-<div class="row">
-    <div class="large-4 columns">
 
-	<div class="page-header">
-        <h3>Login</h3>
-    </div>
 
-    <form method="post" action="{{ route('login') }}" role="form">
+<div class="row">  
+    <div class="large-offset-3 large-6 columns auth">
+
+        <h2>Login</h2>
+
+        <div class="holder">
+
+            {{-- Notifications --}}
+            @include('layout/frontend_notifications')
+
+            <form method="post" action="{{ route('login') }}" role="form">
                 
-        {{-- CSRF Token --}} 
-        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+            {{-- CSRF Token --}} 
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-        {{-- Email --}} 
-        <div class="form-group{{ $errors->first('email', ' has-error') }}">
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email" value="{{ Input::old('email') }}" class="form-control" />
-            {{ $errors->first('email', '<span class="help-block">:message</span>') }}
-        </div>
+           {{-- Email --}}
+            <div class="row">
+                <div class="large-12 columns">
+                    <label for="email">Email</label>
+                    <input class="{{ $errors->first('email', ' error') }}" type="text" name="email" value="{{ Input::old('email') }}" />                    
+                    {{ $errors->first('email', '<small class="error">:message</small>') }}
+                </div>
+            </div>
 
-        {{-- Password --}} 
-        <div class="from-group{{ $errors->first('password', ' has-error') }}">
-            <label for="password">Password</label> 
-            <input type="password" name="password" id="password" value="" class="form-control"/>
-            {{ $errors->first('password', '<span class="help-block">:message</span>') }}
-        </div>
 
-        {{-- Remember me --}} 
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" name="remember-me" id="remember-me" value="1" /> Remember me
-            </label>
-        </div>
+            {{-- Password --}} 
+            <div class="row">
+                <div class="large-12 columns">
+                    <label for="password">Password</label>
+                    <input class="{{ $errors->first('password', ' error') }}" type="password" name="password" />
+                    {{ $errors->first('password', '<small class="error">:message</small>') }}
+                </div>
+            </div>
+
+            {{-- Remember me --}} 
+            <div class="row">
+                <div class="large-6 columns">
+                    <input name="remember-me" id="remember-me" value="1" type="checkbox"><label for="remember-me">Remember Me</label>
+                </div>
+            </div>
         
-        <hr>
+            <hr>
 
-        {{-- Form Actions --}} 
-        <button type="submit" class="btn btn-default">Sign in</button>
-        <a href="{{ route('forgot-password') }}" class="btn btn-link">I forgot my password</a>
+            {{-- Form Actions --}} 
+            <button type="submit" class="auth-btn large-12 medium-12 small-12">Login</button>
+            
 
-    </form>
-</div>
+            </form>
+
+        </div>
+
+        <a href="{{ route('forgot-password') }}">Uh oh i forgot my password?!</a>
+
+    </div>
 </div>
 
 @stop

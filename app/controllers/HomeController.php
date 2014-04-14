@@ -62,7 +62,37 @@ class HomeController extends BaseController {
 		return Redirect::route('beta')->with('error', 'Something went wrong please try again.');
 
 
+	}
 
+	public function postNewsletter()
+	{
+		$rules = array(
+			'email' => 'required|min:3', 
+		);
+
+		$validator = Validator::make(Input::all(), $rules);
+
+
+		$input = Input::all();//Get all the old input.
+        $input['Success'] = 'true';//Add the auto open indicator flag as an input.
+
+		if ($validator->fails()) 
+		{
+			// return Redirect::back()->withInput()->withErrors($validator);
+			return Redirect::back()->withErrors($validator)->withInput($input);//Passing the old input and the flag.
+		}
+
+		$news_email = new Beta();
+		$news_email->email = e(Input::get('email')); 
+
+	    if($news_email->save())
+		{
+			//redirect back to the beta page
+			return Redirect::route('home')->withInput($input);
+		}
+
+		//redirect to beta page for now
+		return Redirect::route('home')->with('error', 'Something went wrong please try again.');
 	}
 	
 }

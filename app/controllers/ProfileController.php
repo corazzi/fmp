@@ -12,7 +12,7 @@ class ProfileController extends BaseController {
 
     public function getMyProfile()
     {
-        return View::make('dash.profile.me');
+        return View::make('dash.profile.home');
     }
 
 }

@@ -5,37 +5,51 @@
 
 {{-- Page content --}}
 @section('content')
-<div class="col-md-6">
 
-	<div class="page-header">
-        <h3>Create New Password</h3>
-    </div>
+<div class="row">  
+    <div class="large-offset-3 large-6 columns auth">
 
-	<form method="post" action="" autocomplete="off" role="form">
+        <h2>Create New Password</h2>
+
+        <div class="holder">
+
+            {{-- Notifications --}}
+            @include('layout/frontend_notifications')
+
+	       <form method="post" action="" autocomplete="off" role="form">
         
-        {{-- CSRF TOKEN --}}
-        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                {{-- CSRF TOKEN --}}
+                <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
-        {{-- New Password --}}
-        <div class="form-group {{ $errors->first('password', ' has-error') }}">
-            <label for="password">New Password</label>
-            <input type="password" name="password" id="password" value="{{ Input::old('password') }}" class="form-control"/>
-            {{ $errors->first('password', '<span class="help-block">:message</span>') }}       
-        </div>
+                {{-- New Password --}}
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label for="password">Password</label>
+                        <input class="{{ $errors->first('password', ' error') }}" type="password" name="password" />
+                        {{ $errors->first('password', '<small class="error">:message</small>') }}
+                    </div>
+                </div>
 
-        {{-- Password Confirm --}}
-        <div class="form-group {{ $errors->first('password_confirm', ' has-error') }}">
-            <label for="password_confirm">Password Confirmation</label>
-            <input type="password" name="password_confirm" id="password_confirm" value="{{ Input::old('password_confirm') }}" class="form-control"/>
-            {{ $errors->first('password_confirm', '<span class="help-block">:message</span>') }}
-        </div>
+                {{-- Password Confirm --}}
+                <div class="row">
+                    <div class="large-12 columns">
+                        <label for="password_confirm">Password</label>
+                        <input class="{{ $errors->first('password_confirm', ' error') }}" type="password" name="password_confirm" />
+                        {{ $errors->first('password_confirm', '<small class="error">:message</small>') }}
+                    </div>
+                </div>
 
-        <hr>
+                <hr>
 
-        {{-- Form Actions --}}               
-        <button type="submit" class="btn btn-default">Submit</button>
-        <a class="btn" href="{{ route('home') }}">Cancel</a>
+                {{-- Form Actions --}}               
+                <button type="submit" class="auth-btn large-12 medium-12 small-12">Confirm</button>
          
-    </form>
+            </form>
+
+        </div>
+
+        <a href="{{ route('home') }}">Go back</a>
+
+    </div>
 </div>
 @stop

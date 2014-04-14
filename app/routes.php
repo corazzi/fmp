@@ -7,11 +7,14 @@
 */
 
 # Home!
-Route::get('/',  array('as' => 'beta', 'uses' => 'HomeController@getBeta'));
-Route::post('/',  'HomeController@postBeta');
 
 
-Route::get('/home', array('as' => 'home', 'uses' => 'HomeController@index'));
+Route::get('/beta',  array('as' => 'beta', 'uses' => 'HomeController@getBeta'));
+Route::post('/beta',  'HomeController@postBeta');
+
+
+
+Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +25,8 @@ Route::get('/home', array('as' => 'home', 'uses' => 'HomeController@index'));
 # Login
 Route::get('login', array('as' => 'login', 'uses' => 'AuthController@getLogin'));
 Route::post('login', 'AuthController@postLogin');
+
+Route::post('newsletter', array('as' => 'newsletter', 'uses' => 'HomeController@postNewsletter'));
 
 # Register
 Route::get('register', array('as' => 'register', 'uses' => 'AuthController@getRegister'));
@@ -97,6 +102,19 @@ Route::group(array('prefix' => 'snippets'), function()
 });
 
 
-# Forgot Password
-Route::get('me', array('as' => 'my-profile', 'uses' => 'ProfileController@getMyProfile'));
+Route::group(array('prefix' => 'me'), function()
+{ 
+    # Me Home
+    Route::get('/', array('as' => 'me-home', 'uses' => 'ProfileController@getMyProfile'));
+
+    # View Public Snippet
+    Route::get('{slug}', array('as' => 'view-public-snippet', 'uses' => 'SnippetController@getViewPublicSnippet'));
+
+    // works but im going to handle it differently
+    // Route::get('users/{slug}', array('as' => 'user-snippets', 'uses' => 'UserController@getUserSnippets'));
+
+});
+
+
+
 

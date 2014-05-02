@@ -7,7 +7,7 @@
     <div class="large-8 large-offset-2 medium-10 medium-offset-1 small-12 columns beta-holder">
 
         {{-- Notifications --}}
-        @include('layout/frontend_notifications')
+        @include('layout/notifications/frontend_notifications')
 
         <img class="icon" src="{{ asset('assets/pics/icons/beta_code.png') }}">
 
@@ -36,7 +36,6 @@
                             </div>
                         </div>
                     </div>
-
 
                     {{ $errors->first('email', '<span class="error-text">^ :message</span>') }}
 

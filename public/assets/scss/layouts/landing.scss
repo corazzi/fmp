@@ -12,6 +12,10 @@
 	font-weight:$font-thin;
 }
 
+.home-notif .alert-box {
+	margin:0;
+}
+
 .header-bg {
 	background-image:url('../images/dots_bg.png'); 
 	height:auto;
@@ -281,9 +285,15 @@
     color: black;
 }
 
+textarea.error,
+textarea.error:focus,
 input.error, 
 input.error:focus {
-    border:2px solid $alert-color;
+    border:1px solid $alert-color;
+}
+
+label.error {
+	color:$alert-color;
 }
 
 

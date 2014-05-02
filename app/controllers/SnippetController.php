@@ -3,58 +3,22 @@
 class SnippetController extends BaseController {
 
 
+
 	public function __construct()
 	{
 		parent::__construct();
-
 		//check if the user is logged in
         $this->beforeFilter('auth');        
 	}
-
     
+
     /**
-     * Get My Snippets.
+     * Get all published snippets.
      *
      * @return View
      */
 
-	public function getMySnippet()
-	{
-		
-		$search_term = Request::get('search');
-
-		if ($search_term) {
-
-			// find snippet where snippet user_id = sentry user_id, 
-			// where title is like $query
-			// OR where description is like $query 
-			// order by id desc and paginate results 
-			
-			$code_snippets = Snippet::where('user_id', '=', Sentry::getUser()->id)
-			                            ->where('title', 'LIKE', "%$search_term%")
-			                            ->orWhere('description', 'LIKE', "%$search_term%")
-			                            ->orderBy('id', 'DESC')	
-			                        	->paginate(10);
-
-			return View::make('dash.snippets.my_search', compact('code_snippets'));
-		}
-
-	
-       
-        $code_snippets = Snippet::where('user_id', '=',  Sentry::getUser()->id)
-                                    ->orderBy('id', 'DESC')
-                                    ->paginate(10);
-
-		return View::make('dash.snippets.my_snippets', compact('code_snippets'));
-	}
-   
-    /**
-     * Get Public Snippets and Search.
-     *
-     * @return View
-     */
-
-	public function getPublicSnippet()
+	public function getSnippets()
 	{
 		//assign the search term to query
 		$search_term = Request::get('search');
@@ -72,8 +36,10 @@ class SnippetController extends BaseController {
 			                            ->orderBy('id', 'DESC')	
 			                        	->paginate(15);
 
+	
+
             //return view with results
-			return View::make('dash.snippets.public_search', compact('code_snippets'));
+			return View::make('dash.snippets.snippets_search', compact('code_snippets'));
 
 		} 
 
@@ -81,99 +47,268 @@ class SnippetController extends BaseController {
 		//pull all snippets where state = public and return the view
 		$code_snippets = Snippet::where('state', '=', 'public')
 		                            ->orderBy('id', 'DESC')
-		                            ->paginate(15);
+		                            ->paginate(9);
 
-	
 
-		return View::make('dash.snippets.public', compact('code_snippets'));
+		return View::make('dash.snippets.snippets_home', compact('code_snippets'));
 	}
 
 
     /**
-     * Get My View Snippet.
-     *
-     * @return View 
-     */
-
-
-	public function getViewSnippet($slug)
-	{
-
-        $snippet_data = Snippet::where('slug', $slug)->first();
-        $snippet_user = Snippet::where('slug', $slug)->pluck('user_id');
-		$snippet_state = Snippet::where('slug', $slug)->pluck('state');
-        
-        //because im using slugs the majority of the below 
-        //doesnt really need to be here, as they would have
-        //to guess the slug of another users snippet to view it
-        //but its here anyway for that extra added security :D
-
-        //lets see if the snippet exists at all
-		if(is_null($snippet_data))
-        {
-        	//if it doesnt exist show error and redirect
-        	return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.not_found'));
-        } 
-        else
-        {
-        	
-        	if ($snippet_state == 'private') 
-            {
-			    
-			    //if the user owns the snippet
-			    if(Sentry::getUser()->id != $snippet_user)
-			    {
-				    
-				    //if the dont own it, they shouldnt be here
-				    return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.view_check'));
-
-			    } 
-			    else
-			    {
-				
-				    //if they do own it then show away!
-				    return View::make('dash.snippets.view_snippet',  compact('snippet_data'));
-			    }
-
-            }
-            elseif ($snippet_state == 'public' && $snippet_user == Sentry::getUser()->id) 
-            {
-                //if its public and the user owns it show them it in my snippets
-			    return View::make('dash.snippets.view_snippet', compact('snippet_data'));
-            }
-            else
-            {
-
-			    //if the snippet is public but they dont own it
-			    //redirect to public snippets 
-			    return Redirect::route('public-snippets');
-		
-            }
-        }
-
-	}
-
-    /**
-     * Get Public View Snippet.
+     * Get snippets by tag.
      *
      * @return View
      */
 
-	public function getViewPublicSnippet($slug)
+	public function getTagSnippets($tag)
+	{
+		
+		//get snippets where tags is like searched tag
+		$code_snippets = Snippet::where('state', '=', 'public')
+		                            ->where('tags', 'like', "%$tag%")
+		                            ->orderBy('id', 'DESC')
+		                            ->paginate(9);
+
+        //reurn the view with snippets and search tag
+		return View::make('dash.snippets.snippets_tags', compact('code_snippets', 'tag'));
+        
+	}
+
+
+
+
+    /**
+     * Get Single Snippet View.
+     *
+     * @return View
+     */
+
+	public function getViewSnippet($slug)
 	{
 
+		//get snippet data from slug
         $snippet_data = Snippet::where('slug', $slug)->first();
 
         //check if the snippet exists, if not redirect with error
         if (is_null($snippet_data))
         {
-        	return Redirect::route('snippets')->with('error',  Lang::get('features/snippets.not_found'));
-        }
+        	Notification::error('That snippet doesnt exist');
 
-        return View::make('dash/snippets/public_view_snippet', compact('snippet_data'));
+        	return Redirect::route('code-snippets');
+        } 
+        else 
+        {
+        	//favorite stuff here
+            $favorites = DB::table('snippets_favorite')->whereUserId(Sentry::getUser()->id)->lists('snippet_id');
+
+            //voting stuff here
+            $ratings = DB::table('snippets_rating')->where('user_id', Sentry::getUser()->id)->where('snippet_id', $snippet_data->id)->get();
+            $good_ratings = DB::table("snippets_rating")->where('snippet_id', $snippet_data->id)->lists('good');
+
+            //comments stuff here
+            $comments = DB::table('snippets_comment')->where('snippet_id', $snippet_data->id)->orderBy('id', 'DESC')->get();
+        
+            //snippet user info 
+            $user = Sentry::findUserById($snippet_data->user_id);
+
+            //snippet tags
+            $tags = explode(',', $snippet_data->tags);
+
+            return View::make('dash/snippets/snippets_view', compact('snippet_data', 'favorites', 'ratings', 'good_ratings', 'user', 'tags', 'comments', 'comment_user'));
+
+        }   
+	}
+
+	/**
+     * Favorite dem snipz.
+     *
+     * @return Redirect 
+     */
+
+
+	public function postFavoriteSnippet($slug)
+	{ 
+		//get snippet id from slug
+		$snippet_id = Snippet::where('slug', $slug)->pluck('id');
+        
+        //relational magic 
+        Sentry::getUser()->snippet_favorites()->attach($snippet_id);
+
+        //toast notifciation 
+        Notification::success('Snippet Favorited!');
+
+        return Redirect::back();
 
 	}
 
+	/**
+     * unFavorite dem snipz.
+     *
+     * @return Redirect 
+     */
+
+
+	public function postUnFavoriteSnippet($slug)
+	{ 
+		//get snippet id from slug
+		$snippet_id = Snippet::where('slug', $slug)->pluck('id');
+
+        //relational magic detach favorite 
+        Sentry::getUser()->snippet_favorites()->detach($snippet_id);
+        
+        //red toast notification
+        Notification::error('Snippet Unfavorited!');
+
+        return Redirect::back();
+	}
+
+
+	/**
+     * Good Content Vote 
+     *
+     * @return Redirect 
+     */
+
+
+	public function postGoodVote($slug)
+	{ 
+		//get snippet id from slug
+		$snippet_id = Snippet::where('slug', $slug)->pluck('id');
+ 
+
+        //get all ratings 
+		$ratings = DB::table('snippets_rating')
+                   ->where('user_id', '=', Sentry::getUser()->id)
+                   ->where('snippet_id', '=', $snippet_id)
+                   ->get();
+
+
+        // if empty this means they havnt rated anything 
+        if (empty($ratings)) 
+        {
+
+        	//lets carry on with the rating procedure 
+        	Sentry::getUser()->snippet_ratings()->attach($snippet_id, array('good' => '1'));
+            
+            //toast notification
+        	Notification::success('Yay vote submmited!');
+
+            return Redirect::back();
+        } 
+        else 
+        {
+        	//already voted punk
+        	return Redirect::back();
+        }
+
+	}
+
+	/**
+     * Bad Content Vote 
+     *
+     * @return Redirect 
+     */
+
+
+	public function postBadVote($slug)
+	{ 
+		//get snippet id from slug
+		$snippet_id = Snippet::where('slug', $slug)->pluck('id');
+
+        $ratings = DB::table('snippets_rating')
+                   ->where('user_id', '=', Sentry::getUser()->id)
+                   ->where('snippet_id', '=', $snippet_id)
+                   ->get();
+                   
+        if(empty($ratings))
+        {
+        	Sentry::getUser()->snippet_ratings()->attach($snippet_id, array('bad' => '1'));
+            
+            //growl notification
+            Notification::error('Nay vote submmited!');
+
+            return Redirect::back();
+        }
+        else
+        {
+          	//already voted punk
+        	return Redirect::back();
+        }
+
+	}
+
+	/**
+     * Post Snippet Comment
+     *
+     * @return Redirect 
+     */
+
+
+	public function postSnippetComment($slug)
+	{
+
+	    $rules = array(
+            'comment' => 'required|min:10|max:255'
+        ); 
+
+		//create a new validator instance from our validation rules
+		$validator = Validator::make(Input::all(), $rules);
+
+		//if validation fails, we'll exit the operation now.
+		if ($validator->fails())
+		{
+			Notification::error("Check form for errors!");
+			//oops.. something went wrong
+			return Redirect::back()->withInput()->withErrors($validator);
+		}
+		else
+		{
+		    //get snippet id from slug
+		    $snippet_id = Snippet::where('slug', $slug)->pluck('id');
+            
+            $comment = e(Input::get('comment'));
+
+		    Sentry::getUser()->snippet_comments()->attach($snippet_id, array('comment' => $comment));
+
+            Notification::success("Comment submmited!");
+
+            return Redirect::back();
+		}
+	}
+
+	/**
+     * Post Delete Snippet Comment
+     *
+     * @return Redirect 
+     */
+
+
+	public function postDeleteSnippetComment($slug, $id)
+	{
+		//get the user_id of the comment
+		$comment_user = DB::table('snippets_comment')->where('id', $id)->pluck('user_id');
+
+        //check if its the same as the user trying to delete it OR an admin
+        if(Sentry::getUser()->id === $comment_user || Sentry::getUser()->hasAccess('admin'))
+        {
+            
+            //if it is delete the comment
+		    DB::table('snippets_comment')->where('id', $id)->delete();
+
+            Notification::success("Comment deleted!");
+
+            return Redirect::back();
+
+        }
+        else
+        {
+        	//if not alert them
+        	Notification::error("Not your comment!");
+
+        	return Redirect::back();
+        }
+
+	}
 
     /**
      * Get Add Snippet.
@@ -183,7 +318,13 @@ class SnippetController extends BaseController {
 
 	public function getAddSnippet()
 	{
-		return View::make('dash.snippets.add_snippet', compact('code_snippet'));
+		//quick work around for the tags form validation with the tags manager JS library
+		$tags_string = Input::old('hidden-tags');
+        $tag_array = explode(",", $tags_string);
+        $string = "'" . implode("','", $tag_array) . "'";
+
+		return View::make('dash.snippets.snippets_add', compact('string'));
+
 	}
 
     /**
@@ -197,10 +338,11 @@ class SnippetController extends BaseController {
 
      	//declare the rules for the form validation
 		$rules = array(
-			'title'               => array('required', 'min:3'),
-			'description'         => 'required|min:3',
-			'code_snippet'        => 'required',
-			'tags'                => 'required',
+			'title'               => 'required|min:4|max:80',
+			'description'         => 'required|min:10',
+			'code_snippet'        => 'required|min:10',
+			'state'               => 'required',
+			'hidden-tags'         => 'required'
 		);
 
 		//create a new validator instance from our validation rules
@@ -214,16 +356,19 @@ class SnippetController extends BaseController {
 		}
 
         //create new snippet - elequent you beauty
-		
+		$code_snippet = new Snippet();
 
         //update snippet data
 		$code_snippet->title           = e(Input::get('title')); //e() sanitizes input, best way in laravel apparently..
 		$code_snippet->description     = e(Input::get('description'));
 		$code_snippet->code_snippet    = e(Input::get('code_snippet'));
-		$code_snippet->credit          = e(Input::get('credit'));
-		$code_snippet->tags            = e(Input::get('tags'));
+        
+        //remove the spaces from tags 
+        $spaced_tags = str_replace(' ', '', Input::get('hidden-tags'));
+		$code_snippet->tags            = e($spaced_tags);
+
+
 		$code_snippet->user_id         = Sentry::getId();
-		$code_snippet->author          = Sentry::getUser()->username;
 
 
         //stop script kiddies editing the source on the front-end 
@@ -254,7 +399,7 @@ class SnippetController extends BaseController {
 		if($code_snippet->save())
 		{
 			//redirect to my snippets
-			return Redirect::route("my-snippets")->with('success', Lang::get('features/snippets.create.success'));
+			return Redirect::route("code-snippets")->with('success', Lang::get('features/snippets.create.success'));
 		}
 
 		//redirect to add-snippet page..
@@ -269,27 +414,37 @@ class SnippetController extends BaseController {
      */
 
 
-	public function getEditSnippet($snippetId = null)
+	public function getEditSnippet($slug)
 	{
-		//check if the snippet exists
-        if (is_null($this->data['code_snippet'] = Snippet::find($snippetId)))
+		
+		$snippet_data = Snippet::where('slug', $slug)->first();
+
+        if (is_null($snippet_data))
         {
             //redirect with not found error
-            return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.not_found'));
+            Notification::error("Snippet not found!");
+            return Redirect::back();
         }
+        else 
+        {
 
-        //get the user_id of the snippet
-		$snippet_user = Snippet::where('id', $snippetId)->pluck('user_id');
+            if($snippet_data->user_id != Sentry::getUser()->id)
+            {
+            	Notification::error("You're not allowed to do that");
+            	return Redirect::back();
+            }
+            else 
+            {
 
-		//check if user owns the snippet
-		if (Sentry::getUser()->id != $snippet_user) 
-		{
-            //redirect with bad message, bad kids
-			return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.update_check'));	
-		} 
+        	    //do the fiddly tag stuff
+        	    $tags_string = $snippet_data->tags;
+                $tag_array = explode(",", $tags_string);
+                $string = "'" . implode("','", $tag_array) . "'";
 
-        return View::make('dash.snippets.edit_snippet', $this->data);
+                return View::make('dash.snippets.snippets_edit', compact('snippet_data', 'string'));
 
+            }
+        }
 	}
 
     /**
@@ -298,124 +453,134 @@ class SnippetController extends BaseController {
      * @return Redirect
      */
 
-	public function postEditSnippet($snippetId = null)
+	public function postEditSnippet($slug)
 	{
-        //check if the snippet exists
-        if (is_null($code_snippet = Snippet::find($snippetId)))
-        {
-            //redirect with not found error
-            return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.not_found'));
-        }
+       
+        //Lets get the snippet
+		$snippet_data = Snippet::where('slug', $slug)->first();
 
-        //get the user_id of the snippet
-		$snippet_user = Snippet::where('id', $snippetId)->pluck('user_id');
 
-        //check if user owns the snippet
-		if (Sentry::getUser()->id != $snippet_user) 
-		{
-            //redirect with bad message, bad kids
-			return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.update_check'));	
-		} 
-		else
-		{
-
-            //declare rules for the form (same as addSnippet)
-		    $rules = array(
-			    'title'               => 'required|min:3',
-			    'code_snippet'        => 'required',
-			    'tags'                => 'required',
-		    );
-
-		    //create new validator instance with said rules
-		    $validator = Validator::make(Input::all(), $rules);
-
-		    //if validation fails
-		    if ($validator->fails())
+            
+            if($snippet_data->user_id != Sentry::getUser()->id)
             {
-               //something went wrong show validation errors
-               return Redirect::back()->withInput()->withErrors($validator);
+            	Notification::error("You're not allowed to do that");
+            	return Redirect::back();
+            }
+            else 
+            {
+
+     	        //declare the rules for the form validation
+		        $rules = array(
+			        'title'               => 'required|min:4|max:80',
+			        'description'         => 'required|min:10',
+			        'code_snippet'        => 'required|min:10',
+			        'state'               => 'required',
+			        'hidden-tags'         => 'required'
+		        );
+
+		        //create a new validator instance from our validation rules
+		        $validator = Validator::make(Input::all(), $rules);
+
+		        //if validation fails, we'll exit the operation now.
+		        if ($validator->fails())
+		        {
+			        //oops.. something went wrong
+			        return Redirect::back()->withInput()->withErrors($validator);
+		        }
+
+		        $code_snippet = Snippet::find($snippet_data->id);
+
+                //update snippet data
+		        $code_snippet->title           = e(Input::get('title')); //e() sanitizes input, best way in laravel apparently..
+		        $code_snippet->description     = e(Input::get('description'));
+		        $code_snippet->code_snippet    = e(Input::get('code_snippet'));
+        
+                 //remove the spaces from tags 
+                $spaced_tags = str_replace(' ', '', Input::get('hidden-tags'));
+		        $code_snippet->tags            = e($spaced_tags);
+
+
+		        $code_snippet->user_id         = Sentry::getId();
+
+
+                //stop script kiddies editing the source on the front-end 
+                //this stops edited values being submitted 
+                if(Input::get('state'))
+                {
+		            if(Input::get('state') == 'public' || Input::get('state') == 'private')
+		            {
+			            //if the value is private/public lets store it   
+			            $code_snippet->state = e(Input::get('state'));  
+			        } 
+			        else 
+			        {
+				        //if value has been tampered with submit default
+				        $code_snippet->state = 'public';
+			        }
+	    
+	            } 
+	            else 
+	            { 
+                    //if the radio button has been unchecked
+                    //submit default
+			        $code_snippet->state = 'public';
+		        }
+
+		        //was the snippet saved?
+		        if($code_snippet->save())
+		        {
+		        	Notification::success("Snippet updated!");
+			        //redirect to my snippets
+			        return Redirect::route('view-snippet', $snippet_data->slug);
+		        }
+
+		        //redirect to add-snippet page..
+		        return Redirect::back();
+
+
             }
 
         
-            //update snippet
-		    $code_snippet->title           = e(Input::get('title'));
-		    $code_snippet->description     = e(Input::get('description'));
-		    $code_snippet->code_snippet    = e(Input::get('code_snippet'));
-		    $code_snippet->credit          = e(Input::get('credit'));
-		    $code_snippet->tags            = e(Input::get('tags'));
-
-            if(Input::get('state'))
-            {
-		        if(Input::get('state') == 'public' || Input::get('state') == 'private')
-		        {
-			        //if the value is private/public lets store it   
-			        $code_snippet->state = e(Input::get('state'));  
-			    } 
-			    else 
-			    {
-				    //if value has been tampered with submit default
-				    $code_snippet->state = 'public';
-			    }
-	    
-	        } 
-	        else 
-	        { 
-            
-                //if the radio button has been unchecked
-                //submit default
-			    $code_snippet->state = 'public';
-		    }
-
-
-		    if($code_snippet->save())
-		    {
-			    //redirect to my snippets
-			    return Redirect::route("my-snippets")->with('success', Lang::get('features/snippets.update.success'));
-		    }
-
-
-		    //redirect to edit-snippet page..
-		    return Redirect::to('snippets/$snippetId/edit/')->with('error', Lang::get('features/snippets.update.error'));
-	    }
-
 
 	}
 
     /**
-     * Get Delete Snippet.
+     *  Delete Snippet.
      *
      * @return Redirect
      */
 
-	public function getDeleteSnippet($snippetId)
+	public function getDeleteSnippet($slug)
 	{
 
+        $snippet_data = Snippet::where('slug', $slug)->first();
+
 		//check if the snippet exists
-		if (is_null($snippet = Snippet::find($snippetId)))
+		if (is_null($snippet_data))
 		{
-			//redirect to my snippets with not found error
-			return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.not_found'));
+			Notification::success("Snippet doesnt exist.");
+			return Redirect::back();
 		}
+	    else 
+	    {
+	    	
+	    	if($snippet_data->user_id != Sentry::getUser()->id)
+	    	{
+	    		Notification::error("You're not allowed to do that.");
+	    		return Redirect::back();
+	    	}
+	    	else 
+		    {
 
-        //get the user_id of the snippet
-		$snippet_user = Snippet::where('id', $snippetId)->pluck('user_id');
+                //delete the snippet
+		        $snippet_data->delete();
 
-		//check if user owns the snippet
-		if (Sentry::getUser()->id != $snippet_user) 
-		{
-            //redirect with bad message, bad kids
-			return Redirect::route('my-snippets')->with('error', Lang::get('features/snippets.delete_check'));	
-		} 
-		else 
-		{
+		        Notification::success("Snippet deleted!");
+		        return Redirect::route('code-snippets');
 
-            //delete the snippet
-		    $snippet->delete();
-
-		    //redirect to my snippets page with success message
-		    return Redirect::route('my-snippets')->with('success', Lang::get('features/snippets.delete'));
-
+	        }
 	    }
+	   
 
 	}
 

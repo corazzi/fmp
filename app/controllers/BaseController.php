@@ -18,8 +18,6 @@ class BaseController extends Controller {
 	{
 		// CSRF Protection
 		$this->beforeFilter('csrf', array('on' => 'post'));
-
-		//
 		$this->messageBag = new Illuminate\Support\MessageBag;
 	}
 
@@ -35,5 +33,30 @@ class BaseController extends Controller {
 			$this->layout = View::make($this->layout);
 		}
 	}
+
+
+	/**
+	 * Gravatar Shizz
+	 *
+	 * @return $url
+	 */
+    
+    public function get_gravatar($s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array() ) 
+    {
+        $url = 'http://www.gravatar.com/avatar/';
+        $url .= md5( strtolower( trim(Sentry::getUser()->email) ) );
+        $url .= "?s=$s&d=$d&r=$r";
+        if ( $img ) {
+            $url = '<img src="' . $url . '"';
+            foreach ( $atts as $key => $val )
+                $url .= ' ' . $key . '="' . $val . '"';
+            $url .= ' />';
+        }
+        return $url;
+    }
+
+
+
+
 
 }

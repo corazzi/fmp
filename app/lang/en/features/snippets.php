@@ -12,6 +12,11 @@ return array(
                 'success' => 'Snippet updated successfully!',
         ),
 
+        'vote' => array(
+                'complete' => 'Thank you for your vote.', 
+                'already_voted' => 'You cannot vote on the same snippet twice.',
+        ),
+
         'update_check' => 'You cant edit a snippet you dont own!',
         'view_check'   => 'You cant view other peoples snippets.',
         'delete'       => 'Snippet successfully deleted!',

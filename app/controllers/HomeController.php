@@ -72,10 +72,6 @@ class HomeController extends BaseController {
 
 		$validator = Validator::make(Input::all(), $rules);
 
-
-		$input = Input::all();//Get all the old input.
-        $input['Success'] = 'true';//Add the auto open indicator flag as an input.
-
 		if ($validator->fails()) 
 		{
 			// return Redirect::back()->withInput()->withErrors($validator);
@@ -88,7 +84,7 @@ class HomeController extends BaseController {
 	    if($news_email->save())
 		{
 			//redirect back to the beta page
-			return Redirect::route('home')->withInput($input);
+			return Redirect::route('home')->with('success-home', 'Email submitted successfully, thank you!');
 		}
 
 		//redirect to beta page for now

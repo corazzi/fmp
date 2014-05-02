@@ -4,6 +4,11 @@
 
 @section('content')
 
+{{-- Notifications --}}
+<div class="home-notif">
+    @include('layout/notifications/frontend_notifications')
+</div>
+
 <div class="header-bg">
     <div class="row">
         <div class="large-12 columns">

@@ -14,7 +14,7 @@
         <div class="holder">
 
             {{-- Notifications --}}
-            @include('layout/frontend_notifications')
+            @include('layout/notifications/frontend_notifications')
 
             <form method="post" action="" role="form">
         

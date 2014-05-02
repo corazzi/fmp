@@ -14,4 +14,7 @@ Thumbs.db
 /public/assets/config.rb
 /public/assets/.sass-cache
 /public/assets/.codekit-cache
+/public/assets/.bowerrc
+/public/assets/config.rb
+/public/assets/config.codekit
 

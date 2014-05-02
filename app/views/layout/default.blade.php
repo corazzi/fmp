@@ -28,11 +28,8 @@
 <meta property="og:url" content="http://webrepo.io"/>
 <meta property="og:description" content="An online web resource repository. Store, share and collaborate with other members of the online web community."/>
     
-
-
 {{-- Stylesheets --}}
 <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
-
 <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
 
 </head>

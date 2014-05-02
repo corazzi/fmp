@@ -26,6 +26,11 @@ return array(
 	|
 	*/
 
-	'pagination' => 'layout.pagination',
+	'pagination' => 'foundationpagination::slider-center',
+
+
+
 
 );
+
+

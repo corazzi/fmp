@@ -6,13 +6,14 @@ class DashController extends BaseController {
     {
     	parent::__construct();
         $this->beforeFilter('auth');
-        $this->data['user'] = Sentry::getUser();
     }
 
 
 	public function index()
 	{
-		return View::make('dash.home', $this->data);
+        $grava = $this->get_gravatar();
+        
+		return View::make('dash.home', compact('grava'));
 	}
 
 }

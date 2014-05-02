@@ -10,5 +10,5 @@ class Snippet extends Base {
         'build_from' => 'title',
         'save_to'    => 'slug',
     );
-	
+
 }

@@ -15,4 +15,16 @@ class ProfileController extends BaseController {
         return View::make('dash.profile.home');
     }
 
+    public function getMyContent()
+    {
+
+        return View::make('dash.profile.my_content');
+
+    }
+
+    public function getEditProfile()
+    {
+        return View::make('dash.profile.edit_profile');
+    }
+
 }

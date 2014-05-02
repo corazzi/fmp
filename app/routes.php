@@ -7,14 +7,11 @@
 */
 
 # Home!
+Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
 
-
+# Beta
 Route::get('/beta',  array('as' => 'beta', 'uses' => 'HomeController@getBeta'));
 Route::post('/beta',  'HomeController@postBeta');
-
-
-
-Route::get('/', array('as' => 'home', 'uses' => 'HomeController@index'));
 
 /*
 |--------------------------------------------------------------------------
@@ -54,66 +51,67 @@ Route::get('logout', array('as' => 'logout', 'uses' => 'AuthController@getLogout
 
 Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'DashController@index'));
 
-
-# Private Functions
-
-Route::group(array('prefix' => 'private'), function()
-{
-
-    /*
-    |--------------------------------------------------------------------------
-    | Private Snippet Routes
-    |--------------------------------------------------------------------------
-    */
-
-    # My Snippets
-    Route::get('my-snippets', array('as' => 'my-snippets', 'uses' => 'SnippetController@getMySnippet'));
-
-    # View My Snippet
-    Route::get('my-snippets/{slug}', array('as' => 'view-private-snippet', 'uses' => 'SnippetController@getViewSnippet'));
-
-    # Add Snippet
-    Route::get('add-snippet', array('as' => 'add-snippet', 'uses' => 'SnippetController@getAddSnippet'));
-    Route::post('add-snippet', 'SnippetController@postAddSnippet');
-
-    # Delete Snippet
-    Route::get('{snippetId}/delete', array('as' => 'delete-snippet', 'uses' => 'SnippetController@getDeleteSnippet'));
-
-    # Edit Snippet
-    Route::get('{snippetId}/edit', array('as' => 'edit-snippet', 'uses' => 'SnippetController@getEditSnippet'));
-    Route::post('{snippetId}/edit', 'SnippetController@postEditSnippet'); 
-
-    // Route::get('my-snippets/{id?}/{slug?}', array('as' => 'view', 'uses' => 'SnippetController@getViewSnippet'));
-
-});
-
-
-Route::group(array('prefix' => 'snippets'), function()
-{ 
-    # Public Snippets
-    Route::get('/', array('as' => 'public-snippets', 'uses' => 'SnippetController@getPublicSnippet'));
-
-    # View Public Snippet
-    Route::get('{slug}', array('as' => 'view-public-snippet', 'uses' => 'SnippetController@getViewPublicSnippet'));
-
-    // works but im going to handle it differently
-    // Route::get('users/{slug}', array('as' => 'user-snippets', 'uses' => 'UserController@getUserSnippets'));
-
-});
-
-
 Route::group(array('prefix' => 'me'), function()
 { 
     # Me Home
     Route::get('/', array('as' => 'me-home', 'uses' => 'ProfileController@getMyProfile'));
 
-    # View Public Snippet
-    Route::get('{slug}', array('as' => 'view-public-snippet', 'uses' => 'SnippetController@getViewPublicSnippet'));
+    # My Content
+    Route::get('/content', array('as' => 'my-content', 'uses' => 'ProfileController@getMyContent'));
 
-    // works but im going to handle it differently
-    // Route::get('users/{slug}', array('as' => 'user-snippets', 'uses' => 'UserController@getUserSnippets'));
+    # Edit Profile
+    Route::get('/edit', array('as' => 'edit-profile', 'uses' => 'ProfileController@getEditProfile'));
 
 });
+
+Route::group(array('prefix' => 'snippets'), function()
+{ 
+    # Code Snippets
+    Route::get('/', array('as' => 'code-snippets', 'uses' => 'SnippetController@getSnippets'));
+
+    # Add Snippet
+    Route::get('add', array('as' => 'add-snippet', 'uses' => 'SnippetController@getAddSnippet'));
+    Route::post('add', 'SnippetController@postAddSnippet');
+
+    # View Snippet
+    Route::get('{slug}', array('as' => 'view-snippet', 'uses' => 'SnippetController@getViewSnippet'));
+
+    # Edit Snippet (if owner)
+    Route::get('{slug}/edit', array('as' => 'edit-snippet', 'uses' => 'SnippetController@getEditSnippet'));
+    Route::post('{slug}/edit', array('as' => 'edit-snippet-post', 'uses' => 'SnippetController@postEditSnippet')); 
+
+    # Delete Snippet (if owner)
+    Route::get('{slug}/delete', array('as' => 'delete-snippet', 'uses' => 'SnippetController@getDeleteSnippet'));
+
+    # Favorite a Snippet
+    Route::post('{slug}/favorite', array('as' => 'favorite-snippet', 'uses' => 'SnippetController@postFavoriteSnippet' ));
+    Route::post('{slug}/unfavorite', array('as' => 'un-favorite-snippet', 'uses' => 'SnippetController@postUnFavoriteSnippet' ));
+
+    # Snippet Voting
+    Route::post('{slug}/yay', array('as' => 'yay-snippet', 'uses' => 'SnippetController@postGoodVote'));
+    Route::post('{slug}/nay', array('as' => 'nay-snippet', 'uses' => 'SnippetController@postBadVote' ));
+
+    # Snippet Comments
+    Route::post('{slug}/comment', array('as' => 'comment-snippet', 'uses' => 'SnippetController@postSnippetComment'));
+    Route::post('{slug}/uncomment/{id}', array('as' => 'uncomment-snippet', 'uses' => 'SnippetController@postDeleteSnippetComment' ));
+
+    # Snippet Tag Search
+    Route::get('tags/{tag}', array('as' => 'view-tags-snippets', 'uses' => 'SnippetController@getTagSnippets'));
+
+});
+
+Route::group(array('prefix' => 'guides'), function()
+{ 
+
+    # Me Home
+    Route::get('/', array('as' => 'user-guides', 'uses' => 'GuidesController@getGuides'));
+
+    
+
+});
+
+
+
 
 
 

@@ -22,22 +22,10 @@
 <div class="inner-content">
 
 
-    <div class="large-6 large-push-6 medium-12 small-12 columns">
-        <div class="content-box">
-                
-            <div class="large-12 columns add">
-                <label for="code_snippet">Code Snippet</label>
-                <textarea id="snippet" class="{{ $errors->first('code_snippet', ' error') }}" name="code_snippet" type="text">{{ Input::old('code_snippet', $snippet_data->code_snippet) }}</textarea>
-                {{ $errors->first('code_snippet', '<small class="error">:message</small>') }}
-            </div>
-
-        </div>
-    </div>
-    
-    <div class="large-6 large-pull-6 medium-12 small-12 columns">
+    <div class="large-6 large-push-6 columns">
         <div class="content-box">
 
-                <form class="add" method="post" action="{{ route('edit-snippet-post', $snippet_data->slug) }}" role="form">
+            <form class="add" method="post" action="{{ route('edit-snippet-post', $snippet_data->slug) }}" role="form">
         
                 <input type="hidden" name="_token" value="{{ csrf_token() }}" />
 
@@ -67,6 +55,20 @@
 
                 <div class="large-12 columns">
                     <button class="large-12" type="submit">Update</button>
+                </div>
+
+        </div>
+    </div>
+    
+    <div class="large-6 large-pull-6 columns">
+        <div class="content-box">
+
+                
+
+                <div class="large-12 columns add">
+                    <label for="code_snippet">Code Snippet</label>
+                    <textarea id="resize" class="{{ $errors->first('code_snippet', ' error') }}" name="code_snippet" type="text">{{ Input::old('code_snippet', $snippet_data->code_snippet) }}</textarea>
+                    {{ $errors->first('code_snippet', '<small class="error">:message</small>') }}
                 </div>
 
                 

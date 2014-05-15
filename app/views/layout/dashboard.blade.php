@@ -70,10 +70,10 @@
 
     <ul class="side-nav">
         <li {{ (Request::is('dashboard') ? 'class="active"' : '') }}><a href="{{ route('dashboard') }}">Dashboard</a></li>
-        <li {{ (Request::is('snippets') ? 'class="active"' : '') }}><a href="{{ route('code-snippets') }}">Snippets</a></li>
-        <li><a href="#">User Guides</a></li>
-        <li><a href="#">My News</a></li>
-        <li><a href="#">Resources</a></li>
+        <li {{ (Request::is('snippets') ? 'class="active"' : '') }}><a href="{{ route('code-snippets') }}">Code Snippets</a></li>
+        <li {{ (Request::is('guides') ? 'class="active"' : '') }}><a href="{{ route('user-guides') }}">User Guides</a></li>
+        <li {{ (Request::is('news') ? 'class="active"' : '') }}><a href="{{ route('news-home') }}">My News</a></li>
+        <li {{ (Request::is('resources') ? 'class="active"' : '') }}><a href="{{ route('resources-home') }}">Resources</a></li>
         <li {{ (Request::is('me') ? 'class="active"' : '') }}><a href="{{ route('me-home') }}">Profile</a></li>
     </ul>
 

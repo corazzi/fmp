@@ -22,7 +22,7 @@
                 <input type="text" placeholder="Search snippets.." name="search" type="search" required="required">
             </div>
             <div class="small-2 columns">
-                <a href="#" class="button postfix" type="submit">Go</a>
+                <a href="" class="button postfix" type="submit">Go</a>
             </div>
         </div>
     </div>
@@ -78,7 +78,7 @@
 @else
 
 	<div class="large-12 columns">
-        <p>There are currently no code snippets to view, why not create one <a href="{{ route('add-snippet') }}">Click Here</a>.</p>
+        <p>There are currently no code snippets to view, why not create one <a class="green-link" href="{{ route('add-snippet') }}">Click Here</a>.</p>
 	</div>
 
 @endif

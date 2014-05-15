@@ -57,7 +57,7 @@
             </div>
             
             <div class="large-12 columns">
-                <button type="submit">Add Snippet</button>
+                <button class="tiny" type="submit">Add Snippet</button>
             </div>
             
         </form>
@@ -81,8 +81,7 @@
         <ol>
             <li>No Hyperlinks</li>
             <li>Strictly code only</li>
-            <li>Non irrelevant material</li>
-            <li>Attempt to hack us (that would be silly)</li>
+            <li>Non relevant material</li>
         </ol>
         <small>Abusing the sites features will result disciplinary action.</small>
     </div>

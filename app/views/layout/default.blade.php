@@ -76,7 +76,7 @@
 <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 <script src="{{ asset('assets/js/foundation.min.js') }}"></script>
 <script src="{{ asset('assets/js/fastclick.min.js') }}"></script>
-<script src="{{ asset('assets/js/app.min.js') }}"></script>
+<script src="{{ asset('assets/js/home.min.js') }}"></script>
 
 </script>
 </body>

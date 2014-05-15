@@ -9,7 +9,9 @@
 		"cviebrock/eloquent-sluggable": "1.0.*",
 		"binarix/foundation-pagination": "1.0.*",
 		"thomaswelton/laravel-gravatar": "0.0.x",
-		"edvinaskrucas/notification": "2.*"
+		"edvinaskrucas/notification": "2.*",
+		"vtalbot/markdown": "1.5",
+		"awjudd/feed-reader": "1.0.*"
 	},
 	"autoload": {
 		"classmap": [

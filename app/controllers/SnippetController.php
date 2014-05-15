@@ -3,7 +3,6 @@
 class SnippetController extends BaseController {
 
 
-
 	public function __construct()
 	{
 		parent::__construct();
@@ -20,10 +19,10 @@ class SnippetController extends BaseController {
 
 	public function getSnippets()
 	{
-		//assign the search term to query
+		//assign the search term to variable
 		$search_term = Request::get('search');
         
-        //if there has been a query submitted
+        //if there has been a search term submitted
 		if($search_term)
 		{
 			// find snippet where state = public, 
@@ -44,12 +43,12 @@ class SnippetController extends BaseController {
 		} 
 
 
-		//pull all snippets where state = public and return the view
+		//pull all snippets where state = public 
 		$code_snippets = Snippet::where('state', '=', 'public')
 		                            ->orderBy('id', 'DESC')
 		                            ->paginate(9);
 
-
+        //return view with snippets
 		return View::make('dash.snippets.snippets_home', compact('code_snippets'));
 	}
 
@@ -107,6 +106,9 @@ class SnippetController extends BaseController {
 
             //comments stuff here
             $comments = DB::table('snippets_comment')->where('snippet_id', $snippet_data->id)->orderBy('id', 'DESC')->get();
+
+
+
         
             //snippet user info 
             $user = Sentry::findUserById($snippet_data->user_id);
@@ -398,12 +400,12 @@ class SnippetController extends BaseController {
 		//was the snippet saved?
 		if($code_snippet->save())
 		{
-			//redirect to my snippets
-			return Redirect::route("code-snippets")->with('success', Lang::get('features/snippets.create.success'));
+			Notification::success("Snippet added!");
+			return Redirect::route("code-snippets");
 		}
 
-		//redirect to add-snippet page..
-		return Redirect::to('add-snippet')->with('error', Lang::get('features/snippets.create.error'));
+		Notification::error("Something went wrong, try again!");
+		return Redirect::to('add-snippet');
 
 	}
 
@@ -484,6 +486,7 @@ class SnippetController extends BaseController {
 		        //if validation fails, we'll exit the operation now.
 		        if ($validator->fails())
 		        {
+		        	Notification::error('Check form for errors');
 			        //oops.. something went wrong
 			        return Redirect::back()->withInput()->withErrors($validator);
 		        }
@@ -540,8 +543,6 @@ class SnippetController extends BaseController {
 
             }
 
-        
-
 	}
 
     /**
@@ -575,7 +576,14 @@ class SnippetController extends BaseController {
                 //delete the snippet
 		        $snippet_data->delete();
 
+		        //delete comments, favorites and votes
+		        DB::table('snippets_comment')->where('snippet_id', $snippet_data->id)->delete();
+		        DB::table('snippets_favorite')->where('snippet_id', $snippet_data->id)->delete();
+		        DB::table('snippets_rating')->where('snippet_id', $snippet_data->id)->delete();
+
 		        Notification::success("Snippet deleted!");
+
+		        
 		        return Redirect::route('code-snippets');
 
 	        }

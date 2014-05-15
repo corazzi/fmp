@@ -1,6 +1,6 @@
 <?php
 
-class DashController extends BaseController {
+class DashboardController extends BaseController {
 
     public function __construct() 
     {

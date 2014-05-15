@@ -1,0 +1,60 @@
+.news h5 {
+    margin-bottom:rem-calc(5);
+}
+
+.add-news input, 
+.add-news .button {
+    margin-bottom:0;
+}
+
+.add-news {
+    margin: 0;
+    padding:rem-calc(10);
+}
+
+.is-feed-delete {
+    background:none;
+    border:none;
+    transition:none;
+}
+
+.is-feed-delete:hover {
+    color: $alert-color;
+}
+
+// Small screens
+@media only screen {
+
+    .news .content-box p {
+        font-size: rem-calc(14);
+        margin-bottom:0;
+        padding:rem-calc(10);
+    }
+
+    .feed-content {
+        width:100%;
+        background:white;
+        margin-bottom:20px;
+        padding:10px;
+        overflow:hidden;
+        -moz-box-shadow: 0px 2px 1px rgba(0,0,0,0.1);
+        -webkit-box-shadow: 0px 2px 1px rgba(0,0,0,0.1);
+        box-shadow: 0px 2px 1px rgba(0,0,0,0.1);
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .feed-content h4 {
+        padding-top:rem-calc(10);
+    }
+
+    .feed-content .feed-footer {
+        height: auto;
+        width: 100%;
+        padding:rem-calc(5) 0 rem-calc(10) 0;
+
+    }
+    
+}
+

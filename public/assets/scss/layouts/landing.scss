@@ -303,10 +303,10 @@ label.error {
 }
 
 .footer .btn {
-	border: 2px solid $primary-color;
+	border: 1px solid $primary-color;
 	background: none;
 	color: black;
-	margin:0 -2px;
+	margin:0 -1px;
 	font-size:14px;
 	font-weight:$font-norm;
 }
@@ -374,7 +374,6 @@ label.error {
     	font-size: rem-calc(28);
     	margin-top: rem-calc(10);
     }
-
 
 
 } 

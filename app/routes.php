@@ -49,20 +49,7 @@ Route::get('logout', array('as' => 'logout', 'uses' => 'AuthController@getLogout
 |--------------------------------------------------------------------------
 */
 
-Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'DashController@index'));
-
-Route::group(array('prefix' => 'me'), function()
-{ 
-    # Me Home
-    Route::get('/', array('as' => 'me-home', 'uses' => 'ProfileController@getMyProfile'));
-
-    # My Content
-    Route::get('/content', array('as' => 'my-content', 'uses' => 'ProfileController@getMyContent'));
-
-    # Edit Profile
-    Route::get('/edit', array('as' => 'edit-profile', 'uses' => 'ProfileController@getEditProfile'));
-
-});
+Route::get('dashboard', array('as' => 'dashboard', 'uses' => 'DashboardController@index'));
 
 Route::group(array('prefix' => 'snippets'), function()
 { 
@@ -103,16 +90,71 @@ Route::group(array('prefix' => 'snippets'), function()
 Route::group(array('prefix' => 'guides'), function()
 { 
 
-    # Me Home
+    # Guides Home
     Route::get('/', array('as' => 'user-guides', 'uses' => 'GuidesController@getGuides'));
 
-    
+    # Add Guide
+    Route::get('add', array('as' => 'add-guide', 'uses' => 'GuidesController@getAddGuide'));
+    Route::post('add', 'GuidesController@postAddGuide');
+
+    # View Guide
+    Route::get('{slug}', array('as' => 'view-guide', 'uses' => 'GuidesController@getViewGuide'));
+
+    # Guide Tag Search
+    Route::get('tags/{tag}', array('as' => 'view-tags-guides', 'uses' => 'GuidesController@getTagGuides'));
+
+    # Favorite a Guide
+    Route::post('{slug}/favorite', array('as' => 'favorite-guide', 'uses' => 'GuidesController@postFavoriteGuide' ));
+    Route::post('{slug}/unfavorite', array('as' => 'un-favorite-guide', 'uses' => 'GuidesController@postUnFavoriteGuide' ));
+
+    # Guide Voting
+    Route::post('{slug}/yay', array('as' => 'yay-guide', 'uses' => 'GuidesController@postGoodVote'));
+    Route::post('{slug}/nay', array('as' => 'nay-guide', 'uses' => 'GuidesController@postBadVote' ));
+
+    # Guide Comments
+    Route::post('{slug}/comment', array('as' => 'comment-guide', 'uses' => 'GuidesController@postGuideComment'));
+    Route::post('{slug}/uncomment/{id}', array('as' => 'uncomment-guide', 'uses' => 'GuidesController@postDeleteGuideComment' ));
+
+    # Delete Guide (if owner)
+    Route::get('{slug}/delete', array('as' => 'delete-guide', 'uses' => 'GuidesController@getDeleteGuide'));
+
+    # Edit Guide (if owner)
+    Route::get('{slug}/edit', array('as' => 'edit-guide', 'uses' => 'GuidesController@getEditGuide'));
+    Route::post('{slug}/edit', array('as' => 'edit-guide-post', 'uses' => 'GuidesController@postEditGuide')); 
+
+});
+
+Route::group(array('prefix' => 'news'), function()
+{ 
+    # News Home
+    Route::get('/', array('as' => 'news-home', 'uses' => 'NewsController@getNews'));
+
+    # Add News
+    Route::post('/add', array('as' => 'add-news', 'uses' => 'NewsController@postNews'));
+
+    # Delete News (if owner)
+    Route::get('{slug}/delete', array('as' => 'delete-news', 'uses' => 'NewsController@postDeleteNews'));
+
+});
+
+Route::group(array('prefix' => 'resources'), function()
+{ 
+    # Resources Home
+    Route::get('/', array('as' => 'resources-home', 'uses' => 'ResourcesController@getResources'));
 
 });
 
 
+Route::group(array('prefix' => 'me'), function()
+{ 
+    # Me Home
+    Route::get('/', array('as' => 'me-home', 'uses' => 'ProfileController@getMyProfile'));
 
+    # My Content
+    Route::get('/content', array('as' => 'my-content', 'uses' => 'ProfileController@getMyContent'));
 
+    # Edit Profile
+    Route::get('/edit', array('as' => 'edit-profile', 'uses' => 'ProfileController@getEditProfile'));
 
-
+});
 

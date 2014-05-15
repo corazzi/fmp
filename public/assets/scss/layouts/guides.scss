@@ -1,0 +1,219 @@
+
+.green-link {
+	color:$secondary-color;
+    
+    .green-link:hover,
+    .green-link:focus {
+        color:$secondary-color;  
+        text-decoration:underline;
+    }
+
+}
+
+
+.third-label {
+  @include label();
+  background: $grey;
+}
+
+.add-button { 
+	@include button; 
+	background:none;
+	border: 2px solid $primary-color;
+	color:$primary-color;
+	font-weight:$font-bold;
+
+	.add-button:hover,
+	.add-button:focus {
+		color:#f6f6f6 !important;
+		background: $primary-color;
+	}
+
+}
+
+
+// Small screens
+@media only screen {
+
+	.user-guides .content-box {
+		padding: rem-calc(10);
+	}
+
+	.user-guides .content-box p {
+		font-size: rem-calc(14);
+	}
+
+	.user-guides small {
+		color:$alert-color;
+	}
+
+	.user-guides h5 {
+		font-weight: $font-bold;
+		margin-bottom: rem-calc(5);
+	}
+
+    .guide .header {
+    	height: auto;
+    	width: 100%;
+    }
+
+    .guide .header img {
+        @include border-radius(50px);
+        float: center;
+        display: block;
+        margin: 0 auto rem-calc(10) auto;
+        width: rem-calc(60);
+    }
+
+    .guide .header .title,
+    .guide .header .author {
+    	display: block;
+    	margin: 0 auto rem-calc(10) auto;
+    	text-align:center;
+    }
+
+    .guide .header .title {
+    	a:hover,
+    	a:focus {
+    		text-decoration: underline;
+    	}
+    }
+
+    .guide .header .author {
+    	font-size: rem-calc(14);
+
+    	a {
+    		color: $secondary-color;
+    	}
+
+    }
+
+	.guide .preview {
+		background:#e3e3e3;
+		height:rem-calc(200);
+		overflow: hidden;
+        margin:rem-calc(10) rem-calc(-10);
+        padding:rem-calc(10);
+        font-size: rem-calc(13);
+	}
+
+     .guide .preview pre,
+     .guide .preview code {
+        background:transparent;
+    }
+
+    .guide .tags,
+    .guide .author {
+    	width: 100%;
+    	text-align: center;
+    }
+
+    .guide .tags {
+    	padding-bottom:rem-calc(10);
+    }
+
+    .guide .posted {
+    	font-size: rem-calc(12);
+    	text-align: center;
+    	color:$grey;
+    }
+
+    .user-guides .author img {
+        display: inline-block;
+        float: left;
+        width: rem-calc(40);
+    }
+
+    .user-guides .info {
+        float: left;
+        margin-left: rem-calc(10);
+    }
+
+    .user-guides .info .username {
+        display: block;
+        margin-top: rem-calc(4);
+    }
+
+    .user-guides .info .preference {
+        display: block;
+        margin-top: rem-calc(7);
+        font-size: rem-calc(10);
+    }
+
+    .view-guide {
+        padding-top:rem-calc(100);
+        font-size: rem-calc(14);
+    }
+
+    .user-guides .comments small {
+        color: $grey;
+    }
+
+    .markdown {
+        border-bottom: 1px dotted #999;
+        display: inline;
+        font-weight:$font-bold;
+    }
+
+    
+    .view-guide pre code {
+        margin: rem-calc(10) rem-calc(-10) rem-calc(0) rem-calc(-10);
+        background: #e3e3e3;
+        font-size: rem-calc(11);
+        overflow: hidden;
+    }
+
+    .view-guide code {
+        margin:rem-calc(-10) 0;
+        padding:0 rem-calc(10) rem-calc(10) rem-calc(10);
+    }
+
+    .tm-tag {
+        margin-bottom: rem-calc(20);
+    }
+    
+}
+
+// Large screens
+@media only screen and (min-width: 64.063em) {
+
+    .guide .header img {
+        float: left;
+        margin: 0 auto rem-calc(10) auto;
+    }
+
+    .guide .header .title,
+    .guide .header .author {
+    	text-align:left;
+    	padding-left: rem-calc(70);
+    }
+
+    .guide .header .title {
+    	padding-top: rem-calc(10);
+    }
+
+    .guide .header .author {
+    	padding-top:0;
+    }
+
+
+    .guide .tags {
+    	width: 70%;
+    	text-align: left;
+    	float: left;
+    	padding:0;
+    }
+
+    .guide .posted {
+    	float: left;
+    	text-align: right;
+    	width: 30%; 
+    	padding-top:rem-calc(5);
+    }
+
+
+
+
+
+
+}

@@ -21,8 +21,6 @@
 
 <div class="inner-content">
 
-   
-
     <div class="large-4 large-push-8 columns">
         <div class="content-box">
 
@@ -57,7 +55,7 @@
         <div class="content-box">
 
                 <div class="large-12 columns add">
-                    <label for="content">Content <small class="markdown" data-reveal-id="markdownModal">Markdown Enabled (?</small></label>
+                    <label for="content">Content <small class="markdown" data-reveal-id="markdownModal">Markdown Enabled (?)</small></label>
                     <textarea id="resize" class="{{ $errors->first('content', ' error') }}" name="content" type="text">{{ Input::old('content', $guide_data->content) }}</textarea>
                     {{ $errors->first('content', '<small class="error">:message</small>') }}
                 </div>
@@ -66,54 +64,11 @@
             </form>
 
         </div>
-
     </div>
 
     
- 
 
 </div>
 
-    <div id="markdownModal" class="reveal-modal medium" data-reveal>
-        <h2>Markdown</h2>
-        <p>Because we like our users we decided it should take little to no effort to format your posts. To make this possible we have created a custom markdown which can be seen in action below.</p>
-        <table>
-  <thead>
-    <tr>
-      <th width="200">Markdown</th>
-      <th width="600">Usage</th>
-      <th width="200">Output</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>[code][/code]</td>
-      <td>[code] <br>
-           public function helloWorld() { <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;echo "Hello World"; <br>
-           } <br>
-           [/code]
-       </td>
-      <td>
-<pre><code style="background:#e3e3e3;">public function helloWorld() { 
-    echo "Hello World"; 
-} 
-</code></pre>
-</td>
-    </tr>
-    <tr>
-      <td>[b][/b]</td>
-      <td>[b] So Bold Son [/b]</td>
-      <td><b>So Bold Son</b></td>
-    </tr>
-    <tr>
-      <td>[i][/i]</td>
-      <td>[i] So Italic Bro [/i]</td>
-      <td><em>So Italic Bro</em></td>
-    </tr>
-  </tbody>
-</table>
-        <a class="close-reveal-modal">&#215;</a>
-    </div>
 
 @stop

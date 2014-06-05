@@ -1,6 +1,6 @@
 {
 "CodeKitInfo": "This is a CodeKit 2.x project configuration file. It is designed to sync project settings across multiple machines. MODIFYING THE CONTENTS OF THIS FILE IS A POOR LIFE DECISION. If you do so, you will likely cause CodeKit to crash. This file is not useful unless accompanied by the project that created it in CodeKit 2. This file is not backwards-compatible with CodeKit 1.x. For more information, see: http:\/\/incident57.com\/codekit",
-"creatorBuild": "16903",
+"creatorBuild": "17018",
 "files": {
 	"\/bower_components\/fastclick\/lib\/fastclick.js": {
 		"fileType": 64,
@@ -11995,11 +11995,11 @@
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
 		},
-	"\/css\/layouts\/news.css": {
+	"\/css\/layouts\/nav.css": {
 		"fileType": 16,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"inputAbbreviatedPath": "\/css\/layouts\/news.css",
+		"inputAbbreviatedPath": "\/css\/layouts\/nav.css",
 		"outputAbbreviatedPath": "No Output Path",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0
@@ -12158,6 +12158,28 @@
 		"outputStyle": 1,
 		"syntaxCheckerStyle": 0
 		},
+	"\/js\/nav.js": {
+		"fileType": 64,
+		"ignore": 0,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nav.js",
+		"outputAbbreviatedPath": "\/js\/nav.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 0
+		},
+	"\/js\/nav.min.js": {
+		"fileType": 64,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/js\/nav.min.js",
+		"outputAbbreviatedPath": "\/js\/nav.min.min.js",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 1,
+		"syntaxCheckerStyle": 0
+		},
 	"\/js\/resizable.min.js": {
 		"fileType": 64,
 		"ignore": 0,
@@ -12257,13 +12279,13 @@
 		"outputPathIsSetByUser": 0,
 		"processed": 0
 		},
-	"\/pics\/situe\/Untitled-1.png": {
-		"fileType": 32768,
+	"\/pics\/situe\/Untitled-2.jpg": {
+		"fileType": 16384,
 		"ignore": 0,
 		"ignoreWasSetByUser": 0,
-		"initialSize": 376719,
-		"inputAbbreviatedPath": "\/pics\/situe\/Untitled-1.png",
-		"outputAbbreviatedPath": "\/pics\/situe\/Untitled-1.png",
+		"initialSize": 71389,
+		"inputAbbreviatedPath": "\/pics\/situe\/Untitled-2.jpg",
+		"outputAbbreviatedPath": "\/pics\/situe\/Untitled-2.jpg",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"processed": 0
@@ -12293,6 +12315,22 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/scss\/app.scss",
 		"outputAbbreviatedPath": "\/css\/app.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 3,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
+	"\/scss\/layouts\/admin.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 5,
+		"fileType": 4,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scss\/layouts\/admin.scss",
+		"outputAbbreviatedPath": "\/css\/admin.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 3,
@@ -12341,6 +12379,22 @@
 		"ignoreWasSetByUser": 0,
 		"inputAbbreviatedPath": "\/scss\/layouts\/landing.scss",
 		"outputAbbreviatedPath": "\/css\/landing.css",
+		"outputPathIsOutsideProject": 0,
+		"outputPathIsSetByUser": 0,
+		"outputStyle": 3,
+		"shouldRunAutoprefixer": 0,
+		"shouldRunBless": 0,
+		"useLibsass": 0
+		},
+	"\/scss\/layouts\/nav.scss": {
+		"createSourceMap": 0,
+		"debugStyle": 0,
+		"decimalPrecision": 5,
+		"fileType": 4,
+		"ignore": 1,
+		"ignoreWasSetByUser": 0,
+		"inputAbbreviatedPath": "\/scss\/layouts\/nav.scss",
+		"outputAbbreviatedPath": "\/css\/nav.css",
 		"outputPathIsOutsideProject": 0,
 		"outputPathIsSetByUser": 0,
 		"outputStyle": 3,
@@ -12468,7 +12522,7 @@
 	},
 "projectAttributes": {
 	"bowerAbbreviatedPath": "",
-	"displayValue": "assets",
+	"displayValue": "Webrepo",
 	"displayValueWasSetByUser": 1,
 	"iconImageName": "harddrive_gray"
 	},
@@ -12529,12 +12583,16 @@
 			"active": 0,
 			"flagValue": 3
 			},
-		"no-unnecessary_fat_arrows": {
+		"no_backticks": {
 			"active": 1,
 			"flagValue": -1
 			},
-		"no_backticks": {
+		"no_debugger": {
 			"active": 1,
+			"flagValue": -1
+			},
+		"no_empty_functions": {
+			"active": 0,
 			"flagValue": -1
 			},
 		"no_empty_param_list": {
@@ -12546,6 +12604,10 @@
 			"flagValue": -1
 			},
 		"no_implicit_parens": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"no_interpolation_in_single_quotes": {
 			"active": 0,
 			"flagValue": -1
 			},
@@ -12570,6 +12632,14 @@
 			"flagValue": -1
 			},
 		"no_trailing_whitespace": {
+			"active": 1,
+			"flagValue": -1
+			},
+		"no_unnecessary_double_quotes": {
+			"active": 0,
+			"flagValue": -1
+			},
+		"no_unnecessary_fat_arrows": {
 			"active": 1,
 			"flagValue": -1
 			},
@@ -12691,10 +12761,6 @@
 			"active": 0,
 			"flagValue": -1
 			},
-		"gcl": {
-			"active": 0,
-			"flagValue": -1
-			},
 		"globalstrict": {
 			"active": 0,
 			"flagValue": -1
@@ -12807,10 +12873,6 @@
 			"active": 0,
 			"flagValue": -1
 			},
-		"onevar": {
-			"active": 0,
-			"flagValue": -1
-			},
 		"phantom": {
 			"active": 0,
 			"flagValue": -1
@@ -12847,10 +12909,6 @@
 			"active": 0,
 			"flagValue": -1
 			},
-		"smarttabs": {
-			"active": 0,
-			"flagValue": -1
-			},
 		"strict": {
 			"active": 0,
 			"flagValue": -1
@@ -12863,10 +12921,6 @@
 			"active": 0,
 			"flagValue": -1
 			},
-		"trailing": {
-			"active": 1,
-			"flagValue": -1
-			},
 		"typed": {
 			"active": 0,
 			"flagValue": -1
@@ -12877,10 +12931,6 @@
 			},
 		"unused": {
 			"active": 1,
-			"flagValue": -1
-			},
-		"white": {
-			"active": 0,
 			"flagValue": -1
 			},
 		"withstmt": {

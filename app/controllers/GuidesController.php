@@ -1,7 +1,5 @@
 <?php
 
-use VTalbot\Markdown\Compilers\MarkdownCompiler;
-
 class GuidesController extends BaseController {
 
     public function __construct() 
@@ -502,7 +500,7 @@ class GuidesController extends BaseController {
                 DB::table('guides_rating')->where('guide_id', $guide_data->id)->delete();
 
                 Notification::success("Guide Deleted!");
-                return Redirect::route('user-guides');
+                return Redirect::back();
 
             }
         }

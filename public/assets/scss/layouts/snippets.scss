@@ -12,6 +12,10 @@
     text-decoration: underline;
 }
 
+.dashboard-latest {
+    margin: rem-calc(20) 0;
+}
+
 .dots {
     color: $secondary-color;
 }
@@ -28,6 +32,15 @@ img.round {
 .username a:focus {
     color: $secondary-color;
     text-decoration: underline;
+}
+
+.dashboard .content-box p {
+    padding:rem-calc(10);
+}
+
+.dashboard h5 {
+    font-family:ralewaybold;
+    margin-bottom: rem-calc(10);
 }
 
 .char-count {
@@ -141,10 +154,10 @@ img.round {
         top: 0;
         left: 0;
         width: 0px;
-        height: 100%;
+        height: 100000%;
         background: $dark-green;
         z-index: 1;
-        overflow:hidden;
+
     }
 
     .user-card {
@@ -229,7 +242,7 @@ img.round {
     .snippet-block .code-preview {
         width:100%;
         background:#e3e3e3;
-        min-height:rem-calc(220);
+        height:rem-calc(220);
         padding:rem-calc(5);
         font-size: rem-calc(11);
         overflow: hidden;
@@ -326,7 +339,7 @@ img.round {
     }
 
     .ratings-done .number {
-        font-weight: $font-bold;
+        font-family:ralewaybold;
         color:$secondary-color;
         font-size: rem-calc(18)
     }
@@ -375,7 +388,7 @@ img.round {
 
     .view-snippet h5,
     .single-comment h6 {
-        font-weight:$font-bold;
+        font-family:ralewaybold;
         margin-bottom:rem-calc(5);
     }
 
@@ -397,7 +410,7 @@ img.round {
     }
 
     .view-snippet .author .info .preference {
-        font-size: rem-calc(5);
+        font-size: rem-calc(10);
         float: left;
         margin: rem-calc(6) 0 rem-calc(0);
   
@@ -426,7 +439,7 @@ img.round {
     .single-comment p {
         font-size:rem-calc(14);
         word-wrap: break-word;
-        font-weight: $font-thin;
+        font-family:ralewaylight;
     }
 
     .comments hr {
@@ -457,7 +470,7 @@ img.round {
 
 
     .nav-holder {
-        width: rem-calc(80);
+        width: rem-calc(65);
     }
 
     .not-available {
@@ -465,7 +478,7 @@ img.round {
     }
 
     .content-holder {
-        padding-left: rem-calc(80);
+        padding-left: rem-calc(65);
     }
 
     .inner-content {
@@ -511,7 +524,7 @@ img.round {
     }
 
     .user-card .username {
-        font-weight: $font-bold;
+        font-family:ralewaybold;
         font-size: rem-calc(20);
         float: left;
         padding:rem-calc(8) rem-calc(15);
@@ -519,7 +532,7 @@ img.round {
     }
 
     .user-card .preference {
-        font-weight: $font-thin;
+        font-family:ralewaylight;
         font-size: rem-calc(12);
         float: left;
         padding:rem-calc(3) rem-calc(15);

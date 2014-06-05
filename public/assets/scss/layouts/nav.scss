@@ -1,0 +1,95 @@
+#side-navigation ul,
+#side-navigation ul ul {
+    margin: -2px 0 0;
+    padding: 0;
+}
+
+#side-navigation ul li {
+    list-style-type: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+#side-navigation ul li a {
+    color: #aeb2b7;
+    text-decoration: none;
+    display: block;
+    padding:rem-calc(18) 0 rem-calc(18) rem-calc(25);
+    font-size: rem-calc(12);
+    outline: none;
+    -webkit-transition: all 200ms ease-in;
+    -moz-transition: all 200ms ease-in;
+    -o-transition: all 200ms ease-in;
+    -ms-transition: all 200ms ease-in;
+    transition: all 200ms ease-in;
+}
+
+
+#side-navigation ul ul li {
+    background: $primary-color;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border-bottom: none;
+}
+#side-navigation ul ul li a {
+    font-size: rem-cacl(12);
+    padding-top: rem-calc(12);
+    padding-bottom: rem-calc(13);
+    color: #aeb2b7;
+}
+
+#side-navigation ul li a i {
+    width: rem-calc(20);
+}
+
+#side-navigation ul li a i.fa-angle-right,
+#side-navigation ul li a i.fa-angle-left {
+    padding-top: rem-calc(3);
+}
+
+#side-navigation ul ul {
+    display: none;
+}
+
+#side-navigation li.active ul {
+    display: block;
+}
+
+#side-navigation ul li a:hover,
+#side-navigation ul li.active > a {
+    color: $success-color;
+}
+
+
+// Small screens
+@media only screen {
+
+
+
+
+}
+
+// Medium screens
+@media only screen and (min-width: 40.063em) {
+
+#side-navigation ul li a span {
+    display: none;
+}
+
+#side-navigation {
+    margin-top: rem-calc(70);
+}
+}
+
+// Large screens
+@media only screen and (min-width: 64.063em) {
+
+#side-navigation ul li a span {
+    display: inline-block;
+}
+
+#side-navigation {
+    margin-top: rem-calc(0);
+}
+
+}

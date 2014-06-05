@@ -66,7 +66,11 @@
                     
                     <?php $user = Sentry::findUserById($snippet->user_id);?>
 
-				    <img src="{{ Gravatar::src($user->email) }}">
+				            @if(is_null($user->avatar))
+        <img src="{{ Gravatar::src($user->email) }}">
+        @else 
+        <img  src="{{ "/uploads/avatar/".$user->avatar }}">
+        @endif
 				    <span class="username"><a href="">{{ $user->username }}</a></span>
 				    <span class="posted">Posted {{ $snippet->humanCreatedAt }}</span>
 			    </div>

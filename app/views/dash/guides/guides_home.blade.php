@@ -56,7 +56,11 @@
                 
                 <div class="header">
                     <?php $user = Sentry::findUserById($guide->user_id);?>
-                    <img src="{{ Gravatar::src($user->email)  }}">
+                      @if(is_null($user->avatar))
+        <img src="{{ Gravatar::src($user->email) }}">
+        @else 
+        <img src="{{ "/uploads/avatar/".$user->avatar }}">
+        @endif
                     <span class="title"><a href="{{ route('view-guide', $guide->slug) }}">{{ $guide->title }}</a></span>
                     <span class="author">By <a href="">{{ $user->username }}</a></span> 
                 </div>

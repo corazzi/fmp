@@ -16,6 +16,12 @@
 
 </div>
 
+<div class="breadcrumbs"> 
+    <a href="{{ route('code-snippets') }}">Code Snippets</a>
+    <a class="unavailable">Add Snippet</a>  
+</div>
+
+
 <div class="inner-content">
 
 <div class="large-6 medium-12 small-12 columns">

@@ -11,6 +11,14 @@
 }
 
 
+.me-content {
+    padding:0 rem-calc(15);
+}
+
+.me-content table {
+    margin-bottom: 0;
+}
+
 .third-label {
   @include label();
   background: $grey;
@@ -21,8 +29,7 @@
 	background:none;
 	border: 2px solid $primary-color;
 	color:$primary-color;
-	font-weight:$font-bold;
-
+	font-family:ralewaybold;
 	.add-button:hover,
 	.add-button:focus {
 		color:#f6f6f6 !important;
@@ -48,7 +55,7 @@
 	}
 
 	.user-guides h5 {
-		font-weight: $font-bold;
+		font-family:ralewaybold;
 		margin-bottom: rem-calc(5);
 	}
 
@@ -95,6 +102,7 @@
         margin:rem-calc(10) rem-calc(-10);
         padding:rem-calc(10);
         font-size: rem-calc(13);
+        font-family:ralewaylight;
 	}
 
      .guide .preview pre,
@@ -152,12 +160,12 @@
     .markdown {
         border-bottom: 1px dotted #999;
         display: inline;
-        font-weight:$font-bold;
+        font-family:ralewaybold;
     }
 
     
     .view-guide pre code {
-        margin: rem-calc(10) rem-calc(-10) rem-calc(0) rem-calc(-10);
+        margin: rem-calc(10) rem-calc(0) rem-calc(0) rem-calc(0);
         background: #e3e3e3;
         font-size: rem-calc(11);
         overflow: hidden;

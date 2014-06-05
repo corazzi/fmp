@@ -107,9 +107,6 @@ class SnippetController extends BaseController {
             //comments stuff here
             $comments = DB::table('snippets_comment')->where('snippet_id', $snippet_data->id)->orderBy('id', 'DESC')->get();
 
-
-
-        
             //snippet user info 
             $user = Sentry::findUserById($snippet_data->user_id);
 
@@ -341,7 +338,7 @@ class SnippetController extends BaseController {
      	//declare the rules for the form validation
 		$rules = array(
 			'title'               => 'required|min:4|max:80',
-			'description'         => 'required|min:10',
+			'description'         => 'required|min:15|max:250',
 			'code_snippet'        => 'required|min:10',
 			'state'               => 'required',
 			'hidden-tags'         => 'required'
@@ -447,6 +444,7 @@ class SnippetController extends BaseController {
 
             }
         }
+
 	}
 
     /**
@@ -501,8 +499,6 @@ class SnippetController extends BaseController {
                  //remove the spaces from tags 
                 $spaced_tags = str_replace(' ', '', Input::get('hidden-tags'));
 		        $code_snippet->tags            = e($spaced_tags);
-
-
 		        $code_snippet->user_id         = Sentry::getId();
 
 
@@ -534,11 +530,11 @@ class SnippetController extends BaseController {
 		        {
 		        	Notification::success("Snippet updated!");
 			        //redirect to my snippets
-			        return Redirect::route('view-snippet', $snippet_data->slug);
+			        return Redirect::route('code-snippets');
 		        }
 
 		        //redirect to add-snippet page..
-		        return Redirect::back();
+		        return Redirect::route('code-snippets');
 
 
             }
@@ -553,25 +549,28 @@ class SnippetController extends BaseController {
 
 	public function getDeleteSnippet($slug)
 	{
-
+        //get snippet data from slug
         $snippet_data = Snippet::where('slug', $slug)->first();
 
 		//check if the snippet exists
 		if (is_null($snippet_data))
 		{
+			//if it doesnt show error & redirect back
 			Notification::success("Snippet doesnt exist.");
 			return Redirect::back();
 		}
 	    else 
 	    {
-	    	
+	    	//if the user_id of snippet isnt the same as user 
 	    	if($snippet_data->user_id != Sentry::getUser()->id)
 	    	{
+	    		//redirect back with error
 	    		Notification::error("You're not allowed to do that.");
 	    		return Redirect::back();
 	    	}
 	    	else 
 		    {
+		    	//all is good
 
                 //delete the snippet
 		        $snippet_data->delete();
@@ -581,10 +580,10 @@ class SnippetController extends BaseController {
 		        DB::table('snippets_favorite')->where('snippet_id', $snippet_data->id)->delete();
 		        DB::table('snippets_rating')->where('snippet_id', $snippet_data->id)->delete();
 
+		        //redirect back with success message
 		        Notification::success("Snippet deleted!");
 
-		        
-		        return Redirect::route('code-snippets');
+		        return Redirect::back();
 
 	        }
 	    }

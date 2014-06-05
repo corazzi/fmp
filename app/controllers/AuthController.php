@@ -32,10 +32,6 @@ class AuthController extends BaseController {
         // Create a new validator instance from our validation rules
         $validator = Validator::make(Input::all(), $rules);
 
-        // $input = Input::all();//Get all the old input.
-        // $input['autoOpenModal'] = 'true';//Add the auto open indicator flag as an input.
-
-
 
         // If validation fails, we'll exit the operation now.
         if ($validator->fails())
@@ -132,6 +128,7 @@ class AuthController extends BaseController {
                 'username'   => Input::get('username'),
                 'email'      => Input::get('email'),
                 'password'   => Input::get('password'),
+                'preference' => 'Undecided',
       
             ));
 

@@ -1,0 +1,54 @@
+.admin-top {
+	width:100%;
+	height:rem-calc(200);
+	background:white;
+}
+
+.admin-nav {
+    
+}
+
+.sort-nav {
+	margin-bottom:rem-calc(30);
+}
+
+.sort-nav .snippet-disabled {
+	color:$grey;
+}
+
+.sort-nav li a:hover {
+	text-decoration:underline;
+
+}
+
+.sort-nav .active {
+	text-decoration:underline;
+}
+
+
+.resource-button {
+	@include button;
+	background:$info-color;
+	margin-top:rem-calc(15);
+
+	.resource-button:hover,
+	.resource-button:focus {
+		background:$grey;
+	}
+}
+
+
+
+
+.is-delete-avatar {
+    background:none;
+    border:none;
+    padding:rem-calc(0);
+    transition:none;
+    color: $primary-color;
+}
+
+.is-delete-avatar:hover {
+    color:$alert-color;
+    background:none;
+}

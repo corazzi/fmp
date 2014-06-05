@@ -12,15 +12,149 @@
     padding:rem-calc(10);
 }
 
-.is-feed-delete {
+.profile-edit {
+    padding:0 rem-calc(20);
+}
+
+.is-feed-delete, 
+.is-feed-edit,
+.is-feed-view   {
     background:none;
     border:none;
     transition:none;
+    margin-right: rem-calc(5);
+}
+
+.edit-avatar {
+    width: rem-calc(50);
+    height: auto;
+}
+
+.upload {
+    padding-top:rem-calc(12);
+};
+
+.is-feed-edit:hover {
+    color:$secondary-color;
+}
+
+.is-feed-view:hover {
+    color:$info-color;
+
+}
+
+.welcome-message p,
+.profile-area p {
+    font-size: rem-calc(14);
+    margin-bottom: 0;
+}
+
+.guide-links .guide-link:last-child {
+    color: red;
+    border-bottom:none;
+}
+
+.guide-link {
+    border-bottom:1px solid #e3e3e3;
+    padding: rem-calc(10);
+    font-size: rem-calc(13);
+
+}
+.guide-link a:hover,
+.guide-link a:focus {
+    color:$secondary-color;
+}
+
+
+.home-snippet-title  {
+    width: 100%;
+    padding: rem-calc(10) rem-calc(10) 0 rem-calc(10);
+    margin-bottom: rem-calc(5);
+    font-style: italic;
+    
+}
+
+.home-snippet-description {
+    line-height: rem-calc(25);
+    width: 100%;
+    padding: rem-calc(10);
+    font-size: rem-calc(13);
+}
+
+.home-snippet-read .button {
+    margin:0 rem-calc(10);
+    margin-bottom: rem-calc(10);
+
+}
+
+
+
+
+.profile p {
+    padding:rem-calc(10);
 }
 
 .is-feed-delete:hover {
     color: $alert-color;
 }
+
+
+.profile-side {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    background: #fff;
+    @include border-radius(10px);
+    margin-bottom: rem-calc(30);
+    overflow: hidden;
+    font-size:rem-calc(15);
+
+}
+
+.me-nav {
+    list-style-type:none;
+    padding:0;
+    margin: 0;
+}
+
+.me-nav li {
+     padding:rem-calc(8) rem-calc(10);
+    margin:rem-calc(5);
+}
+
+
+
+.me-nav li:hover {
+    background:#e3e3e3;color:#fff;
+     @include border-radius(5px);
+     padding:rem-calc(8) rem-calc(10);
+     margin:rem-calc(5);
+     color: white;
+}
+
+.me-nav .active  {
+    background:#e3e3e3;
+    padding:rem-calc(8) rem-calc(10);
+    margin:rem-calc(5);
+    @include border-radius(5px);
+
+
+}
+
+
+
+
+.me-nav .active a,
+{
+    color: white;
+}
+
+
+
+
+
+
 
 // Small screens
 @media only screen {

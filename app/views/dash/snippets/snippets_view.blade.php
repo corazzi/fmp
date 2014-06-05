@@ -38,7 +38,11 @@
 
         <div class="content-box author">
 
-            <img class="round" src="{{ Gravatar::src($user->email) }}">
+        @if(is_null($user->avatar))
+        <img class="round" src="{{ Gravatar::src($user->email) }}">
+        @else 
+        <img class="round" src="{{ "/uploads/avatar/".$user->avatar }}">
+        @endif
            
             <div class="info">
                 <span class="username"><a class="username" href="">{{ ucfirst($user->username) }}</a></span>
@@ -46,6 +50,8 @@
             </div>
 
         </div>
+
+@if($snippet_data->user_id != Sentry::getUser()->id)
     
         {{-- Check if a rating exists --}}
         @if (empty($ratings))
@@ -84,6 +90,8 @@
         </div>
 
         @endif
+
+@endif
 
 
     </div>
@@ -152,10 +160,14 @@
        
         <div class="single-comment">
             <div class="large-2 columns">
-                <img src="{{ Gravatar::src($comment_user->email) }}">
+        @if(is_null($comment_user->avatar))
+        <img class="round" src="{{ Gravatar::src($comment_user->email) }}">
+        @else 
+        <img class="round" src="{{ "/uploads/avatar/".$comment_user->avatar }}">
+        @endif
             </div>
             <div class="large-10 columns">
-                <h6>{{ $comment_user->username }} <span class="green">&#8226;</span> <small>{{ $comment->comment->humanCreatedAt }}</small></h6>
+                <h6>{{ $comment_user->username }} <span class="green">&#8226;</span> <small>{{ $comment->created_at }}</small></h6>
                 <p>{{ $comment->comment }}</p>
             </div>
         </div>

@@ -13,6 +13,9 @@
 
         <div class="holder">
 
+            {{-- Notifications --}}
+            @include('layout/notifications/frontend_notifications')
+
            <form method="post" action="{{ route('register') }}" role="form" autocomplete="off">
                 
             {{-- CSRF Token --}}

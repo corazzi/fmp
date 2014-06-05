@@ -95,19 +95,33 @@ class NewsController extends BaseController {
 	public function postDeleteNews($slug)
 	{
 
+        //get feed data from slud
 		$feed_data = News::where('slug', $slug)->first();
 
+        //if the feed ata doesnt exist
 		if (is_null($feed_data)) 
 		{
+			//show doesnt exist error
 			Notification::error("Feed doesnt exist");
 			return Redirect::route('news-home');
 		}
         else 
         {
-        	$feed_data->delete();
+             //if the user_id of news url isnt the same as user 
+	    	if($feed_data->user_id != Sentry::getUser()->id)
+	    	{
+	    		//redirect back with error
+	    		Notification::error("You're not allowed to do that.");
+	    		return Redirect::back();
+	    	}
+	    	else 
+		    {
+		    	//all is good delete feed
+        	    $feed_data->delete();
 
-        	Notification::success("Feed removed successfully");
-        	return Redirect::route('news-home');
+        	    Notification::success("Feed removed successfully");
+        	    return Redirect::route('news-home');
+            }
 
         }
 

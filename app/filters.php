@@ -68,6 +68,36 @@ Route::filter('guest', function()
 	if (Auth::check()) return Redirect::to('/');
 });
 
+
+/*
+|--------------------------------------------------------------------------
+| Admin authentication filter.
+|--------------------------------------------------------------------------
+|
+| This filter does the same as the 'auth' filter but it checks if the user
+| has 'admin' privileges.
+|
+*/
+
+Route::filter('admin-auth', function()
+{
+	// Check if the user is logged in
+	if ( ! Sentry::check())
+	{
+		// Store the current uri in the session
+		Session::put('loginRedirect', Request::url());
+
+		// Redirect to the login page
+		return Redirect::route('login');
+	}
+
+	// Check if the user has access to the admin page
+	if ( ! Sentry::getUser()->hasAccess('admin'))
+	{
+		// Show the insufficient permissions page
+		return App::abort(403);
+	}
+});
 /*
 |--------------------------------------------------------------------------
 | CSRF Protection Filter

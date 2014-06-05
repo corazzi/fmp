@@ -9,7 +9,7 @@
 
 .welcome p {
 	font-size: rem-calc(16);
-	font-weight:$font-thin;
+	font-family:ralewaylight;
 }
 
 .home-notif .alert-box {
@@ -20,23 +20,24 @@
 	background-image:url('../images/dots_bg.png'); 
 	height:auto;
 	overflow:hidden;
-	height:rem-calc(500);
 }
 
 .header-bg .welcome {
 	text-align:center;
 	font-size:rem-calc(35);
 	color:black;
-	font-weight:$font-thin;
+	font-family:ralewaylight;
 	padding:rem-calc(30) 0 rem-calc(10);
 }
 
 .header-bg img {
-	display:none;
+	opacity:0;
+	margin-bottom:rem-calc(-50);
+
 }
 
 .header-bg .show-image {
-	display:inherit;
+	opacity:100;
 
 }
 
@@ -49,13 +50,13 @@
 .auth h2 {
 	margin-top:rem-calc(40);
 	text-align:center;
-	font-weight:$font-bold;
+	font-family:ralewaybold;
 }
 
 .auth a {
 	text-align:center;
 	display:block;
-	font-weight:$font-norm;
+	font-family:ralewayregular;
 	margin-bottom:rem-calc(30);
 }
 
@@ -69,6 +70,8 @@
 
 }
 
+
+
 .auth .alert-box {
 	margin:-15px -15px 10px -15px;
 }
@@ -77,7 +80,7 @@
 .custom-nav span {
 	color:green;
 	padding:0 rem-calc(10);
-	font-weight:$font-bold;
+	font-family:ralewaybold;
 	color:#7ce295;
 	
 }
@@ -147,7 +150,7 @@
 
 .features p {
 	font-size: rem-calc(16);
-	font-weight:$font-thin;
+	font-family:ralewaylight;
 }
 
 
@@ -158,7 +161,7 @@
 
 .feature-item p {
     font-size: rem-calc(16);
-	font-weight:$font-thin;
+	font-family:ralewaylight;
 }
 
 
@@ -181,7 +184,7 @@
 
 .footer p {
 	padding: rem-calc(8) 0;
-	font-weight:$font-thin;
+	font-family:ralewaylight;
 }
 
 .footer h1, 
@@ -191,7 +194,7 @@
 .footer h5, 
 .footer h6 {
 	margin: rem-calc(10) 0;
-	font-weight: $font-bold;
+	font-family:ralewaybold;
 	color:$grey;
 }
 
@@ -231,6 +234,38 @@
 }
 
 .social ul li a:hover{
+	background: $secondary-color;
+}
+
+.social-dash ul {
+	list-style-type: none;
+	margin:0;
+}
+
+
+.social-dash ul li a {
+    background: $primary-color;
+    display: block;
+    float: left;
+    height: rem-calc(50);
+    margin-bottom: rem-calc(20);
+    margin-right: rem-calc(25);
+    margin-top: rem-calc(22);
+    text-align: center;
+    text-decoration: none;
+    width: rem-calc(50);
+    transition: all 0.5s ease 0s;
+}
+
+.social-dash ul li a i {
+    color: #f6f6f6;
+    display: inline-block;
+    font-size: 28px;
+    line-height: 50px;
+    margin: 0;
+}
+
+.social-dash ul li a:hover{
 	background: $secondary-color;
 }
 
@@ -308,7 +343,6 @@ label.error {
 	color: black;
 	margin:0 -1px;
 	font-size:14px;
-	font-weight:$font-norm;
 }
 
 .footer .btn:hover, 
@@ -326,7 +360,7 @@ label.error {
 
 #copyright p {
 	margin:rem-calc(15) 0;
-	font-weight:$font-thin;
+	font-family:ralewaylight;
 	font-size:rem-calc(14);
 }
 
@@ -341,7 +375,7 @@ label.error {
 	border: rem-calc(2) solid $primary-color;	
 	background: none;
 	color: $primary-color;
-	font-weight:$font-bold;
+	font-family:ralewaybold;
 }
 
 .auth-btn:hover, 
